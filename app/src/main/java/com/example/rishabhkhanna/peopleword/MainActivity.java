@@ -10,6 +10,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.android.volley.Request.Method.GET;
 
@@ -31,7 +37,21 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 Log.d(TAG , response);
+
+
+                JSONObject jsonObject = null;
+                JSONArray itemObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    itemObject = jsonObject.getJSONArray("items");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d(TAG , itemObject.toString());
+                Log.d(TAG, "onResponse: ");
 
 
 
