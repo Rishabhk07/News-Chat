@@ -14,7 +14,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/news_image"/>
         <TextView
             android:padding="13dp"
             android:layout_width="wrap_content"
@@ -22,6 +23,7 @@
             android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
             android:textStyle="bold"
             android:fontFamily="sans-serif"
+            android:id="@+id/news_headline"
             />
     </LinearLayout>
 </android.support.v7.widget.CardView>
