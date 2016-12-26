@@ -72,7 +72,7 @@ public class Adapters {
             ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
 
             newsHeadlineTV.setText(newsList.get(position).getHl());
-            Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid="+ newsList.get(position).getImageid() +"&width=1440&height=810&resizemode=1").into(newImageIV);
+            Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid="+ newsList.get(position).getImageid() +"&width=1500&height=1440&resizemode=1").into(newImageIV);
 
             return view;
         }
