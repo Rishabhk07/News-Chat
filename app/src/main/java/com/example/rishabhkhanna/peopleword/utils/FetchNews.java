@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.rishabhkhanna.peopleword.Adapters.Adapters;
 import com.example.rishabhkhanna.peopleword.MainActivity;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.google.gson.Gson;
@@ -15,6 +16,9 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.android.volley.Request.Method.GET;
 
@@ -26,7 +30,7 @@ public class FetchNews {
     static RequestQueue queue;
     public static final String TAG = "Fetch news Class";
 
-    public static void getNewsJson(Context context){
+    public static void getNewsJson(final Context context){
         queue = Volley.newRequestQueue(context);
 
         String url = "http://timesofindia.indiatimes.com" +
@@ -52,9 +56,17 @@ public class FetchNews {
 
                 Gson gson = new Gson();
                 ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
-//                Log.d(TAG, toiJson[0].getHl());
-//                Log.d(TAG, toiJson[0].getSyn());
-//                Log.d(TAG, toiJson[0].getImageid());
+                Log.d(TAG, toiJson[0].getHl());
+                Log.d(TAG, toiJson[0].getSyn());
+                Log.d(TAG, toiJson[0].getImageid());
+
+                ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
+                Log.d(TAG, newsList.get(0).getHl().toString());
+//                MainActivity.newsList.addAll(newsList);
+//                MainActivity.swipeCardAdapter.notifyDataSetChanged();
+                Adapters.SwipeCardAdapter adapter = Adapters.getSwipeCardAdapter(newsList , context);
+                MainActivity.swipeDeck.setAdapter(adapter);
+
 
             }
         }, new Response.ErrorListener() {

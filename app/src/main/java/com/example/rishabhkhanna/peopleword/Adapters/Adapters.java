@@ -1,7 +1,8 @@
-package com.example.rishabhkhanna.peopleword;
+package com.example.rishabhkhanna.peopleword.Adapters;
 
 import android.content.Context;
 import android.support.v4.view.LayoutInflaterCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +22,9 @@ import java.util.ArrayList;
 
 public class Adapters {
 
-    static SwipeCardAdapter getSwipeCardAdapter(ArrayList<ToiJson> newsList , Context context){
+    public static final String TAG = "Adapter";
+
+    public static SwipeCardAdapter getSwipeCardAdapter(ArrayList<ToiJson> newsList , Context context){
         SwipeCardAdapter swipeCardAdapter = new SwipeCardAdapter(newsList , context);
         return swipeCardAdapter;
     }
@@ -33,6 +37,8 @@ public class Adapters {
         public SwipeCardAdapter(ArrayList<ToiJson> newsList , Context context) {
             this.newsList = newsList;
             this.context = context;
+            Log.d(TAG, this.newsList.get(0).getHl().toString());
+            Log.d(TAG, this.context.toString());
         }
 
         @Override
@@ -56,8 +62,9 @@ public class Adapters {
             View view = convertView;
 
             if(view == null){
+                Log.d(TAG, "getView: ");
                 LayoutInflater inflater = LayoutInflater.from(context);
-
+                Log.d(TAG, "getView: 2222");
                 view = inflater.inflate(R.layout.news_card , parent , false);
             }
 
@@ -65,9 +72,9 @@ public class Adapters {
             ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
 
             newsHeadlineTV.setText(newsList.get(position).getHl());
-            Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=56186539&pl=26245&width=1440&height=810&resizemode=1").into(newImageIV);
+            Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid="+ newsList.get(position).getImageid() +"&width=1440&height=810&resizemode=1").into(newImageIV);
 
-            return null;
+            return view;
         }
     }
 
