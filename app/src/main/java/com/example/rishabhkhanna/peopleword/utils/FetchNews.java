@@ -9,6 +9,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rishabhkhanna.peopleword.MainActivity;
+import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,11 +37,12 @@ public class FetchNews {
             @Override
             public void onResponse(String response) {
 
-                Log.d(TAG , response);
+//                Log.d(TAG , response);
 
 
                 JSONObject jsonObject = null;
                 JSONArray itemObject = null;
+                String oneObject = null;
                 try {
                     jsonObject = new JSONObject(response);
                     itemObject = jsonObject.getJSONArray("items");
@@ -47,10 +50,19 @@ public class FetchNews {
                     e.printStackTrace();
                 }
 
-                Log.d(TAG , itemObject.toString());
+                try {
+                   oneObject =  itemObject.get(0).toString();
 
+                    Log.d(TAG ,oneObject) ;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-
+                Gson gson = new Gson();
+                ToiJson toiJson = gson.fromJson(oneObject, ToiJson.class );
+                Log.d(TAG, toiJson.getHl());
+                Log.d(TAG, toiJson.getSyn());
+                Log.d(TAG, toiJson.getImageid());
 
             }
         }, new Response.ErrorListener() {
