@@ -50,19 +50,11 @@ public class FetchNews {
                     e.printStackTrace();
                 }
 
-                try {
-                   oneObject =  itemObject.get(0).toString();
-
-                    Log.d(TAG ,oneObject) ;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
                 Gson gson = new Gson();
-                ToiJson toiJson = gson.fromJson(oneObject, ToiJson.class );
-                Log.d(TAG, toiJson.getHl());
-                Log.d(TAG, toiJson.getSyn());
-                Log.d(TAG, toiJson.getImageid());
+                ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
+                Log.d(TAG, toiJson[0].getHl());
+                Log.d(TAG, toiJson[0].getSyn());
+                Log.d(TAG, toiJson[0].getImageid());
 
             }
         }, new Response.ErrorListener() {
