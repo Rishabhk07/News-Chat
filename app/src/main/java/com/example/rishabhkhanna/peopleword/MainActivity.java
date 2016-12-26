@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -27,44 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RequestQueue queue;
-        queue = Volley.newRequestQueue(MainActivity.this);
-
-        String url = "http://timesofindia.indiatimes.com" +
-                "/feeds/newslistingfeed/tag-alrt,msid-48986328,feedtype-sjson,type-brief.cms?andver=" +
-                "417&platform=android&adreqfrm=sec";
-
-        StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                Log.d(TAG , response);
-
-
-                JSONObject jsonObject = null;
-                JSONArray itemObject = null;
-                try {
-                    jsonObject = new JSONObject(response);
-                    itemObject = jsonObject.getJSONArray("items");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Log.d(TAG , itemObject.toString());
-                Log.d(TAG, "onResponse: ");
-
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        queue.add(stringRequest);
-
+        FetchNews.getNewsJson(MainActivity.this);
     }
 }
 
