@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.rishabhkhanna.peopleword.Adapters.Adapters;
 import com.example.rishabhkhanna.peopleword.MainActivity;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.views.NavDrawer;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -64,15 +65,19 @@ public class FetchNews {
                 Log.d(TAG, newsList.get(0).getHl().toString());
 //                MainActivity.newsList.addAll(newsList);
 //                MainActivity.swipeCardAdapter.notifyDataSetChanged();
-                Adapters.SwipeCardAdapter adapter = Adapters.getSwipeCardAdapter(newsList , context);
-                MainActivity.swipeDeck.setAdapter(adapter);
+
+//                Adapters.SwipeCardAdapter adapter = Adapters.getSwipeCardAdapter(newsList , context);
+//                MainActivit/y.swipeDeck.setAdapter(adapter);
+
+                NavDrawer.attachAdapter(newsList , context);
+
 
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d(TAG, "onErrorResponse: Error in Fetch News");
             }
         });
 

@@ -122,4 +122,10 @@ public class ToiJson {
     public void setSu(String su) {
         this.su = su;
     }
+
+
+    /*
+    if(view instanceof Button){
+    }
+     */
 }

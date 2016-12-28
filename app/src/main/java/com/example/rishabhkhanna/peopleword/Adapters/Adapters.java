@@ -37,8 +37,8 @@ public class Adapters {
         public SwipeCardAdapter(ArrayList<ToiJson> newsList , Context context) {
             this.newsList = newsList;
             this.context = context;
-            Log.d(TAG, this.newsList.get(0).getHl().toString());
-            Log.d(TAG, this.context.toString());
+//            Log.d(TAG, this.newsList.get(0).getHl().toString());
+//            Log.d(TAG, this.context.toString());
         }
 
         @Override
@@ -67,12 +67,18 @@ public class Adapters {
                 Log.d(TAG, "getView: 2222");
                 view = inflater.inflate(R.layout.news_card , parent , false);
             }
+//            if(!newsList.isEmpty()) {
 
-            TextView newsHeadlineTV= (TextView) view.findViewById(R.id.news_headline);
-            ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
+                TextView newsHeadlineTV = (TextView) view.findViewById(R.id.news_headline);
+                ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
+                TextView newsDetailTV = (TextView) view.findViewById(R.id.news_full);
+                newsHeadlineTV.setText(newsList.get(position).getHl());
+                newsDetailTV.setText(newsList.get(position).getSyn());
+                Log.d(TAG, "getView: data attached");
+                Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + newsList.get(position).getImageid() + "&width=1500&height=1440&resizemode=1").fit().into(newImageIV);
 
-            newsHeadlineTV.setText(newsList.get(position).getHl());
-            Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid="+ newsList.get(position).getImageid() +"&width=1500&height=1440&resizemode=1").into(newImageIV);
+
+//            }
 
             return view;
         }
