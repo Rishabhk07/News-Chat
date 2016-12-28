@@ -58,7 +58,7 @@ public class NavDrawer extends AppCompatActivity
 
         swipeCardAdapter = Adapters.getSwipeCardAdapter(newsList, context);
         swipeDeck.setAdapter(swipeCardAdapter);
-//        swipeRefreshLayout.setRefreshing(false);
+
 
     }
 

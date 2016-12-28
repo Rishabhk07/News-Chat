@@ -1,9 +1,13 @@
 package com.example.rishabhkhanna.peopleword.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.v4.view.LayoutInflaterCompat;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.views.DetailNews;
+import com.example.rishabhkhanna.peopleword.views.NavDrawer;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,7 +63,7 @@ public class Adapters {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             View view = convertView;
 
@@ -67,21 +73,77 @@ public class Adapters {
                 Log.d(TAG, "getView: 2222");
                 view = inflater.inflate(R.layout.news_card , parent , false);
             }
-//            if(!newsList.isEmpty()) {
+            if(!newsList.isEmpty()) {
 
                 TextView newsHeadlineTV = (TextView) view.findViewById(R.id.news_headline);
-                ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
+                final ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
                 TextView newsDetailTV = (TextView) view.findViewById(R.id.news_full);
                 newsHeadlineTV.setText(newsList.get(position).getHl());
                 newsDetailTV.setText(newsList.get(position).getSyn());
+                String imageUrl = "";
                 Log.d(TAG, "getView: data attached");
                 Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + newsList.get(position).getImageid() + "&width=1500&height=1440&resizemode=1").fit().into(newImageIV);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    newImageIV.setTransitionName("shared");
+                }
 
 
-//            }
+//                newsHeadlineTV.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                        Log.d(TAG, "onTouch:  " + motionEvent.getAction());
+//
+//                        if(motionEvent.getAction() == 0){
+//
+//                            deatilNews(newsList.get(position) , newImageIV);
+//
+//                        }
+//
+//                        return false;
+//                    }
+//                });
+//
+//                newsDetailTV.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//                        Log.d(TAG, "onTouch:  " + motionEvent.getAction());
+//
+//                        switch (motionEvent.getAction()) {
+//
+//                            case MotionEvent.ACTION_UP:
+//                                deatilNews(newsList.get(position) , newImageIV);
+//                            default:
+//                                return true;
+//                        }
+//                    }
+//                });
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deatilNews(newsList.get(position) , newImageIV);
+                }
+            });
+
+
+            }
 
             return view;
         }
+
+        private void deatilNews(ToiJson toiJson , ImageView shared) {
+            Intent i = new Intent(context , DetailNews.class);
+            i.putExtra("head" , toiJson.getHl());
+            i.putExtra("detail" , toiJson.getSyn());
+            i.putExtra("img" , toiJson.getImageid());
+            ActivityOptionsCompat options;
+            options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shared , "shared");
+            context.startActivity(i , options.toBundle());
+
+        }
+
+
     }
 
 }

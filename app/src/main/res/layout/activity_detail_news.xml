@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/activity_detail_news"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.rishabhkhanna.peopleword.views.DetailNews"
+        android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/detail_image"
+        android:transitionName="shared"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#323232"
+        android:fontFamily="sans-serif"
+        android:id="@+id/news_headline_full"
+        android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textColor="#323232"
+        android:fontFamily="sans-serif"
+        android:id="@+id/news_deatil_full"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="some news , Dementization caused many problems but in the end it was good for all something like that"/>
+    </LinearLayout>
+    </ScrollView>
+
+
