@@ -7,7 +7,6 @@ import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,10 +16,10 @@ import android.widget.TextView;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.views.DetailNews;
-import com.example.rishabhkhanna.peopleword.views.NavDrawer;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by rishabhkhanna on 26/12/16.
@@ -34,6 +33,8 @@ public class Adapters {
         SwipeCardAdapter swipeCardAdapter = new SwipeCardAdapter(newsList , context);
         return swipeCardAdapter;
     }
+
+
 
     public static class SwipeCardAdapter extends BaseAdapter{
 
@@ -72,57 +73,31 @@ public class Adapters {
                 LayoutInflater inflater = LayoutInflater.from(context);
                 Log.d(TAG, "getView: 2222");
                 view = inflater.inflate(R.layout.news_card , parent , false);
+
             }
             if(!newsList.isEmpty()) {
-
-                TextView newsHeadlineTV = (TextView) view.findViewById(R.id.news_headline);
-                final ImageView newImageIV = (ImageView) view.findViewById(R.id.news_image);
+                final ImageView newsImageView = (ImageView) view.findViewById(R.id.news_image);
+                TextView newsHeadlineTV =  (TextView) view.findViewById(R.id.news_headline);
                 TextView newsDetailTV = (TextView) view.findViewById(R.id.news_full);
+
                 newsHeadlineTV.setText(newsList.get(position).getHl());
                 newsDetailTV.setText(newsList.get(position).getSyn());
                 String imageUrl = "";
                 Log.d(TAG, "getView: data attached");
-                Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + newsList.get(position).getImageid() + "&width=1500&height=1440&resizemode=1").fit().into(newImageIV);
+                Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
+                        newsList.get(position).getImageid() + "&width=1500&height=1440&resizemode=1")
+                        .fit()
+                        .into(newsImageView);
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    newImageIV.setTransitionName("shared");
+                    newsImageView.setTransitionName("shared");
                 }
 
-
-//                newsHeadlineTV.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//
-//                        Log.d(TAG, "onTouch:  " + motionEvent.getAction());
-//
-//                        if(motionEvent.getAction() == 0){
-//
-//                            deatilNews(newsList.get(position) , newImageIV);
-//
-//                        }
-//
-//                        return false;
-//                    }
-//                });
-//
-//                newsDetailTV.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View view, MotionEvent motionEvent) {
-//                        Log.d(TAG, "onTouch:  " + motionEvent.getAction());
-//
-//                        switch (motionEvent.getAction()) {
-//
-//                            case MotionEvent.ACTION_UP:
-//                                deatilNews(newsList.get(position) , newImageIV);
-//                            default:
-//                                return true;
-//                        }
-//                    }
-//                });
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deatilNews(newsList.get(position) , newImageIV);
+                    deatilNews(newsList.get(position) , newsImageView);
                 }
             });
 
