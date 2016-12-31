@@ -5,6 +5,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ToiJson> newsList = new ArrayList<>();
     public static Adapters.SwipeCardAdapter swipeCardAdapter;
     public static SwipeRefreshLayout swipeRefreshLayout;
+    Button likebtn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FetchNews.getNewsJson(MainActivity.this);
+//        FetchNews.getNewsJson(MainActivity.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);
-
     }
 
 

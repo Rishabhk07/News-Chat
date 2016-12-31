@@ -25,6 +25,7 @@ import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import java.util.ArrayList;
 
 import static com.example.rishabhkhanna.peopleword.MainActivity.swipeCardAdapter;
+import static com.example.rishabhkhanna.peopleword.MainActivity.swipeDeck;
 
 public class NavDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,9 +42,6 @@ public class NavDrawer extends AppCompatActivity
         //get Toi data
         FetchNews.getNewsJson(NavDrawer.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,6 +55,8 @@ public class NavDrawer extends AppCompatActivity
     public static void attachAdapter(ArrayList<ToiJson> newsList, Context context) {
 
         swipeCardAdapter = Adapters.getSwipeCardAdapter(newsList, context);
+        swipeDeck.setLeftImage(R.id.nope_card_image);
+        swipeDeck.setRightImage(R.id.like_card_image);
         swipeDeck.setAdapter(swipeCardAdapter);
 
 
@@ -79,15 +79,15 @@ public class NavDrawer extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_news) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_word) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_Topic) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_rating) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_edit) {
 
         } else if (id == R.id.nav_send) {
 
