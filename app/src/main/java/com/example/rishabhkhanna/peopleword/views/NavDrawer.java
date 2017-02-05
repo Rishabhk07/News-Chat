@@ -2,10 +2,12 @@ package com.example.rishabhkhanna.peopleword.views;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +36,7 @@ public class NavDrawer extends AppCompatActivity
         setContentView(R.layout.activity_nav_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         //get Toi data
         FetchNews.getNewsJson(NavDrawer.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);

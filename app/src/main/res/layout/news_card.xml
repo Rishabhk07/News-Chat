@@ -69,7 +69,7 @@
             android:id="@+id/news_full"
             android:textColor="#323232"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
             />
 
     </LinearLayout>
