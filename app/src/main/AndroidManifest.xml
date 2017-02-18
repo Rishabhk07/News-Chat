@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.DetailNews"></activity>
+        <activity android:name=".views.DetailNews"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
