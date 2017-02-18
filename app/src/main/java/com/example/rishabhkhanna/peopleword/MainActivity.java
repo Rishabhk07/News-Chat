@@ -1,11 +1,14 @@
 package com.example.rishabhkhanna.peopleword;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import com.android.volley.RequestQueue;
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.GRAY);
+        }
 //        FetchNews.getNewsJson(MainActivity.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);
     }
