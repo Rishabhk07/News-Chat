@@ -12,6 +12,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 public class NavDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String TAG = "NavDrawer";
+
    public static SwipeDeck swipeDeck;
     public static Adapters.SwipeCardAdapter swipeCardAdapter;
     Button dislikeBtn , likeBtn;
@@ -39,10 +44,18 @@ public class NavDrawer extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Window window = getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(Color.GRAY);
-        }
+
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Log.d(TAG, "onCreate: height"  + displayMetrics.heightPixels/displayMetrics.density );
+        Log.d(TAG, "onCreate: width"  + displayMetrics.widthPixels / displayMetrics.density );
+
+//        Window window = getWindow();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(Color.BLACK);
+//        }
 
         //get Toi data
         FetchNews.getNewsJson(NavDrawer.this);

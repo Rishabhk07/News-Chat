@@ -27,10 +27,10 @@ public class DetailNews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_news);
-        Window window = getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(Color.GRAY);
-        }
+//        Window window = getWindow();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(Color.BLACK);
+//        }
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
@@ -44,6 +44,7 @@ public class DetailNews extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + img);
         headTv.setText(head);
         detailTV.setText(detail);
+
         Picasso.with(DetailNews.this)
                 .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + img + "&width=1500&height=1440&resizemode=1")
                 .fit()
