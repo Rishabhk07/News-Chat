@@ -48,14 +48,24 @@
                 android:text="Dislike"
                 android:layout_weight="1"
                 android:id="@+id/dislike_btn"
-                />
+                android:background="@android:color/holo_red_light"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Like"
                 android:layout_weight="1"
-                android:id="@+id/like_btn" />
+                android:id="@+id/like_btn"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                />
         </LinearLayout>
 
     </com.daprlabs.cardstack.SwipeRelativeLayout>

@@ -43,7 +43,7 @@ public class NavDrawer extends AppCompatActivity
         setContentView(R.layout.activity_nav_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Briefs");
 
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
 
