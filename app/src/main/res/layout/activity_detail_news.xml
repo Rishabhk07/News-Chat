@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_detail_news"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,9 +16,22 @@
         android:id="@+id/detail_image"
         android:transitionName="shared"
         />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_navigation_detail_news"
+        app:itemIconTint="@color/bel_grey_text"
+        app:itemTextColor="@color/bel_grey_text"
+        android:background="@android:color/white"
+        android:layout_alignParentBottom="true"
+        />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/detail_image"
+        android:layout_above="@id/bottom_navigation"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,7 +61,8 @@
                 android:text="some news , Dementization caused many problems but in the end it was good for all something like that"/>
         </LinearLayout>
     </ScrollView>
-    </LinearLayout>
+
+    </RelativeLayout>
 
 
 

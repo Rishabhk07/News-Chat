@@ -52,11 +52,6 @@ public class NavDrawer extends AppCompatActivity
         Log.d(TAG, "onCreate: height"  + displayMetrics.heightPixels/displayMetrics.density );
         Log.d(TAG, "onCreate: width"  + displayMetrics.widthPixels / displayMetrics.density );
 
-//        Window window = getWindow();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            window.setStatusBarColor(Color.BLACK);
-//        }
-
         //get Toi data
         FetchNews.getNewsJson(NavDrawer.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);
@@ -64,7 +59,6 @@ public class NavDrawer extends AppCompatActivity
         dislikeBtn = (Button) findViewById(R.id.dislike_btn);
 
         //button click listner
-
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
