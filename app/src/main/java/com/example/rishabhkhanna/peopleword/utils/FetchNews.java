@@ -8,10 +8,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.rishabhkhanna.peopleword.Adapters.Adapters;
-import com.example.rishabhkhanna.peopleword.MainActivity;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
-import com.example.rishabhkhanna.peopleword.views.NavDrawer;
+import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -69,7 +67,7 @@ public class FetchNews {
 //                Adapters.SwipeCardAdapter adapter = Adapters.getSwipeCardAdapter(newsList , context);
 //                MainActivit/y.swipeDeck.setAdapter(adapter);
 
-                NavDrawer.attachAdapter(newsList , context);
+                BaseActivity.attachAdapter(newsList , context);
 
 
 

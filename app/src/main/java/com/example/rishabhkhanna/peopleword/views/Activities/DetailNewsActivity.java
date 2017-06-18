@@ -1,13 +1,11 @@
-package com.example.rishabhkhanna.peopleword.views;
+package com.example.rishabhkhanna.peopleword.views.Activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +13,7 @@ import com.example.rishabhkhanna.peopleword.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class DetailNews extends AppCompatActivity {
+public class DetailNewsActivity extends AppCompatActivity {
 
     public static final String TAG  = "DetailNew Activity";
     TextView headTv ;
@@ -41,7 +39,7 @@ public class DetailNews extends AppCompatActivity {
         headTv.setText(head);
         detailTV.setText(detail);
 
-        Picasso.with(DetailNews.this)
+        Picasso.with(DetailNewsActivity.this)
                 .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + img + "&width=1500&height=1440&resizemode=1")
                 .fit()
                 .into(imageViewNews, new Callback() {

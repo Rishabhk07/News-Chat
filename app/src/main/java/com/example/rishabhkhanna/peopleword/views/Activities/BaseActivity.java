@@ -1,14 +1,11 @@
-package com.example.rishabhkhanna.peopleword.views;
+package com.example.rishabhkhanna.peopleword.views.Activities;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +14,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 import com.daprlabs.cardstack.SwipeDeck;
@@ -28,10 +24,10 @@ import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 
 import java.util.ArrayList;
 
-public class NavDrawer extends AppCompatActivity
+public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String TAG = "NavDrawer";
+    public static final String TAG = "BaseActivity";
 
    public static SwipeDeck swipeDeck;
     public static Adapters.SwipeCardAdapter swipeCardAdapter;
@@ -53,7 +49,7 @@ public class NavDrawer extends AppCompatActivity
         Log.d(TAG, "onCreate: width"  + displayMetrics.widthPixels / displayMetrics.density );
 
         //get Toi data
-        FetchNews.getNewsJson(NavDrawer.this);
+        FetchNews.getNewsJson(BaseActivity.this);
         swipeDeck = (SwipeDeck) findViewById(R.id.swipe_deck);
         likeBtn = (Button) findViewById(R.id.like_btn);
         dislikeBtn = (Button) findViewById(R.id.dislike_btn);
@@ -80,7 +76,7 @@ public class NavDrawer extends AppCompatActivity
         DrawerLayout drawer =  (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

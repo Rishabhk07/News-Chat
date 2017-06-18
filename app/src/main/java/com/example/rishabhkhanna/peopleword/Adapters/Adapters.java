@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
-import com.example.rishabhkhanna.peopleword.views.DetailNews;
+import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class Adapters {
         }
 
         private void deatilNews(ToiJson toiJson , ImageView shared) {
-            Intent i = new Intent(context , DetailNews.class);
+            Intent i = new Intent(context , DetailNewsActivity.class);
             i.putExtra("head" , toiJson.getHl());
             i.putExtra("detail" , toiJson.getSyn());
             i.putExtra("img" , toiJson.getImageid());
