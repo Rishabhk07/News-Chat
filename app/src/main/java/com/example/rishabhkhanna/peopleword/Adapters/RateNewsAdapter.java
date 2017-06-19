@@ -85,7 +85,7 @@ public class RateNewsAdapter {
                 String imageUrl = "";
                 Log.d(TAG, "getView: data attached");
                 Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                        newsList.get(position).getImageid() + "&width=1500&height=1440&resizemode=1")
+                        newsList.get(position).getImageid() + "&width=600&height=500&resizemode=1")
                         .fit()
                         .into(newsImageView);
 

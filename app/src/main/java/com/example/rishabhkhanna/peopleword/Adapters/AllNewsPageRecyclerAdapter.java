@@ -44,7 +44,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         holder.tvLikes.setText(String.valueOf(new Random().nextInt(1000)));
         holder.tvDislikes.setText(String.valueOf(new Random().nextInt(1000)));
         Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                thisJsonData.getImageid() + "&width=200&height=140&resizemode=1")
+                thisJsonData.getImageid() + "&width=600&height=500&resizemode=1")
                 .fit()
                 .into(holder.ivNewsImage);
         Log.d(TAG, "onBindViewHolder: " + newsArrayList.get(position).getImageid());

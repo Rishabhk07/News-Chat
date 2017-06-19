@@ -29,7 +29,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
         postponeEnterTransition();
-        Intent i = getIntent();
+        Intent  i = getIntent();
         String head = i.getStringExtra("head");
         String detail= i.getStringExtra("detail");
         String img = i.getStringExtra("img");
