@@ -50,6 +50,7 @@ public class FetchNews {
                     jsonObject = new JSONObject(response);
                     itemObject = jsonObject.getJSONArray("items");
                 } catch (JSONException e) {
+                    Log.d(TAG, "onResponse: ");
                     e.printStackTrace();
                 }
 

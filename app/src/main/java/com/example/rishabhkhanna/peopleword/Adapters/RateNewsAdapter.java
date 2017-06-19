@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by rishabhkhanna on 26/12/16.
  */
 
-public class Adapters {
+public class RateNewsAdapter {
 
     public static final String TAG = "Adapter";
 
