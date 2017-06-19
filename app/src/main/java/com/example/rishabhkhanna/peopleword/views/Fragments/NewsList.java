@@ -1,6 +1,7 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,7 +26,6 @@ public class NewsList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_news_list, container, false);
-
         return root;
     }
 

@@ -1,5 +1,6 @@
 package com.example.rishabhkhanna.peopleword.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
 import com.google.gson.Gson;
@@ -27,9 +29,9 @@ import static com.android.volley.Request.Method.GET;
 
 public class FetchNews {
     static RequestQueue queue;
-    public static final String TAG = "Fetch news Class";
+    public static final String TAG = "FetchNews";
 
-    public static void getNewsJson(final Context context){
+    public static void getNewsJson(final Context context, final onJsonRecieved onJsonRecieved){
         queue = Volley.newRequestQueue(context);
 
         String url = "http://timesofindia.indiatimes.com" +
@@ -39,8 +41,6 @@ public class FetchNews {
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-//                Log.d(TAG , response);
 
 
                 JSONObject jsonObject = null;
@@ -61,22 +61,14 @@ public class FetchNews {
 
                 ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
                 Log.d(TAG, newsList.get(0).getHl().toString());
-//                MainActivity.newsList.addAll(newsList);
-//                MainActivity.swipeCardAdapter.notifyDataSetChanged();
-
-//                Adapters.SwipeCardAdapter adapter = Adapters.getSwipeCardAdapter(newsList , context);
-//                MainActivit/y.swipeDeck.setAdapter(adapter);
-
-                BaseActivity.attachAdapter(newsList , context);
-
-
-
+                onJsonRecieved.onSuccess(newsList);
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "onErrorResponse: Error in Fetch News");
+                onJsonRecieved.onError(error);
             }
         });
 
