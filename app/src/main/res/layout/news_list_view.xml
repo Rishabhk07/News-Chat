@@ -53,38 +53,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_thumb_up_black_18dp"
-                    android:id="@+id/ivLike"/>
+                    android:id="@+id/ivLike"
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="50"
                     android:layout_toRightOf="@id/ivLike"
                     android:layout_marginRight="15dp"
-                    android:id="@+id/tvLike"/>
+                    android:id="@+id/tvLike"
+                    android:layout_gravity="center"
+                    android:paddingLeft="4dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_thumb_down_black_18dp"
-                    android:id="@+id/ivDislike"/>
+                    android:id="@+id/ivDislike"
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="50"
                     android:layout_marginRight="15dp"
-                    android:id="@+id/tvDislike"/>
+                    android:id="@+id/tvDislike"
+                    android:layout_gravity="center"
+                    android:paddingLeft="4dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chat_black_18dp"
-                    android:id="@+id/ivChat"/>
+                    android:id="@+id/ivChat"
+                    android:layout_gravity="center"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="200"
                     android:layout_marginRight="15dp"
-                    android:id="@+id/tvChats"/>
+                    android:id="@+id/tvChats"
+                    android:paddingLeft="4dp"
+                    android:layout_gravity="center"
+                    />
             </LinearLayout>
 
         </LinearLayout>
