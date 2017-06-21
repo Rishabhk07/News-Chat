@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Fragments.PageAllNewsFragment;
 
 /**
@@ -22,7 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         // write login for which fragment to return
         switch (position) {
           case 0:
-            newsFragment = new PageAllNewsFragment();
+            newsFragment = PageAllNewsFragment.newInstance(Constants.BRIEFS_URL);
             return newsFragment;
         }
         return null;

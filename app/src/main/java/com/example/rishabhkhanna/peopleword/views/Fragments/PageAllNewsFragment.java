@@ -2,6 +2,7 @@ package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 
 import java.util.ArrayList;
@@ -28,11 +30,27 @@ public class PageAllNewsFragment extends Fragment {
 
     RecyclerView rvPage;
     ArrayList<ToiJson> newsArrayList = new ArrayList<>();
+    String url;
     public static final String TAG = "PageAllNewsFragment";
     public PageAllNewsFragment() {
         // Required empty public constructor
     }
 
+    public static PageAllNewsFragment newInstance(String url){
+        PageAllNewsFragment newsFragment = new PageAllNewsFragment();
+        Bundle args = new Bundle();
+        args.putString(Constants.fragment_key,url);
+        newsFragment.setArguments(args);
+        return newsFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            url = getArguments().getString(Constants.fragment_key);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,9 +73,10 @@ public class PageAllNewsFragment extends Fragment {
                 Toast.makeText(getActivity(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
             }
         };
+        String s = new String();
 
         //get Toi data
-        FetchNews.getNewsJson(getContext(),onJsonRecieved);
+        FetchNews.getUrlNews(getContext(),onJsonRecieved,url);
         rvPage.setLayoutManager(new LinearLayoutManager(getContext()));
         rvPage.setAdapter(allNewsAdapter);
         return root;

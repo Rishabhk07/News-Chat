@@ -78,4 +78,48 @@ public class FetchNews {
     }
 
 
+    public static void getUrlNews(final Context context, final onJsonRecieved onJsonRecieved,String url){
+        queue = Volley.newRequestQueue(context);
+
+
+        StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+
+                JSONObject jsonObject = null;
+                JSONArray itemObject = null;
+                String oneObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    itemObject = jsonObject.getJSONArray("items");
+                } catch (JSONException e) {
+                    Log.d(TAG, "onResponse: ");
+                    e.printStackTrace();
+                }
+
+                Gson gson = new Gson();
+                ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
+                Log.d(TAG, toiJson[0].getHl());
+                Log.d(TAG, toiJson[0].getSyn());
+                Log.d(TAG, toiJson[0].getImageid());
+
+                ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
+                Log.d(TAG, newsList.get(0).getHl().toString());
+                onJsonRecieved.onSuccess(newsList);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: Error in Fetch News");
+                onJsonRecieved.onError(error);
+            }
+        });
+
+        queue.add(stringRequest);
+
+    }
+
+
 }
