@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -86,6 +88,7 @@ public class RateNewsAdapter {
                 Log.d(TAG, "getView: data attached");
                 Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                         newsList.get(position).getImageid() + "&width=600&height=500&resizemode=1")
+                        .noFade()
                         .fit()
                         .into(newsImageView);
 
@@ -108,10 +111,9 @@ public class RateNewsAdapter {
         }
 
         private void deatilNews(ToiJson toiJson , ImageView shared) {
+            Gson gson = new Gson();
             Intent i = new Intent(context , DetailNewsActivity.class);
-            i.putExtra("head" , toiJson.getHl());
-            i.putExtra("detail" , toiJson.getSyn());
-            i.putExtra("img" , toiJson.getImageid());
+            i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(toiJson,ToiJson.class));
             ActivityOptionsCompat options;
             options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shared , "shared");
             context.startActivity(i , options.toBundle());

@@ -31,7 +31,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
-        postponeEnterTransition();
+        supportPostponeEnterTransition();
         Intent  i = getIntent();
         Gson gson = new Gson();
         ToiJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),ToiJson.class);
@@ -40,17 +40,18 @@ public class DetailNewsActivity extends AppCompatActivity {
 
         Picasso.with(DetailNewsActivity.this)
                 .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + thisNews.getImageid() + "&width=1500&height=1440&resizemode=1")
+                .noFade()
                 .fit()
                 .into(imageViewNews, new Callback() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onSuccess() {
-                        startPostponedEnterTransition();
+                        supportStartPostponedEnterTransition();
                     }
 
                     @Override
                     public void onError() {
-
+                        supportStartPostponedEnterTransition();
                     }
                 });
     }

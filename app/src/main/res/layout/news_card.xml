@@ -22,6 +22,7 @@
             android:layout_height="@dimen/image_height"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/news_image"
+            android:transitionName="shared"
             />
 
         <ImageView
@@ -54,6 +55,7 @@
             android:fontFamily="sans-serif"
             android:id="@+id/news_headline"
             android:textColor="#323232"
+            android:transitionName="heading_trans"
             />
 
         <TextView

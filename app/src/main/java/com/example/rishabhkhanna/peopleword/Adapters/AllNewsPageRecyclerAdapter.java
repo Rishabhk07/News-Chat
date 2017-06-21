@@ -1,7 +1,11 @@
 package com.example.rishabhkhanna.peopleword.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,13 +47,14 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
     }
 
     @Override
-    public void onBindViewHolder(AllnewsViewholder holder, int position) {
+    public void onBindViewHolder(final AllnewsViewholder holder, int position) {
         final ToiJson thisJsonData = newsArrayList.get(position);
         holder.tvNewsHeading.setText(thisJsonData.getHl());
         holder.tvLikes.setText(String.valueOf(new Random().nextInt(1000)));
         holder.tvDislikes.setText(String.valueOf(new Random().nextInt(1000)));
         Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 thisJsonData.getImageid() + "&width=600&height=500&resizemode=1")
+                .noFade()
                 .fit()
                 .into(holder.ivNewsImage);
         Log.d(TAG, "onBindViewHolder: " + newsArrayList.get(position).getImageid());
@@ -59,7 +64,9 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 Gson gson = new Gson();
                 Intent i = new Intent(context, DetailNewsActivity.class);
                 i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,ToiJson.class));
-                context.startActivity(i);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
+                        , Pair.create((View)holder.ivNewsImage, "shared"));
+                context.startActivity(i,options.toBundle());
             }
         });
     }
