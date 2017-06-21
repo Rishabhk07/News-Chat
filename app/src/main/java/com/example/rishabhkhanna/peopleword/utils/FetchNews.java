@@ -101,7 +101,7 @@ public class FetchNews {
                 Gson gson = new Gson();
                 ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
                 Log.d(TAG, toiJson[0].getHl());
-                Log.d(TAG, toiJson[0].getSyn());
+//                Log.d(TAG, toiJson[0].getSyn());
                 Log.d(TAG, toiJson[0].getImageid());
 
                 ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));

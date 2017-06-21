@@ -39,6 +39,7 @@ public class AllNewsFragment extends Fragment {
 
         allNewsViewPager = (ViewPager) root.findViewById(R.id.vpAllNews);
         tabLayoutAllNews = (TabLayout) root.findViewById(R.id.tabLayoutAllNews);
+        tabLayoutAllNews.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         allNewsViewPager.setAdapter(viewPagerAdapter);
         tabLayoutAllNews.setupWithViewPager(allNewsViewPager);
