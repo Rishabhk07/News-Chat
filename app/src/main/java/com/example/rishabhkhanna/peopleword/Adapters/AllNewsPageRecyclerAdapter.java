@@ -1,6 +1,8 @@
 package com.example.rishabhkhanna.peopleword.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,7 +44,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     @Override
     public void onBindViewHolder(AllnewsViewholder holder, int position) {
-        ToiJson thisJsonData = newsArrayList.get(position);
+        final ToiJson thisJsonData = newsArrayList.get(position);
         holder.tvNewsHeading.setText(thisJsonData.getHl());
         holder.tvLikes.setText(String.valueOf(new Random().nextInt(1000)));
         holder.tvDislikes.setText(String.valueOf(new Random().nextInt(1000)));
@@ -48,6 +53,15 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 .fit()
                 .into(holder.ivNewsImage);
         Log.d(TAG, "onBindViewHolder: " + newsArrayList.get(position).getImageid());
+        holder.cvNewsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+                Intent i = new Intent(context, DetailNewsActivity.class);
+                i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,ToiJson.class));
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -61,6 +75,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         TextView tvDislikes;
         TextView tvChats;
         ImageView ivNewsImage;
+        CardView cvNewsList;
 
         public AllnewsViewholder(View itemView) {
             super(itemView);
@@ -69,6 +84,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             tvDislikes = (TextView) itemView.findViewById(R.id.tvDislike);
             ivNewsImage = (ImageView) itemView.findViewById(R.id.ivPageNews);
             tvChats = (TextView) itemView.findViewById(R.id.tvChats);
+            cvNewsList = (CardView) itemView.findViewById(R.id.news_list_cv);
         }
     }
 }

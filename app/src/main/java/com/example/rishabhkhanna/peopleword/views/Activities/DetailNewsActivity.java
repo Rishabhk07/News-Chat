@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -30,17 +33,13 @@ public class DetailNewsActivity extends AppCompatActivity {
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
         postponeEnterTransition();
         Intent  i = getIntent();
-        String head = i.getStringExtra("head");
-        String detail= i.getStringExtra("detail");
-        String img = i.getStringExtra("img");
-        Log.d(TAG, "onCreate: " + head);
-        Log.d(TAG, "onCreate: " + detail);
-        Log.d(TAG, "onCreate: " + img);
-        headTv.setText(head);
-        detailTV.setText(detail);
+        Gson gson = new Gson();
+        ToiJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),ToiJson.class);
+        headTv.setText(thisNews.getHl());
+        detailTV.setText(thisNews.getSyn());
 
         Picasso.with(DetailNewsActivity.this)
-                .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + img + "&width=1500&height=1440&resizemode=1")
+                .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + thisNews.getImageid() + "&width=1500&height=1440&resizemode=1")
                 .fit()
                 .into(imageViewNews, new Callback() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

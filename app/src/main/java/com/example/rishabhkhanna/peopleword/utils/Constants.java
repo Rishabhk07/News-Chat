@@ -6,6 +6,7 @@ package com.example.rishabhkhanna.peopleword.utils;
 
 public class Constants {
     public static final String fragment_key = "url_key";
+    public static final String DETAIL_NEWS_KEY = "detail";
 
 //    urls
     public static final String BRIEFS_URL = "https://people-news-app.herokuapp.com/news/briefs";
@@ -17,7 +18,6 @@ public class Constants {
     public static final String CRICKET_URL = "https://people-news-app.herokuapp.com/news/cricket";
     public static final String BUSINESS_URL = "https://people-news-app.herokuapp.com/news/business";
     public static final String EDUCATION_URL = "https://people-news-app.herokuapp.com/news/education";
-
 //    url end
 
 
