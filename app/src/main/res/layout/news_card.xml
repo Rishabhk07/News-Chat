@@ -55,7 +55,7 @@
             android:fontFamily="sans-serif"
             android:id="@+id/news_headline"
             android:textColor="#323232"
-            android:transitionName="heading_trans"
+            android:transitionName="transHeading"
             />
 
         <TextView

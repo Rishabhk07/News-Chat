@@ -50,7 +50,6 @@ public class DetailNewsActivity extends AppCompatActivity {
                     public void onSuccess() {
                         int cx = imageViewNews.getWidth()/2;
                         int cy  = imageViewNews.getHeight()/2;
-                        imageViewNews.setVisibility(View.VISIBLE);
                         int finalRadius = imageViewNews.getHeight();
                         Animator anim = ViewAnimationUtils.createCircularReveal(imageViewNews,cx,cy, 0,finalRadius);
                         anim.setDuration(500);

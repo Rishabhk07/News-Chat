@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,8 +80,8 @@ public class RateNewsAdapter {
             }
             if(!newsList.isEmpty()) {
                 final ImageView newsImageView = (ImageView) view.findViewById(R.id.news_image);
-                TextView newsHeadlineTV =  (TextView) view.findViewById(R.id.news_headline);
-                TextView newsDetailTV = (TextView) view.findViewById(R.id.news_full);
+                final TextView newsHeadlineTV =  (TextView) view.findViewById(R.id.news_headline);
+                final TextView newsDetailTV = (TextView) view.findViewById(R.id.news_full);
 
                 newsHeadlineTV.setText(newsList.get(position).getHl());
                 newsDetailTV.setText(newsList.get(position).getSyn());
@@ -100,7 +101,7 @@ public class RateNewsAdapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deatilNews(newsList.get(position) , newsImageView);
+                    deatilNews(newsList.get(position) , newsImageView,newsHeadlineTV,newsDetailTV);
                 }
             });
 
@@ -110,12 +111,15 @@ public class RateNewsAdapter {
             return view;
         }
 
-        private void deatilNews(ToiJson toiJson , ImageView shared) {
+        private void deatilNews(ToiJson toiJson , ImageView shared,TextView heading,TextView content) {
             Gson gson = new Gson();
             Intent i = new Intent(context , DetailNewsActivity.class);
             i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(toiJson,ToiJson.class));
             ActivityOptionsCompat options;
-            options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, shared , "shared");
+            options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,
+                    Pair.create((View)shared,"shared"),
+                    Pair.create((View)heading,"transHeading"),
+                    Pair.create((View)content,"transContent"));
             context.startActivity(i , options.toBundle());
 
         }

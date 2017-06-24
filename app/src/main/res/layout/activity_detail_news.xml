@@ -29,8 +29,7 @@
         android:transitionName="shared"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:visibility="invisible"/>
+        android:layout_alignParentStart="true" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,7 +65,8 @@
                 android:layout_marginTop="7dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="some news , Dementization caused many problems but in the end it was good for all something like that"/>
+                android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
+                android:transitionName="transContent"/>
         </LinearLayout>
     </ScrollView>
 
