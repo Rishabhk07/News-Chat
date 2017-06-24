@@ -29,7 +29,8 @@
         android:transitionName="shared"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,6 +53,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="17dp"
+                android:transitionName="transHeading"
                 />
 
             <TextView

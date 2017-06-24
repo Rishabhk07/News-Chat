@@ -7,20 +7,26 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Fragments.PageAllNewsFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by rishabhkhanna on 19/06/17.
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-
+    List<Fragment> pageFragmentList;
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
+//        pageFragmentList = Arrays.asList(new Fragment[9]);
     }
     PageAllNewsFragment newsFragment;
     @Override
     public Fragment getItem(int position) {
         //get Item is called to instantite the fragment for the given page
         // write login for which fragment to return
+
         switch (position) {
           case 0:
             newsFragment = PageAllNewsFragment.newInstance(Constants.BRIEFS_URL);

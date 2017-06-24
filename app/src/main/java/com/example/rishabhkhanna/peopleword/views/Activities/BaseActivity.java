@@ -73,17 +73,18 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (id == R.id.nav_news) {
+        if (id == R.id.nav_rate_news) {
+
+            fragment = new RateNewFragment();
 
         } else if (id == R.id.allNews) {
-            Log.d(TAG, "onNavigationItemSelected: allNews");
+
              fragment = new AllNewsFragment();
 
         } else if (id == R.id.nav_Topic) {
 
         } else if (id == R.id.nav_rating) {
 
-            fragment = new RateNewFragment();
 
         } else if (id == R.id.nav_edit) {
 

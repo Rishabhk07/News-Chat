@@ -65,7 +65,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 Intent i = new Intent(context, DetailNewsActivity.class);
                 i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,ToiJson.class));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
-                        , Pair.create((View)holder.ivNewsImage, "shared"));
+                        , Pair.create((View)holder.ivNewsImage, "shared"),
+                            Pair.create((View)holder.tvNewsHeading,"transHeading"));
                 context.startActivity(i,options.toBundle());
             }
         });

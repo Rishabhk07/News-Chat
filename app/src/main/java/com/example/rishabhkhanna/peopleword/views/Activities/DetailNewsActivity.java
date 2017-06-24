@@ -1,11 +1,14 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +34,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
-        supportPostponeEnterTransition();
+//        supportPostponeEnterTransition();
         Intent  i = getIntent();
         Gson gson = new Gson();
         ToiJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),ToiJson.class);
@@ -43,16 +46,38 @@ public class DetailNewsActivity extends AppCompatActivity {
                 .noFade()
                 .fit()
                 .into(imageViewNews, new Callback() {
-                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onSuccess() {
-                        supportStartPostponedEnterTransition();
+                        int cx = imageViewNews.getWidth()/2;
+                        int cy  = imageViewNews.getHeight()/2;
+                        imageViewNews.setVisibility(View.VISIBLE);
+                        int finalRadius = imageViewNews.getHeight();
+                        Animator anim = ViewAnimationUtils.createCircularReveal(imageViewNews,cx,cy, 0,finalRadius);
+                        anim.setDuration(500);
+                        anim.start();
+                        Log.d(TAG, "onSuccess: ");
                     }
 
                     @Override
                     public void onError() {
-                        supportStartPostponedEnterTransition();
+
                     }
                 });
+
+
+
+
+//                .into(imageViewNews, new Callback() {
+//                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//                    @Override
+//                    public void onSuccess() {
+//                        supportStartPostponedEnterTransition();
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//                        supportStartPostponedEnterTransition();
+//                    }
+//                });
     }
 }
