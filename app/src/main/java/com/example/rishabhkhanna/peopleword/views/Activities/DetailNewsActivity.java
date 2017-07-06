@@ -34,7 +34,6 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
-//        supportPostponeEnterTransition();
         Intent  i = getIntent();
         Gson gson = new Gson();
         ToiJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),ToiJson.class);
@@ -62,21 +61,5 @@ public class DetailNewsActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-//                .into(imageViewNews, new Callback() {
-//                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//                    @Override
-//                    public void onSuccess() {
-//                        supportStartPostponedEnterTransition();
-//                    }
-//
-//                    @Override
-//                    public void onError() {
-//                        supportStartPostponedEnterTransition();
-//                    }
-//                });
     }
 }

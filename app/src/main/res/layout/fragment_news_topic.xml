@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Sports"
+        android:background="@drawable/select_button"
+        android:id="@+id/toggleButton"
+        android:textColor="@drawable/select_button_color"
+        />
 
 </FrameLayout>

@@ -70,7 +70,7 @@ public class PageAllNewsFragment extends Fragment {
             @Override
             public void onError(VolleyError error) {
                 Log.d(TAG, "onError: "  + error);
-                Toast.makeText(getActivity(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
             }
         };
         String s = new String();

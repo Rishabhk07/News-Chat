@@ -27,6 +27,7 @@ import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
+import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
 
 import java.util.ArrayList;
@@ -83,8 +84,7 @@ public class BaseActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Topic) {
 
-        } else if (id == R.id.nav_rating) {
-
+            fragment = new NewsTopic();
 
         } else if (id == R.id.nav_edit) {
 
