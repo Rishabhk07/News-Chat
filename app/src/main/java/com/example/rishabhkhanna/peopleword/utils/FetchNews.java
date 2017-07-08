@@ -86,20 +86,22 @@ public class FetchNews {
             @Override
             public void onResponse(String response) {
 
+//
+//                JSONObject jsonObject = null;
+//                JSONArray itemObject = null;
+//                String oneObject = null;
+//                try {
+//                    jsonObject = new JSONObject(response);
+//                    itemObject = jsonObject.getJSONArray("items");
+//                } catch (JSONException e) {
+//                    Log.d(TAG, "onResponse: ");
+//                    e.printStackTrace();
+//                }
 
-                JSONObject jsonObject = null;
-                JSONArray itemObject = null;
-                String oneObject = null;
-                try {
-                    jsonObject = new JSONObject(response);
-                    itemObject = jsonObject.getJSONArray("items");
-                } catch (JSONException e) {
-                    Log.d(TAG, "onResponse: ");
-                    e.printStackTrace();
-                }
+
 
                 Gson gson = new Gson();
-                ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
+                ToiJson[] toiJson = gson.fromJson(response, ToiJson[].class );
                 Log.d(TAG, toiJson[0].getHl());
                 Log.d(TAG, String.valueOf(toiJson[0].getSyn()));
                 Log.d(TAG, toiJson[0].getImageid());

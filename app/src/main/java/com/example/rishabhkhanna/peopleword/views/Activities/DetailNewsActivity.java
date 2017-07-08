@@ -47,13 +47,18 @@ public class DetailNewsActivity extends AppCompatActivity {
                 .into(imageViewNews, new Callback() {
                     @Override
                     public void onSuccess() {
-                        int cx = imageViewNews.getWidth()/2;
-                        int cy  = imageViewNews.getHeight()/2;
-                        int finalRadius = imageViewNews.getHeight();
-                        Animator anim = ViewAnimationUtils.createCircularReveal(imageViewNews,cx,cy, 0,finalRadius);
-                        anim.setDuration(500);
-                        anim.start();
-                        Log.d(TAG, "onSuccess: ");
+                        try {
+                            int cx = imageViewNews.getWidth() / 2;
+                            int cy = imageViewNews.getHeight() / 2;
+                            int finalRadius = imageViewNews.getHeight();
+                            Animator anim = ViewAnimationUtils.createCircularReveal(imageViewNews, cx, cy, 0, finalRadius);
+                            anim.setDuration(500);
+                            anim.start();
+                            Log.d(TAG, "onSuccess: ");
+                        }catch (IllegalStateException e){
+                            Log.d(TAG, "onSuccess:  " + e.getMessage());
+
+                        }
                     }
 
                     @Override

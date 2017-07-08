@@ -35,7 +35,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             newsFragment = PageAllNewsFragment.newInstance(Constants.TOP_URL);
             return newsFragment;
             case 2:
-            newsFragment = PageAllNewsFragment.newInstance(Constants.ENTERTAINMENT_URL);
+            newsFragment = PageAllNewsFragment.newInstance(Constants.EVENTS_URL);
             return newsFragment;
             case 3:
             newsFragment = PageAllNewsFragment.newInstance(Constants.INDIA_URL);
