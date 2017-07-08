@@ -60,7 +60,7 @@ public class PageAllNewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
-
+        Log.d(TAG, "onCreateView: ");
         rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList,getContext());
         String urlFirstPage = url + 0;
@@ -80,7 +80,9 @@ public class PageAllNewsFragment extends Fragment {
         String s = new String();
 
         //get Toi data
-        FetchNews.getUrlNews(getContext(),onJsonRecieved,urlFirstPage);
+        if(counter == 0) {
+            FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPage.setLayoutManager(linearLayoutManager);
         rvPage.setAdapter(allNewsAdapter);
@@ -95,7 +97,6 @@ public class PageAllNewsFragment extends Fragment {
                 FetchNews.getUrlNews(getContext(),onJsonRecieved,nextPageUrl);
             }
         };
-
         rvPage.addOnScrollListener(scrollListener);
 
         return root;
