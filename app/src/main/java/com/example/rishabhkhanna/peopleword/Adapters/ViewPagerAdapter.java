@@ -55,6 +55,22 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 8:
             newsFragment = PageAllNewsFragment.newInstance(Constants.EDUCATION_URL);
             return newsFragment;
+            case 9:
+            newsFragment = PageAllNewsFragment.newInstance(Constants.TV_URL);
+            return newsFragment;
+            case 10:
+            newsFragment = PageAllNewsFragment.newInstance(Constants.AUTOMOTIVE_URL);
+            return newsFragment;
+            case 11:
+            newsFragment = PageAllNewsFragment.newInstance(Constants.LIFESTYLE_URL);
+            return newsFragment;
+            case 12:
+            newsFragment = PageAllNewsFragment.newInstance(Constants.ENVIRONMENT_URL);
+            return newsFragment;
+            case 13:
+            newsFragment = PageAllNewsFragment.newInstance(Constants.GOODGOV_URL);
+            return newsFragment;
+
 
         }
         return null;
@@ -63,7 +79,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 9;
+        return 13;
     }
 
     @Override
@@ -87,6 +103,16 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 return "business";
             case 8:
                 return "education";
+            case 9:
+                return "TV";
+            case 10:
+                return "Automotive";
+            case 11:
+                return "LifeStyle";
+            case 12:
+                return "Environment";
+            case 13:
+                return "Good Governance";
         }
         return super.getPageTitle(position);
     }

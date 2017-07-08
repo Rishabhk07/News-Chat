@@ -10,7 +10,7 @@ public class Constants {
 
 //    urls
     public static final String BRIEFS_URL = "http://139.59.35.58:90/test/fetch/briefs/";
-    public static final String TOP_URL = "http://139.59.35.58:90/test/fetch/top/";
+    public static final String TOP_URL = "http://139.59.35.58:90/test/fetch/top_news/";
     public static final String EVENTS_URL = "http://139.59.35.58:90/test/fetch/events/";
     public static final String INDIA_URL = "http://139.59.35.58:90/test/fetch/india/";
     public static final String WORLD_URL = "http://139.59.35.58:90/test/fetch/world/";
@@ -18,6 +18,11 @@ public class Constants {
     public static final String CRICKET_URL = "http://139.59.35.58:90/test/fetch/cricket/";
     public static final String BUSINESS_URL = "http://139.59.35.58:90/test/fetch/business/";
     public static final String EDUCATION_URL = "http://139.59.35.58:90/test/fetch/education/";
+    public static final String ENVIRONMENT_URL = "http://139.59.35.58:90/test/fetch/environment/";
+    public static final String TV_URL = "http://139.59.35.58:90/test/fetch/tv/";
+    public static final String AUTOMOTIVE_URL = "http://139.59.35.58:90/test/fetch/automotive/";
+    public static final String LIFESTYLE_URL = "http://139.59.35.58:90/test/fetch/life_style/";
+    public static final String GOODGOV_URL = "http://139.59.35.58:90/test/fetch/good_governance/";
 //    url end
 
 
