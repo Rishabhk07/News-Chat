@@ -19,6 +19,7 @@ import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.example.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class PageAllNewsFragment extends Fragment {
     RecyclerView rvPage;
     ArrayList<ToiJson> newsArrayList = new ArrayList<>();
     String url;
+    int counter;
+    EndlessRecyclerViewScrollListener scrollListener;
     public static final String TAG = "PageAllNewsFragment";
     public PageAllNewsFragment() {
         // Required empty public constructor
@@ -49,6 +52,7 @@ public class PageAllNewsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getArguments() != null){
             url = getArguments().getString(Constants.fragment_key);
+            counter = 0;
         }
     }
 
@@ -59,10 +63,10 @@ public class PageAllNewsFragment extends Fragment {
 
         rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList,getContext());
-        onJsonRecieved onJsonRecieved = new onJsonRecieved() {
+        String urlFirstPage = url + 0;
+        final onJsonRecieved onJsonRecieved = new onJsonRecieved() {
             @Override
             public void onSuccess(ArrayList<ToiJson> fetchedNewsList) {
-                newsArrayList.clear();
                 newsArrayList.addAll(fetchedNewsList);
                 allNewsAdapter.notifyDataSetChanged();
             }
@@ -76,9 +80,24 @@ public class PageAllNewsFragment extends Fragment {
         String s = new String();
 
         //get Toi data
-        FetchNews.getUrlNews(getContext(),onJsonRecieved,url);
-        rvPage.setLayoutManager(new LinearLayoutManager(getContext()));
+        FetchNews.getUrlNews(getContext(),onJsonRecieved,urlFirstPage);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPage.setLayoutManager(linearLayoutManager);
         rvPage.setAdapter(allNewsAdapter);
+
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                counter++;
+                Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count "+totalItemsCount + "counter: " + counter);
+                String nextPageUrl = url + counter;
+                FetchNews.getUrlNews(getContext(),onJsonRecieved,nextPageUrl);
+            }
+        };
+
+        rvPage.addOnScrollListener(scrollListener);
+
         return root;
     }
 

@@ -99,16 +99,18 @@ public class FetchNews {
 //                }
 
 
+                Log.d(TAG, "onResponse: REsponse : " + response);
+                if(!response.equals("[]")){
+                    Gson gson = new Gson();
+                    ToiJson[] toiJson = gson.fromJson(response, ToiJson[].class);
 
-                Gson gson = new Gson();
-                ToiJson[] toiJson = gson.fromJson(response, ToiJson[].class );
-                Log.d(TAG, toiJson[0].getHl());
-                Log.d(TAG, String.valueOf(toiJson[0].getSyn()));
-                Log.d(TAG, toiJson[0].getImageid());
+//                Log.d(TAG, String.valueOf(toiJson[0].getSyn()));
+//                Log.d(TAG, toiJson[0].getImageid());
 
-                ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
-                Log.d(TAG, newsList.get(0).getHl().toString());
-                onJsonRecieved.onSuccess(newsList);
+                    ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
+                    Log.d(TAG, newsList.get(0).getHl().toString());
+                    onJsonRecieved.onSuccess(newsList);
+                }
 
             }
         }, new Response.ErrorListener() {
