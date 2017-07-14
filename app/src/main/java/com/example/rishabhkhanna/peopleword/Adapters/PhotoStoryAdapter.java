@@ -46,6 +46,12 @@ public class PhotoStoryAdapter extends RecyclerView.Adapter<PhotoStoryAdapter.Vi
                 load(UtilMethods.getImageurl(thisPhotstory.getId()))
                 .fit()
                 .into(holder.ivPhotostory);
+        holder.tvPhotostory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

@@ -26,6 +26,7 @@ public class Constants {
     public static final String GOODGOV_URL = "http://139.59.35.58:90/test/fetch/good_governance/";
 //    url end
     public static final String FULL_STORY_KEY = "fullstory";
+    public static final String SECTION_TITLE = "title";
 
 
 }

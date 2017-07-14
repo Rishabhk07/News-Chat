@@ -28,7 +28,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.Activities.PhotoStoryActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.Activities.DetailNewsActivity" />
+        </activity>
     </application>
 
 </manifest>

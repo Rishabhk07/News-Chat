@@ -30,6 +30,7 @@ public class FullStoryActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Boolean appBarExtented = true;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +53,22 @@ public class FullStoryActivity extends AppCompatActivity {
                 .fit()
                 .into(ivFullStory);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            tvFullStory.setText(Html.fromHtml(thisNews.getStory(),Html.FROM_HTML_MODE_COMPACT));
-        }else{
-            tvFullStory.setText(Html.fromHtml(thisNews.getStory()));
+            if (thisNews.getStory() != null) {
+                tvFullStory.setText(Html.fromHtml(thisNews.getStory(), Html.FROM_HTML_MODE_COMPACT));
+            }
+        } else {
+            if(thisNews.getStory() != null) {
+                tvFullStory.setText(Html.fromHtml(thisNews.getStory()));
+            }
         }
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 // verticall == 0, appbar is fully extended
-                if(Math.abs(verticalOffset) > 200){
+                if (Math.abs(verticalOffset) > 200) {
                     appBarExtented = false;
                     invalidateOptionsMenu();
-                }else{
+                } else {
                     appBarExtented = true;
                     invalidateOptionsMenu();
                 }

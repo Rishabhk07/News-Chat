@@ -84,10 +84,12 @@ public class DetailNewsActivity extends AppCompatActivity {
                         if (thisNews.getTn().equals("photostory")) {
                             Intent i = new Intent(DetailNewsActivity.this, PhotoStoryActivity.class);
                             i.putExtra(Constants.FULL_STORY_KEY, gson.toJson(thisNews.getPhotoStory()));
+
                             startActivity(i);
                         } else {
                             Intent i = new Intent(DetailNewsActivity.this, FullStoryActivity.class);
                             i.putExtra(Constants.FULL_STORY_KEY, gson.toJson(thisNews));
+
                             startActivity(i);
                         }
                         break;

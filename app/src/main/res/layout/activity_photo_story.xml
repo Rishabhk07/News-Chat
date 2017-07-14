@@ -13,6 +13,7 @@ android:layout_height="match_parent"
     android:layout_height="wrap_content"
     app:elevation="5dp"
     android:fitsSystemWindows="true"
+    android:elevation="5dp"
     >
 
     <android.support.v7.widget.Toolbar
