@@ -1,7 +1,7 @@
 package com.example.rishabhkhanna.peopleword.Interfaces;
 
 import com.android.volley.VolleyError;
-import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,6 @@ import java.util.ArrayList;
  */
 
 public interface onJsonRecieved {
-    void onSuccess(ArrayList<ToiJson> fetchedNewsList);
+    void onSuccess(ArrayList<NewsJson> fetchedNewsList);
     void onError(VolleyError error);
 }

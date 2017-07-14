@@ -17,6 +17,7 @@ public class Constants {
     public static final String SPORTS_URL = "http://139.59.35.58:90/test/fetch/sports/";
     public static final String CRICKET_URL = "http://139.59.35.58:90/test/fetch/cricket/";
     public static final String BUSINESS_URL = "http://139.59.35.58:90/test/fetch/business/";
+    public static final String ENTERTAINMENT_URL = "http://139.59.35.58:90/test/fetch/entertainment/";
     public static final String EDUCATION_URL = "http://139.59.35.58:90/test/fetch/education/";
     public static final String ENVIRONMENT_URL = "http://139.59.35.58:90/test/fetch/environment/";
     public static final String TV_URL = "http://139.59.35.58:90/test/fetch/tv/";
@@ -24,6 +25,7 @@ public class Constants {
     public static final String LIFESTYLE_URL = "http://139.59.35.58:90/test/fetch/life_style/";
     public static final String GOODGOV_URL = "http://139.59.35.58:90/test/fetch/good_governance/";
 //    url end
+    public static final String FULL_STORY_KEY = "fullstory";
 
 
 }

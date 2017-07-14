@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
 import com.google.gson.Gson;
@@ -55,12 +56,12 @@ public class FetchNews {
                 }
 
                 Gson gson = new Gson();
-                ToiJson[] toiJson = gson.fromJson(itemObject.toString(), ToiJson[].class );
+                NewsJson[] toiJson = gson.fromJson(itemObject.toString(), NewsJson[].class );
                 Log.d(TAG, toiJson[0].getHl());
                 Log.d(TAG, toiJson[0].getSyn());
                 Log.d(TAG, toiJson[0].getImageid());
 
-                ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
+                ArrayList<NewsJson> newsList = new ArrayList<NewsJson>(Arrays.asList(toiJson));
                 Log.d(TAG, newsList.get(0).getHl().toString());
                 onJsonRecieved.onSuccess(newsList);
 
@@ -102,12 +103,12 @@ public class FetchNews {
                 Log.d(TAG, "onResponse: REsponse : " + response);
                 if(!response.equals("[]")){
                     Gson gson = new Gson();
-                    ToiJson[] toiJson = gson.fromJson(response, ToiJson[].class);
+                    NewsJson[] toiJson = gson.fromJson(response, NewsJson[].class);
 
 //                Log.d(TAG, String.valueOf(toiJson[0].getSyn()));
 //                Log.d(TAG, toiJson[0].getImageid());
 
-                    ArrayList<ToiJson> newsList = new ArrayList<ToiJson>(Arrays.asList(toiJson));
+                    ArrayList<NewsJson> newsList = new ArrayList<NewsJson>(Arrays.asList(toiJson));
                     Log.d(TAG, newsList.get(0).getHl().toString());
                     onJsonRecieved.onSuccess(newsList);
                 }

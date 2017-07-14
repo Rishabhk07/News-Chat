@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
@@ -30,11 +31,11 @@ import java.util.Random;
  */
 
 public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPageRecyclerAdapter.AllnewsViewholder> {
-    private ArrayList<ToiJson> newsArrayList;
+    private ArrayList<NewsJson> newsArrayList;
     private Context context;
     public static final String TAG = "AllNewsrecyclerAdapter";
 
-    public AllNewsPageRecyclerAdapter(ArrayList<ToiJson> newsArrayList, Context context) {
+    public AllNewsPageRecyclerAdapter(ArrayList<NewsJson> newsArrayList, Context context) {
         this.newsArrayList = newsArrayList;
         this.context = context;
     }
@@ -48,7 +49,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     @Override
     public void onBindViewHolder(final AllnewsViewholder holder, int position) {
-        final ToiJson thisJsonData = newsArrayList.get(position);
+        final NewsJson thisJsonData = newsArrayList.get(position);
         holder.tvNewsHeading.setText(thisJsonData.getHl());
         holder.tvLikes.setText(String.valueOf(new Random().nextInt(1000)));
         holder.tvDislikes.setText(String.valueOf(new Random().nextInt(1000)));
@@ -63,7 +64,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             public void onClick(View v) {
                 Gson gson = new Gson();
                 Intent i = new Intent(context, DetailNewsActivity.class);
-                i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,ToiJson.class));
+                i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,NewsJson.class));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
                         , Pair.create((View)holder.ivNewsImage, "shared"),
                             Pair.create((View)holder.tvNewsHeading,"transHeading"));

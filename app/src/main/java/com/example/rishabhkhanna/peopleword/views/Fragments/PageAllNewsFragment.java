@@ -4,6 +4,7 @@ package com.example.rishabhkhanna.peopleword.views.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.example.rishabhkhanna.peopleword.Adapters.AllNewsAdapter;
 import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
-import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
@@ -30,9 +31,11 @@ import java.util.ArrayList;
 public class PageAllNewsFragment extends Fragment {
 
     RecyclerView rvPage;
-    ArrayList<ToiJson> newsArrayList = new ArrayList<>();
+    SwipeRefreshLayout swipeRefreshLayout;
+    ArrayList<NewsJson> newsArrayList = new ArrayList<>();
     String url;
     int counter;
+    boolean fetchFristApi = true;
     EndlessRecyclerViewScrollListener scrollListener;
     public static final String TAG = "PageAllNewsFragment";
     public PageAllNewsFragment() {
@@ -50,9 +53,11 @@ public class PageAllNewsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: Create Here");
         if(getArguments() != null){
             url = getArguments().getString(Constants.fragment_key);
             counter = 0;
+            fetchFristApi = true;
         }
     }
 
@@ -66,7 +71,7 @@ public class PageAllNewsFragment extends Fragment {
         String urlFirstPage = url + 0;
         final onJsonRecieved onJsonRecieved = new onJsonRecieved() {
             @Override
-            public void onSuccess(ArrayList<ToiJson> fetchedNewsList) {
+            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
                 newsArrayList.addAll(fetchedNewsList);
                 allNewsAdapter.notifyDataSetChanged();
             }
@@ -77,11 +82,11 @@ public class PageAllNewsFragment extends Fragment {
                 Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
             }
         };
-        String s = new String();
 
         //get Toi data
-        if(counter == 0) {
+        if(counter == 0  && fetchFristApi) {
             FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
+            fetchFristApi = false;
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPage.setLayoutManager(linearLayoutManager);

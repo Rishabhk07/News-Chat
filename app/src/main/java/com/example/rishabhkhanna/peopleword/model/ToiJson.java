@@ -16,12 +16,31 @@ public class ToiJson {
     String dm;
     String tn;
     String su;
+    String story;
+    String photoStory;
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
+    }
+
+    public String getPhotoStory() {
+        return photoStory;
+    }
+
+    public void setPhotoStory(String photoStory) {
+        this.photoStory = photoStory;
+    }
 
     public ToiJson() {
     }
 
-    public ToiJson(String st, String uid, String upd, String dl,
-                   String hl, String imageid, String syn, String id, String dm, String tn, String su) {
+    public ToiJson(String st, String uid, String upd, String dl, String hl, String imageid,
+                   String syn, String id, String dm, String tn, String su,
+                   String story, String photoStory) {
         this.st = st;
         this.uid = uid;
         this.upd = upd;
@@ -33,6 +52,8 @@ public class ToiJson {
         this.dm = dm;
         this.tn = tn;
         this.su = su;
+        this.story = story;
+        this.photoStory = photoStory;
     }
 
     public String getSt() {

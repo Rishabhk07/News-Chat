@@ -3,7 +3,6 @@ package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,9 @@ import com.daprlabs.cardstack.SwipeDeck;
 import com.example.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
-import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
-import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ public class RateNewFragment extends Fragment {
     private SwipeDeck swipeDeck;
     public  RateNewsAdapter.SwipeCardAdapter swipeCardAdapter;
     Button dislikeBtn , likeBtn;
-    ArrayList<ToiJson> newsArrayList = new ArrayList<>();
+    ArrayList<NewsJson> newsArrayList = new ArrayList<>();
     public static final String TAG = "RateNewsActivity";
     public RateNewFragment() {
         // Required empty public constructor
@@ -51,7 +50,7 @@ public class RateNewFragment extends Fragment {
         //Interface callback to show data after download
         onJsonRecieved onJsonRecieved = new onJsonRecieved() {
             @Override
-            public void onSuccess(ArrayList<ToiJson> fetchedNewsList) {
+            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
                 newsArrayList.addAll(fetchedNewsList);
                 swipeCardAdapter.notifyDataSetChanged();
             }

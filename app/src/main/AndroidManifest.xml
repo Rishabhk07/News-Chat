@@ -20,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.Activities.DetailNewsActivity"
+        <activity
+            android:name=".views.Activities.DetailNewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.Activities.FullStoryActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

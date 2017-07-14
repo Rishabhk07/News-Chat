@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
@@ -32,7 +33,7 @@ public class RateNewsAdapter {
 
     public static final String TAG = "Adapter";
 
-    public static SwipeCardAdapter getSwipeCardAdapter(ArrayList<ToiJson> newsList , Context context){
+    public static SwipeCardAdapter getSwipeCardAdapter(ArrayList<NewsJson> newsList , Context context){
         SwipeCardAdapter swipeCardAdapter = new SwipeCardAdapter(newsList , context);
         return swipeCardAdapter;
     }
@@ -41,10 +42,10 @@ public class RateNewsAdapter {
 
     public static class SwipeCardAdapter extends BaseAdapter{
 
-        private ArrayList<ToiJson> newsList ;
+        private ArrayList<NewsJson> newsList ;
         private Context context;
 
-        public SwipeCardAdapter(ArrayList<ToiJson> newsList , Context context) {
+        public SwipeCardAdapter(ArrayList<NewsJson> newsList , Context context) {
             this.newsList = newsList;
             this.context = context;
 //            Log.d(TAG, this.newsList.get(0).getHl().toString());
@@ -57,7 +58,7 @@ public class RateNewsAdapter {
         }
 
         @Override
-        public ToiJson getItem(int position) {
+        public NewsJson getItem(int position) {
             return newsList.get(position);
         }
 
@@ -111,10 +112,10 @@ public class RateNewsAdapter {
             return view;
         }
 
-        private void deatilNews(ToiJson toiJson , ImageView shared,TextView heading,TextView content) {
+        private void deatilNews(NewsJson toiJson , ImageView shared, TextView heading, TextView content) {
             Gson gson = new Gson();
             Intent i = new Intent(context , DetailNewsActivity.class);
-            i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(toiJson,ToiJson.class));
+            i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(toiJson,NewsJson.class));
             ActivityOptionsCompat options;
             options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,
                     Pair.create((View)shared,"shared"),

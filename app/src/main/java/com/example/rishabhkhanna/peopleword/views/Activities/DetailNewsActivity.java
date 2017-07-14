@@ -3,17 +3,22 @@ package com.example.rishabhkhanna.peopleword.views.Activities;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.rishabhkhanna.peopleword.R;
-import com.example.rishabhkhanna.peopleword.model.ToiJson;
+
+import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
@@ -25,7 +30,7 @@ public class DetailNewsActivity extends AppCompatActivity {
     TextView headTv ;
     TextView detailTV;
     ImageView imageViewNews;
-
+    BottomNavigationView navigationView;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,10 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
+        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         Intent  i = getIntent();
-        Gson gson = new Gson();
-        ToiJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),ToiJson.class);
+        final Gson gson = new Gson();
+        final NewsJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY),NewsJson.class);
         headTv.setText(thisNews.getHl());
         detailTV.setText(thisNews.getSyn());
 
@@ -66,5 +72,25 @@ public class DetailNewsActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_article:
+                        Intent i = new Intent(DetailNewsActivity.this,FullStoryActivity.class);
+                        i.putExtra(Constants.FULL_STORY_KEY,gson.toJson(thisNews));
+                        startActivity(i);
+                        break;
+                    case R.id.action_share:
+                        break;
+                    case R.id.action_chat:
+                        break;
+                }
+                return true;
+            }
+        });
+
     }
 }
