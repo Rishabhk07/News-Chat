@@ -1,0 +1,15 @@
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_photo_story"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.rishabhkhanna.peopleword.views.Activities.PhotoStoryActivity"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rvPhotoStory"></android.support.v7.widget.RecyclerView>
+</FrameLayout>

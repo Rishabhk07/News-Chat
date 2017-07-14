@@ -23,8 +23,12 @@
         <activity
             android:name=".views.Activities.DetailNewsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.Activities.FullStoryActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".views.Activities.FullStoryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.Activities.PhotoStoryActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

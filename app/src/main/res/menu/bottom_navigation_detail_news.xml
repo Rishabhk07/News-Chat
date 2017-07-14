@@ -17,7 +17,7 @@
         android:id="@+id/action_article"
         android:enabled="true"
         android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
-        android:title="Full Photostory"
+        android:title="Full Story"
         />
 
 </menu>
