@@ -1,7 +1,9 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ public class FullStoryActivity extends AppCompatActivity {
     AppBarLayout appBarLayout;
     Boolean appBarExtented = true;
     Toolbar toolbar;
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +41,12 @@ public class FullStoryActivity extends AppCompatActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         ivFullStory = (ImageView) findViewById(R.id.ivFullStory);
         tvFullStory = (TextView) findViewById(R.id.tvFullStory);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctFullStory);
 //        setSupportActionBar(toolbar);
 //        ActionBar actionBar = getSupportActionBar();
-//
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setTitle("");
-
+//        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
+//        collapsingToolbarLayout.home
         Gson gson = new Gson();
         NewsJson thisNews = gson.fromJson(getIntent().getStringExtra(Constants.FULL_STORY_KEY), NewsJson.class);
         Picasso.with(this)
@@ -61,19 +62,6 @@ public class FullStoryActivity extends AppCompatActivity {
                 tvFullStory.setText(Html.fromHtml(thisNews.getStory()));
             }
         }
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                // verticall == 0, appbar is fully extended
-                if (Math.abs(verticalOffset) > 200) {
-                    appBarExtented = false;
-                    invalidateOptionsMenu();
-                } else {
-                    appBarExtented = true;
-                    invalidateOptionsMenu();
-                }
-            }
-        });
     }
 
     @Override

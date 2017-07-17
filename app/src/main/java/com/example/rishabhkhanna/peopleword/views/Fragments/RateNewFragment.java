@@ -1,8 +1,12 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +21,16 @@ import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -30,6 +43,7 @@ public class RateNewFragment extends Fragment {
     public  RateNewsAdapter.SwipeCardAdapter swipeCardAdapter;
     Button dislikeBtn , likeBtn;
     ArrayList<NewsJson> newsArrayList = new ArrayList<>();
+    CallbackManager callbackManager;
     public static final String TAG = "RateNewsActivity";
     public RateNewFragment() {
         // Required empty public constructor
@@ -40,6 +54,12 @@ public class RateNewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("newsapp", Context.MODE_PRIVATE);
+
+        if((sharedPreferences.getString(Constants.LOGIN_TOKEN,"null")).equals("null")){
+            return getSignupPage(inflater,container);
+        }
+
         View root = inflater.inflate(R.layout.fragment_rate_new, container, false);
         swipeDeck = (SwipeDeck) root.findViewById(R.id.swipe_deck);
         likeBtn = (Button) root.findViewById(R.id.like_btn);
@@ -91,4 +111,45 @@ public class RateNewFragment extends Fragment {
         return root;
     }
 
+    private View getSignupPage(LayoutInflater inflater, ViewGroup container) {
+
+        View signup_root = inflater.inflate(R.layout.signup_login_layout,container,false);
+        final LoginButton loginButton = (LoginButton) signup_root.findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        loginButton.setFragment(this);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "onSuccess: accessToken" + loginResult.getAccessToken());
+                Log.d(TAG, "onSuccess: permissions" + loginResult.getRecentlyGrantedPermissions());
+                Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getToken());
+                Log.d(TAG, "onSuccess: application Id" + loginResult.getAccessToken().getApplicationId());
+                Log.d(TAG, "onSuccess: user_id" + loginResult.getAccessToken().getUserId());
+                Log.d(TAG, "onSuccess: isExpired" + loginResult.getAccessToken().isExpired());
+                Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
+
+                getActivity().recreate();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "onCancel: Cancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "onError: " + error.getMessage());
+            }
+        });
+        return signup_root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: request code" + requestCode );
+        Log.d(TAG, "onActivityResult: result code" + resultCode );
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+    }
 }

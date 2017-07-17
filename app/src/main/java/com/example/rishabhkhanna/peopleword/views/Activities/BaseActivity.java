@@ -1,6 +1,8 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -29,7 +32,11 @@ import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
+import com.facebook.FacebookSdk;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
 import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity
@@ -53,7 +60,6 @@ public class BaseActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
     }
 

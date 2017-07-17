@@ -1,8 +1,13 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
 import android.animation.Animator;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -24,6 +29,12 @@ import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 
 public class DetailNewsActivity extends AppCompatActivity {
 
@@ -94,6 +105,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.action_share:
+                        shareScreen();
                         break;
                     case R.id.action_chat:
                         break;
@@ -101,6 +113,49 @@ public class DetailNewsActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+    }
+
+    private void shareScreen() {
+        View root = getWindow().getDecorView().findViewById(R.id.activity_detail_news);
+        // step 1 , getting the drawing cache
+        View screenView = root.getRootView();
+        screenView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
+        screenView.setDrawingCacheEnabled(false);
+        // step 2, storing the bitmap in file
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/screenshots";
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            dir.mkdir();
+            File file = new File(dirPath, String.valueOf(System.currentTimeMillis()));
+
+            try {
+                FileOutputStream outputStream = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 85, outputStream);
+                outputStream.flush();
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            step 3, sharing the new bitmap saved
+            Uri uri = Uri.fromFile(file);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+
+            intent.putExtra(Intent.EXTRA_SUBJECT,"");
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            intent.putExtra(Intent.EXTRA_STREAM,uri);
+
+            try{
+                startActivity(Intent.createChooser(intent,"Share Screenshot"));
+            }catch (ActivityNotFoundException e){
+                e.printStackTrace();
+            }
+
+
+        }
 
     }
 }

@@ -3,6 +3,8 @@
     package="com.example.rishabhkhanna.peopleword">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -10,6 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
         <activity
             android:name=".views.Activities.BaseActivity"
             android:label="@string/title_activity_nav_drawer"
@@ -29,9 +33,6 @@
         <activity android:name=".views.Activities.PhotoStoryActivity"
             android:theme="@style/AppTheme.NoActionBar"
             >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.Activities.DetailNewsActivity" />
         </activity>
     </application>
 
