@@ -28,7 +28,7 @@
                 android:icon="@drawable/ic_menu_manage"
                 android:title="Edit Profile" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_signout"
                 android:icon="@drawable/ic_reply_black_24dp"
                 android:title="Signout" />
         </menu>

@@ -1,6 +1,8 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -28,11 +30,14 @@ import com.example.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -94,8 +99,13 @@ public class BaseActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_edit) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_signout) {
+            LoginManager.getInstance().logOut();
+            SharedPreferences sharedPreferences = getSharedPreferences("newsapp", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Constants.LOGIN_TOKEN,"null");
+            editor.apply();
+            fragment = new RateNewFragment();
         }
         fragmentTransaction.replace(R.id.flActivity_main,fragment).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
