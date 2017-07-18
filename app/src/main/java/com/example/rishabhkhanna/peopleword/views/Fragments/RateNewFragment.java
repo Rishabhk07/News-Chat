@@ -27,11 +27,15 @@ import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.User;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
@@ -53,7 +57,7 @@ public class RateNewFragment extends Fragment {
     CallbackManager callbackManager;
     SharedPreferences sharedPreferences;
     public static final String TAG = "RateNewsActivity";
-
+    AccessTokenTracker accessTokenTracker;
     public RateNewFragment() {
         // Required empty public constructor
     }
@@ -64,8 +68,13 @@ public class RateNewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         sharedPreferences = getActivity().getSharedPreferences("newsapp", Context.MODE_PRIVATE);
+        if(Profile.getCurrentProfile() != null){
+            Log.d(TAG, "onCreateView: " + Profile.getCurrentProfile().getName());
+            Log.d(TAG, "onCreateView: " + AccessToken.getCurrentAccessToken().getToken());
 
+        }
         if ((sharedPreferences.getString(Constants.LOGIN_TOKEN, "null")).equals("null")) {
+            callbackManager = CallbackManager.Factory.create();
             return getSignupPage(inflater, container);
         }
 
@@ -119,33 +128,43 @@ public class RateNewFragment extends Fragment {
     }
 
     private View getSignupPage(LayoutInflater inflater, ViewGroup container) {
-
+        FacebookSdk.sdkInitialize(getContext());
         View signup_root = inflater.inflate(R.layout.signup_login_layout, container, false);
         final ProgressBar progressBar = (ProgressBar) signup_root.findViewById(R.id.marker_progress);
         final LoginButton loginButton = (LoginButton) signup_root.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         loginButton.setFragment(this);
-        callbackManager = CallbackManager.Factory.create();
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-                progressBar.setVisibility(View.VISIBLE);
-                loginButton.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.VISIBLE);
+//                loginButton.setVisibility(View.GONE);
                 Log.d(TAG, "onSuccess: accessToken" + loginResult.getAccessToken());
                 Log.d(TAG, "onSuccess: permissions" + loginResult.getRecentlyGrantedPermissions());
                 Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getToken());
+                Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getExpires().toString());
                 Log.d(TAG, "onSuccess: application Id" + loginResult.getAccessToken().getApplicationId());
                 Log.d(TAG, "onSuccess: user_id" + loginResult.getAccessToken().getUserId());
                 Log.d(TAG, "onSuccess: isExpired" + loginResult.getAccessToken().isExpired());
-                Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
+                if(Profile.getCurrentProfile() == null){
+                    ProfileTracker profileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                            Profile.setCurrentProfile(currentProfile);
+                            this.stopTracking();
+                        }
+                    };
+                }else{
+                    Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
+                }
+
 
 
                 API.getInstance()
                         .retrofit
                         .create(getAuth.class)
                         .userAuth(
-                                Profile.getCurrentProfile().getFirstName(),
-                                Profile.getCurrentProfile().getLastName(),
                                 loginResult.getAccessToken().getToken(),
                                 loginResult.getAccessToken().getUserId()
                         ).enqueue(new Callback<User>() {
@@ -168,6 +187,8 @@ public class RateNewFragment extends Fragment {
                         Log.d(TAG, "onFailure: " + call.request());
                         Log.d(TAG, "onFailure: " + t.getMessage());
                         loginButton.setVisibility(View.VISIBLE);
+                        LoginManager.getInstance().logOut();
+                        Toast.makeText(getActivity(), "Cannot Login Right Now", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -183,6 +204,33 @@ public class RateNewFragment extends Fragment {
                 Log.d(TAG, "onError: " + error.getMessage());
             }
         });
+//
+
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if(currentAccessToken != null) {
+                    AccessToken.setCurrentAccessToken(currentAccessToken);
+                }
+            }
+        };
+
+        accessTokenTracker.startTracking();
+
+
+
+//        AccessToken.refreshCurrentAccessTokenAsync(new AccessToken.AccessTokenRefreshCallback() {
+//            @Override
+//            public void OnTokenRefreshed(AccessToken accessToken) {
+//
+//            }
+//
+//            @Override
+//            public void OnTokenRefreshFailed(FacebookException exception) {
+//
+//            }
+//        });
         return signup_root;
     }
 
@@ -192,5 +240,11 @@ public class RateNewFragment extends Fragment {
         Log.d(TAG, "onActivityResult: request code" + requestCode);
         Log.d(TAG, "onActivityResult: result code" + resultCode);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        accessTokenTracker.stopTracking();
+        super.onDestroy();
     }
 }

@@ -15,8 +15,6 @@ public interface getAuth {
     @FormUrlEncoded
     @POST("/auth")
     Call<User> userAuth(
-            @Field("first_name") String first,
-            @Field("last_name") String last,
             @Field("access_token") String access_token,
             @Field("user_id") String user_id
             );
