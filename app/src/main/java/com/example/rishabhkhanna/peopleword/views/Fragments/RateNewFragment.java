@@ -214,7 +214,21 @@ public class RateNewFragment extends Fragment {
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                 if(currentAccessToken != null) {
                     AccessToken.setCurrentAccessToken(currentAccessToken);
-                    API.
+                    API.getInstance().retrofit
+                            .create(getAuth.class)
+                            .facebookTokenUpdate(currentAccessToken.getToken(),currentAccessToken.getUserId())
+                            .enqueue(new Callback<AuthResponse>() {
+                                @Override
+                                public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                                    Log.d(TAG, "onResponse: " + response.body());
+                                    Log.d(TAG, "onResponse: " + response.body().getUser().getName());
+                                }
+
+                                @Override
+                                public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+                                }
+                            });
                 }
             }
         };

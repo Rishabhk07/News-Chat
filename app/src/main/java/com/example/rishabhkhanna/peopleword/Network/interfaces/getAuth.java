@@ -21,5 +21,8 @@ public interface getAuth {
             );
     @FormUrlEncoded
     @POST("auth/fbUpdateAcessToken")
-    Call<AuthResponse> facebookTokenUpdate
+    Call<AuthResponse> facebookTokenUpdate(
+            @Field("access_token") String access_token,
+            @Field("user_id") String user_id
+    );
 }
