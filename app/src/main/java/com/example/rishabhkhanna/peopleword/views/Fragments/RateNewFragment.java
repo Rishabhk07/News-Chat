@@ -212,6 +212,7 @@ public class RateNewFragment extends Fragment {
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                 if(currentAccessToken != null) {
                     AccessToken.setCurrentAccessToken(currentAccessToken);
+
                 }
             }
         };
