@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Fragments.PageAllNewsFragment;
 
@@ -30,55 +31,57 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         //get Item is called to instantite the fragment for the given page
         // write login for which fragment to return
 
-        switch (position) {
-            case 0:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.BRIEFS_URL);
-                return newsFragment;
-            case 1:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.TOP_URL);
-                return newsFragment;
-            case 2:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.ENTERTAINMENT_URL);
-                return newsFragment;
-            case 3:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.INDIA_URL);
-                return newsFragment;
-            case 4:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.WORLD_URL);
-                return newsFragment;
-            case 5:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.SPORTS_URL);
-                return newsFragment;
-            case 6:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.CRICKET_URL);
-                return newsFragment;
-            case 7:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.BUSINESS_URL);
-                return newsFragment;
-            case 8:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.EDUCATION_URL);
-                return newsFragment;
-            case 9:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.TV_URL);
-                return newsFragment;
-            case 10:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.AUTOMOTIVE_URL);
-                return newsFragment;
-            case 11:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.LIFESTYLE_URL);
-                return newsFragment;
-            case 12:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.ENVIRONMENT_URL);
-                return newsFragment;
-            case 13:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.GOODGOV_URL);
-                return newsFragment;
-            case 14:
-                newsFragment = PageAllNewsFragment.newInstance(Constants.EVENTS_URL);
-                return newsFragment;
+//        switch (position) {
+//            case 0:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.BRIEFS_URL);
+//                return newsFragment;
+//            case 1:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.TOP_URL);
+//                return newsFragment;
+//            case 2:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.ENTERTAINMENT_URL);
+//                return newsFragment;
+//            case 3:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.INDIA_URL);
+//                return newsFragment;
+//            case 4:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.WORLD_URL);
+//                return newsFragment;
+//            case 5:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.SPORTS_URL);
+//                return newsFragment;
+//            case 6:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.CRICKET_URL);
+//                return newsFragment;
+//            case 7:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.BUSINESS_URL);
+//                return newsFragment;
+//            case 8:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.EDUCATION_URL);
+//                return newsFragment;
+//            case 9:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.TV_URL);
+//                return newsFragment;
+//            case 10:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.AUTOMOTIVE_URL);
+//                return newsFragment;
+//            case 11:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.LIFESTYLE_URL);
+//                return newsFragment;
+//            case 12:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.ENVIRONMENT_URL);
+//                return newsFragment;
+//            case 13:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.GOODGOV_URL);
+//                return newsFragment;
+//            case 14:
+//                newsFragment = PageAllNewsFragment.newInstance(Constants.EVENTS_URL);
+//                return newsFragment;
+//
+//        }
 
-        }
-        return null;
+        newsFragment = PageAllNewsFragment.newInstance(position);
+        return newsFragment;
 
     }
 
