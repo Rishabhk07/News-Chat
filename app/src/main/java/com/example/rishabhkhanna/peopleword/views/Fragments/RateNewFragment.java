@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.R;
-import com.example.rishabhkhanna.peopleword.model.NewsJson;
+import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.User;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
@@ -38,10 +37,10 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -138,8 +137,8 @@ public class RateNewFragment extends Fragment {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
-//                progressBar.setVisibility(View.VISIBLE);
-//                loginButton.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                loginButton.setVisibility(View.GONE);
                 Log.d(TAG, "onSuccess: accessToken" + loginResult.getAccessToken());
                 Log.d(TAG, "onSuccess: permissions" + loginResult.getRecentlyGrantedPermissions());
                 Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getToken());
@@ -164,14 +163,17 @@ public class RateNewFragment extends Fragment {
                 API.getInstance()
                         .retrofit
                         .create(getAuth.class)
-                        .userAuth(
+                        .facebookUserAuth(
                                 loginResult.getAccessToken().getToken(),
                                 loginResult.getAccessToken().getUserId()
-                        ).enqueue(new Callback<User>() {
+                        ).enqueue(new Callback<AuthResponse>() {
                     @Override
-                    public void onResponse(retrofit2.Call<User> call, Response<User> response) {
+                    public void onResponse(retrofit2.Call<AuthResponse> call, Response<AuthResponse> response) {
 
-                        Log.d(TAG, "onResponse: " + response.body());
+                        Log.d(TAG, "onResponse: " + response);
+                        Log.d(TAG, "onResponse: " + response.body().getUser().getName());
+                        Log.d(TAG, "onResponse: " + response.body().getUser().getEmail());
+
                         Log.d(TAG, "onResponse: " + call.request());
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(Constants.LOGIN_TOKEN,loginResult.getAccessToken().getToken());
@@ -182,7 +184,7 @@ public class RateNewFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
                         Log.d(TAG, "onFailure: " + call.request());
                         Log.d(TAG, "onFailure: " + t.getMessage());
@@ -212,12 +214,12 @@ public class RateNewFragment extends Fragment {
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                 if(currentAccessToken != null) {
                     AccessToken.setCurrentAccessToken(currentAccessToken);
-
+                    API.
                 }
             }
         };
 
-        accessTokenTracker.startTracking();
+
 
 
 
@@ -245,7 +247,9 @@ public class RateNewFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        accessTokenTracker.stopTracking();
+        if(accessTokenTracker != null) {
+            accessTokenTracker.stopTracking();
+        }
         super.onDestroy();
     }
 }
