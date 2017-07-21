@@ -19,6 +19,7 @@ import com.daprlabs.cardstack.SwipeDeck;
 import com.example.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
 import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.Network.API;
+import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
@@ -84,23 +85,67 @@ public class RateNewFragment extends Fragment {
 
         swipeCardAdapter = RateNewsAdapter.getSwipeCardAdapter(newsArrayList, getContext());
         swipeDeck.setAdapter(swipeCardAdapter);
-        //Interface callback to show data after download
-        onJsonRecieved onJsonRecieved = new onJsonRecieved() {
+
+        //event CallBack
+        swipeDeck.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
-            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
-                newsArrayList.addAll(fetchedNewsList);
-                swipeCardAdapter.notifyDataSetChanged();
+            public void cardSwipedLeft(int position) {
+                newsArrayList.get(position);
             }
 
             @Override
-            public void onError(VolleyError error) {
-                Log.d(TAG, "onError: " + error);
-                Toast.makeText(getActivity(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
+            public void cardSwipedRight(int position) {
+
             }
-        };
+
+            @Override
+            public void cardsDepleted() {
+
+            }
+
+            @Override
+            public void cardActionDown() {
+
+            }
+
+            @Override
+            public void cardActionUp() {
+
+            }
+        });
+
+
+        //Interface callback to show data after download
+//        onJsonRecieved onJsonRecieved = new onJsonRecieved() {
+//            @Override
+//            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
+//                newsArrayList.addAll(fetchedNewsList);
+//                swipeCardAdapter.notifyDataSetChanged();
+//            }
+
+//            @Override
+//            public void onError(VolleyError error) {
+//                Log.d(TAG, "onError: " + error);
+//                Toast.makeText(getActivity(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
+//            }
+//        };
 
         //get Toi data
-        FetchNews.getNewsJson(getActivity(), onJsonRecieved);
+//        FetchNews.getNewsJson(getActivity(), onJsonRecieved);
+
+
+        NewsAPI.getInstance().getNews.getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
+            @Override
+            public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                    newsArrayList.addAll(response.body());
+                    swipeCardAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+
+            }
+        });
 
         //button click listner
         likeBtn.setOnClickListener(new View.OnClickListener() {
