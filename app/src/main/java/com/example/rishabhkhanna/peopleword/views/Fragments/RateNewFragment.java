@@ -21,6 +21,8 @@ import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
+import com.example.rishabhkhanna.peopleword.Network.interfaces.getNews;
+import com.example.rishabhkhanna.peopleword.Network.interfaces.rateNews;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
@@ -58,6 +60,7 @@ public class RateNewFragment extends Fragment {
     SharedPreferences sharedPreferences;
     public static final String TAG = "RateNewsActivity";
     AccessTokenTracker accessTokenTracker;
+
     public RateNewFragment() {
         // Required empty public constructor
     }
@@ -68,7 +71,7 @@ public class RateNewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         sharedPreferences = getActivity().getSharedPreferences("newsapp", Context.MODE_PRIVATE);
-        if(Profile.getCurrentProfile() != null){
+        if (Profile.getCurrentProfile() != null) {
             Log.d(TAG, "onCreateView: " + Profile.getCurrentProfile().getName());
             Log.d(TAG, "onCreateView: " + AccessToken.getCurrentAccessToken().getToken());
 
@@ -90,11 +93,58 @@ public class RateNewFragment extends Fragment {
         swipeDeck.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
-                newsArrayList.get(position);
+                Log.d(TAG, "cardSwipedLeft: ");
+                NewsJson swipedNews = newsArrayList.get(position);
+                String token = AccessToken.getCurrentAccessToken().getToken();
+                String userID = AccessToken.getCurrentAccessToken().getUserId();
+                API.getInstance()
+                        .retrofit
+                        .create(rateNews.class)
+                        .dislikeNews(
+                                token,
+                                userID,
+                                swipedNews.getMsid(),
+                                String.valueOf(swipedNews.getId())
+                        ).enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
+                        Log.d(TAG, "onResponse: " + call.request());
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + call.request());
+                    }
+                });
             }
 
             @Override
             public void cardSwipedRight(int position) {
+                Log.d(TAG, "cardSwipedRight: ");
+                NewsJson swipedNews = newsArrayList.get(position);
+                String token = AccessToken.getCurrentAccessToken().getToken();
+                String userID = AccessToken.getCurrentAccessToken().getUserId();
+                API.getInstance()
+                        .retrofit
+                        .create(rateNews.class)
+                        .likeNews(
+                                token,
+                                userID,
+                                swipedNews.getMsid(),
+                                String.valueOf(swipedNews.getId())
+                        ).enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
+                        Log.d(TAG, "onResponse: " + call.request());
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + call.request());
+                    }
+                });
 
             }
 
@@ -134,11 +184,28 @@ public class RateNewFragment extends Fragment {
 //        FetchNews.getNewsJson(getActivity(), onJsonRecieved);
 
 
-        NewsAPI.getInstance().getNews.getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
+//        NewsAPI.getInstance().getNews.getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+//                newsArrayList.addAll(response.body());
+//                swipeCardAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+//
+//            }
+//        });
+
+
+        API.getInstance()
+                .retrofit
+                .create(getNews.class)
+                .getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
             @Override
             public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                    newsArrayList.addAll(response.body());
-                    swipeCardAdapter.notifyDataSetChanged();
+                newsArrayList.addAll(response.body());
+                swipeCardAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -191,7 +258,7 @@ public class RateNewFragment extends Fragment {
                 Log.d(TAG, "onSuccess: application Id" + loginResult.getAccessToken().getApplicationId());
                 Log.d(TAG, "onSuccess: user_id" + loginResult.getAccessToken().getUserId());
                 Log.d(TAG, "onSuccess: isExpired" + loginResult.getAccessToken().isExpired());
-                if(Profile.getCurrentProfile() == null){
+                if (Profile.getCurrentProfile() == null) {
                     ProfileTracker profileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
@@ -199,10 +266,9 @@ public class RateNewFragment extends Fragment {
                             this.stopTracking();
                         }
                     };
-                }else{
+                } else {
                     Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
                 }
-
 
 
                 API.getInstance()
@@ -221,8 +287,8 @@ public class RateNewFragment extends Fragment {
 
                         Log.d(TAG, "onResponse: " + call.request());
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(Constants.LOGIN_TOKEN,loginResult.getAccessToken().getToken());
-                        editor.putString(Constants.LOGIN_USER_ID,loginResult.getAccessToken().getUserId());
+                        editor.putString(Constants.LOGIN_TOKEN, loginResult.getAccessToken().getToken());
+                        editor.putString(Constants.LOGIN_USER_ID, loginResult.getAccessToken().getUserId());
                         editor.apply();
                         progressBar.setVisibility(View.GONE);
                         getActivity().recreate();
@@ -257,11 +323,11 @@ public class RateNewFragment extends Fragment {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if(currentAccessToken != null) {
+                if (currentAccessToken != null) {
                     AccessToken.setCurrentAccessToken(currentAccessToken);
                     API.getInstance().retrofit
                             .create(getAuth.class)
-                            .facebookTokenUpdate(currentAccessToken.getToken(),currentAccessToken.getUserId())
+                            .facebookTokenUpdate(currentAccessToken.getToken(), currentAccessToken.getUserId())
                             .enqueue(new Callback<AuthResponse>() {
                                 @Override
                                 public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
@@ -277,9 +343,6 @@ public class RateNewFragment extends Fragment {
                 }
             }
         };
-
-
-
 
 
 //        AccessToken.refreshCurrentAccessTokenAsync(new AccessToken.AccessTokenRefreshCallback() {
@@ -306,7 +369,7 @@ public class RateNewFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        if(accessTokenTracker != null) {
+        if (accessTokenTracker != null) {
             accessTokenTracker.stopTracking();
         }
         super.onDestroy();
