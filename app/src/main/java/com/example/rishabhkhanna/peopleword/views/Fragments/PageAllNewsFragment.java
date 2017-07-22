@@ -67,10 +67,111 @@ public class PageAllNewsFragment extends Fragment {
 
             position = getArguments().getInt(Constants.fragment_key);
             counter = 0;
-            setupCall(position,counter);
+            setupCall(position, counter);
             fetchFristApi = true;
         }
 
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
+
+        Log.d(TAG, "onCreateView: ");
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
+        rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
+        final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList, getContext());
+        String urlFirstPage = url + 0;
+        final onJsonRecieved onJsonRecieved = new onJsonRecieved() {
+            @Override
+            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
+                newsArrayList.addAll(fetchedNewsList);
+                allNewsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+                Log.d(TAG, "onError: " + error);
+                Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        //get Toi data
+        if (counter == 0 && fetchFristApi) {
+//            FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
+            setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                @Override
+                public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                    newsArrayList.addAll(response.body());
+                    allNewsAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "onResponse: " + call.request());
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                    Log.d(TAG, "onError: " + t.getMessage());
+                    Log.d(TAG, "onResponse: " + call.request());
+                }
+            });
+            fetchFristApi = false;
+        }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPage.setLayoutManager(linearLayoutManager);
+        rvPage.setAdapter(allNewsAdapter);
+
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                counter++;
+                Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count " + totalItemsCount + "counter: " + counter);
+                String nextPageUrl = url + counter;
+//                FetchNews.getUrlNews(getContext(), onJsonRecieved, nextPageUrl);
+                setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        newsArrayList.addAll(response.body());
+                        allNewsAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+
+                    }
+                });
+            }
+        };
+        rvPage.addOnScrollListener(scrollListener);
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                counter = 0;
+                setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        newsArrayList.clear();
+                        newsArrayList.addAll(response.body());
+                        allNewsAdapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                        Log.d(TAG, "onResponse: " + call.request());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                        Log.d(TAG, "onError: " + t.getMessage());
+                        Log.d(TAG, "onResponse: " + call.request());
+                    }
+                });
+
+            }
+        });
+
+        return root;
     }
 
 
@@ -123,84 +224,9 @@ public class PageAllNewsFragment extends Fragment {
                 break;
         }
 
-             return call;
+        return call;
 
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
-        Log.d(TAG, "onCreateView: ");
-        rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
-        final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList, getContext());
-        String urlFirstPage = url + 0;
-        final onJsonRecieved onJsonRecieved = new onJsonRecieved() {
-            @Override
-            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
-                newsArrayList.addAll(fetchedNewsList);
-                allNewsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-                Log.d(TAG, "onError: " + error);
-                Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        //get Toi data
-        if (counter == 0 && fetchFristApi) {
-//            FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
-            call.enqueue(new Callback<ArrayList<NewsJson>>() {
-                @Override
-                public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                    newsArrayList.addAll(response.body());
-                    allNewsAdapter.notifyDataSetChanged();
-                    Log.d(TAG, "onResponse: " + call.request());
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                    Log.d(TAG, "onError: " + t.getMessage());
-                    Log.d(TAG, "onResponse: " + call.request());
-                }
-            });
-            fetchFristApi = false;
-        }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rvPage.setLayoutManager(linearLayoutManager);
-        rvPage.setAdapter(allNewsAdapter);
-
-
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                counter++;
-                Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count " + totalItemsCount + "counter: " + counter);
-                String nextPageUrl = url + counter;
-//                FetchNews.getUrlNews(getContext(), onJsonRecieved, nextPageUrl);
-                setupCall(position,counter).enqueue(new Callback<ArrayList<NewsJson>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                        newsArrayList.addAll(response.body());
-                        allNewsAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-
-                    }
-                });
-            }
-        };
-        rvPage.addOnScrollListener(scrollListener);
-
-        return root;
-    }
-
-
-
 
 
 }
