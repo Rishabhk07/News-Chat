@@ -8,11 +8,11 @@
         </shape>
     </item>
     <item android:state_checked="true">
-        <shape android:shape="oval">
-            <corners android:radius="12dp" />
+        <shape android:shape="rectangle">
+            <corners android:radius="15dp" />
             <stroke android:width="2dp" android:color="@color/colorAccent" />
             <solid android:color="@color/colorAccent" />
-            <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
+            <padding android:bottom="4dp" android:left="12dp" android:right="12dp" android:top="4dp" />
         </shape>
     </item>
 </selector>

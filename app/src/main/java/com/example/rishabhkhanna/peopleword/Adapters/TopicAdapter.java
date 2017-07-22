@@ -37,19 +37,25 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     @Override
-    public void onBindViewHolder(TopicViewHolder holder, int position) {
+    public void onBindViewHolder(final TopicViewHolder holder, int position) {
             final Topic thisTopic = topicArrayList.get(position);
             holder.toggleButton.setText(thisTopic.getName());
             holder.toggleButton.setTextOn(thisTopic.getName());
             holder.toggleButton.setTextOff(thisTopic.getName());
-            sharedPreferences.edit().putBoolean(thisTopic.getKey(),false).apply();
+            if(sharedPreferences.getBoolean(thisTopic.getKey(),false)){
+                holder.toggleButton.setChecked(true);
+            }else{
+                holder.toggleButton.setChecked(false);
+            }
             holder.toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
                         sharedPreferences.edit().putBoolean(thisTopic.getKey(),true).apply();
+                        holder.toggleButton.setChecked(true);
                     }else{
                         sharedPreferences.edit().putBoolean(thisTopic.getKey(),false).apply();
+                        holder.toggleButton.setChecked(false);
                     }
                 }
             });
