@@ -157,12 +157,14 @@ public class PageAllNewsFragment extends Fragment {
                 public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
                     newsArrayList.addAll(response.body());
                     allNewsAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "onResponse: " + call.request());
                 }
 
                 @Override
                 public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
                     Log.d(TAG, "onError: " + t.getMessage());
                     Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onResponse: " + call.request());
                 }
             });
             fetchFristApi = false;

@@ -197,13 +197,16 @@ public class RateNewFragment extends Fragment {
 //            }
 //        });
 
-
+        ArrayList<String> arrayList = new ArrayList();
+        arrayList.add("briefs");
+        arrayList.add("entertainment");
         API.getInstance()
                 .retrofit
-                .create(getNews.class)
-                .getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
+                .create(rateNews.class)
+                .getNews(AccessToken.getCurrentAccessToken().getUserId(),arrayList).enqueue(new Callback<ArrayList<NewsJson>>() {
             @Override
             public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                Log.d(TAG, "onResponse: " + call.request());
                 newsArrayList.addAll(response.body());
                 swipeCardAdapter.notifyDataSetChanged();
             }

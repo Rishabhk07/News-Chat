@@ -30,5 +30,9 @@ public class Constants {
     public static final String LOGIN_TOKEN = "login_token";
     public static final String LOGIN_USER_ID = "login_token";
 
+    //
+
+    public static final String TOPIC_NAME = "topic_name";
+
 
 }

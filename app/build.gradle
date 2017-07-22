@@ -41,5 +41,6 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.google.android:flexbox:0.3.0'
     testCompile 'junit:junit:4.12'
 }
