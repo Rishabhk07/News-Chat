@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rishabhkhanna.peopleword.Adapters.TopicAdapter;
+import com.example.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
+import com.example.rishabhkhanna.peopleword.Interfaces.TouchHelper;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.google.android.flexbox.AlignContent;
@@ -45,6 +48,9 @@ public class NewsTopic extends Fragment {
         flexboxLayoutManager.setJustifyContent(JustifyContent.CENTER);
         recyclerViewTopic.setLayoutManager(flexboxLayoutManager);
         recyclerViewTopic.setAdapter(topicAdapter);
+        ItemTouchHelper.Callback callback = new TouchHelper(topicAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerViewTopic);
         return root;
     }
 
