@@ -7,6 +7,8 @@ package com.example.rishabhkhanna.peopleword.utils;
 public class Constants {
     public static final String fragment_key = "url_key";
     public static final String DETAIL_NEWS_KEY = "detail";
+    public static final String USER_TOPICS_LIST = "user_list";
+    public static final String USER_TOPIC_POS = "user_topics";
 
 //    urls
     public static final String BRIEFS_URL = "http://139.59.35.58:90/test/fetch/briefs/";

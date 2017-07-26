@@ -35,6 +35,7 @@ import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
+import com.example.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
@@ -97,8 +98,8 @@ public class BaseActivity extends AppCompatActivity
 
             fragment = new NewsTopic();
 
-        } else if (id == R.id.nav_edit) {
-
+        } else if (id == R.id.nav_your_news) {
+            fragment = new YourNewsFragment();
         } else if (id == R.id.nav_signout) {
             LoginManager.getInstance().logOut();
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);

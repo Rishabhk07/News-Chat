@@ -12,7 +12,7 @@
             android:icon="@drawable/ic_rate_review_black_24dp"
             android:title="Rate News" />
         <item
-            android:id="@+id/nav_word"
+            android:id="@+id/nav_your_news"
             android:icon="@drawable/ic_recent_actors_black_24dp"
             android:title="Your News" />
         <item

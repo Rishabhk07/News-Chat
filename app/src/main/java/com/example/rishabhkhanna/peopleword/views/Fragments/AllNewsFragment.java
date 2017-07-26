@@ -43,7 +43,7 @@ public class AllNewsFragment extends Fragment {
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         allNewsViewPager.setAdapter(viewPagerAdapter);
         tabLayoutAllNews.setupWithViewPager(allNewsViewPager);
-            return root;
+        return root;
     }
 
 }

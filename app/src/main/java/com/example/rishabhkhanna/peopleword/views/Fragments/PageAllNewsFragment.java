@@ -77,7 +77,7 @@ public class PageAllNewsFragment extends Fragment {
             }else{
                 authDetails = new AuthDetails("null","null");
             }
-            setupCall(position, counter);
+//            setupCall(position, counter);
             fetchFristApi = true;
         }
 
@@ -93,20 +93,6 @@ public class PageAllNewsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
         rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList, getContext());
-        String urlFirstPage = url + 0;
-        final onJsonRecieved onJsonRecieved = new onJsonRecieved() {
-            @Override
-            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
-                newsArrayList.addAll(fetchedNewsList);
-                allNewsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-                Log.d(TAG, "onError: " + error);
-                Toast.makeText(getContext(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
-            }
-        };
 
         //get Toi data
         if (counter == 0 && fetchFristApi) {
@@ -206,7 +192,7 @@ public class PageAllNewsFragment extends Fragment {
                 call = NewsAPI.getInstance().getNews.getWorldNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
                 break;
             case 5:
-                call = NewsAPI.getInstance().getNews.getSports(String.valueOf(counter));
+                call = NewsAPI.getInstance().getNews.getSports(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
                 break;
             case 6:
                 call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());

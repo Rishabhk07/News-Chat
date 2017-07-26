@@ -2,18 +2,21 @@ package com.example.rishabhkhanna.peopleword.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.rishabhkhanna.peopleword.model.AuthDetails;
 import com.example.rishabhkhanna.peopleword.model.Topic;
 
 import java.util.ArrayList;
 
+import butterknife.internal.Utils;
+
 /**
  * Created by rishabhkhanna on 14/07/17.
  */
 
 public class UtilMethods {
-
+    public static final String TAG = "UtilMethods";
     public static String getImageurl(String urlId){
         return "http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 urlId + "&width=600&height=500&resizemode=1";
@@ -37,7 +40,7 @@ public class UtilMethods {
         selectedTopic.add(new Topic("Business","business"));
         selectedTopic.add(new Topic("Education","education"));
 
-        selectedTopic.add(new Topic("Life Style","life_stye"));
+        selectedTopic.add(new Topic("Life Style","life_style"));
         selectedTopic.add(new Topic("Automotive","automotive"));
         selectedTopic.add(new Topic("Environment","environment"));
         return selectedTopic;
@@ -49,6 +52,19 @@ public class UtilMethods {
         String user_id = sharedPreferences.getString(Constants.LOGIN_USER_ID,"null");
         AuthDetails details = new AuthDetails(token,user_id);
         return details;
+    }
+
+    public static final ArrayList<Topic> getUserTopics(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_NAME,Context.MODE_PRIVATE);
+        ArrayList<Topic> topics = new ArrayList<>();
+        ArrayList<Topic> totalTopics = UtilMethods.getTopics();
+        for(int i = 0 ;i < totalTopics.size(); i++){
+            if(sharedPreferences.getBoolean(totalTopics.get(i).getKey(),true)){
+                topics.add(totalTopics.get(i));
+            }
+        }
+        Log.d(TAG, "getUserTopics: " + topics.get(0));
+        return topics;
     }
 
 

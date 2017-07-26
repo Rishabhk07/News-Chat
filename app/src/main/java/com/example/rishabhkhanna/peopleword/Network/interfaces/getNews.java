@@ -62,7 +62,9 @@ public interface getNews {
     @FormUrlEncoded
     @POST(UrlConstants.SPORTS_URL + "{page}")
     Call<ArrayList<NewsJson>> getSports(
-            @Path("page") String page
+            @Path("page") String page,
+            @Field("auth_token") String token,
+            @Field("user_id") String user_id
     );
 
     @FormUrlEncoded
