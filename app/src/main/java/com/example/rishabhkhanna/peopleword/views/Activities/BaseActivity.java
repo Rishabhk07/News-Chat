@@ -101,9 +101,10 @@ public class BaseActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_signout) {
             LoginManager.getInstance().logOut();
-            SharedPreferences sharedPreferences = getSharedPreferences("newsapp", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(Constants.LOGIN_TOKEN,"null");
+            editor.putString(Constants.LOGIN_USER_ID,"null");
             editor.apply();
             fragment = new RateNewFragment();
         }

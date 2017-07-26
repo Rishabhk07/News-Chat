@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.accessibility.AccessibilityEventCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getNews;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.rateNews;
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.AuthDetails;
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.User;
@@ -60,7 +62,7 @@ public class RateNewFragment extends Fragment {
     SharedPreferences sharedPreferences;
     public static final String TAG = "RateNewsActivity";
     AccessTokenTracker accessTokenTracker;
-
+    AuthDetails authDetails;
     public RateNewFragment() {
         // Required empty public constructor
     }
@@ -70,11 +72,11 @@ public class RateNewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        sharedPreferences = getActivity().getSharedPreferences("newsapp", Context.MODE_PRIVATE);
-        if (Profile.getCurrentProfile() != null) {
-            Log.d(TAG, "onCreateView: " + Profile.getCurrentProfile().getName());
-            Log.d(TAG, "onCreateView: " + AccessToken.getCurrentAccessToken().getToken());
-
+        sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
+        if (AccessToken.getCurrentAccessToken() != null) {
+            authDetails = new AuthDetails(AccessToken.getCurrentAccessToken().getToken(), AccessToken.getCurrentAccessToken().getUserId());
+        }else{
+            authDetails = new AuthDetails("null","null");
         }
         if ((sharedPreferences.getString(Constants.LOGIN_TOKEN, "null")).equals("null")) {
             callbackManager = CallbackManager.Factory.create();
@@ -202,8 +204,8 @@ public class RateNewFragment extends Fragment {
         arrayList.add("entertainment");
         API.getInstance()
                 .retrofit
-                .create(rateNews.class)
-                .getNews(AccessToken.getCurrentAccessToken().getUserId(),arrayList).enqueue(new Callback<ArrayList<NewsJson>>() {
+                .create(getNews.class)
+                .getEntertainment("0",authDetails.getAuthToken(),authDetails.getUserId()).enqueue(new Callback<ArrayList<NewsJson>>() {
             @Override
             public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
                 Log.d(TAG, "onResponse: " + call.request());

@@ -28,11 +28,15 @@ public class Constants {
     public static final String FULL_STORY_KEY = "fullstory";
     public static final String SECTION_TITLE = "title";
     public static final String LOGIN_TOKEN = "login_token";
-    public static final String LOGIN_USER_ID = "login_token";
+    public static final String LOGIN_USER_ID = "login_user_id";
 
     //
 
     public static final String TOPIC_NAME = "topic_name";
+
+    //SharedPrefs DB name
+
+    public static final String AUTH_DETAILS = "newsapp";
 
 
 }

@@ -1,5 +1,9 @@
 package com.example.rishabhkhanna.peopleword.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.rishabhkhanna.peopleword.model.AuthDetails;
 import com.example.rishabhkhanna.peopleword.model.Topic;
 
 import java.util.ArrayList;
@@ -38,4 +42,15 @@ public class UtilMethods {
         selectedTopic.add(new Topic("Environment","environment"));
         return selectedTopic;
     }
+
+    public static final AuthDetails getAuthDetails(Context context, String dbName){
+        SharedPreferences  sharedPreferences  = context.getSharedPreferences(dbName,Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(Constants.LOGIN_TOKEN,"null");
+        String user_id = sharedPreferences.getString(Constants.LOGIN_USER_ID,"null");
+        AuthDetails details = new AuthDetails(token,user_id);
+        return details;
+    }
+
+
+
 }
