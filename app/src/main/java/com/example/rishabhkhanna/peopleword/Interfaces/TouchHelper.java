@@ -27,6 +27,14 @@ public class TouchHelper extends ItemTouchHelper.Callback {
         return true;
     }
 
+
+
+    @Override
+    public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
+        mAdapter.onMoved(fromPos,toPos);
+        super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+    }
+
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
     }
@@ -35,6 +43,8 @@ public class TouchHelper extends ItemTouchHelper.Callback {
     public boolean isLongPressDragEnabled() {
         return true;
     }
+
+
 
     @Override
     public boolean isItemViewSwipeEnabled() {

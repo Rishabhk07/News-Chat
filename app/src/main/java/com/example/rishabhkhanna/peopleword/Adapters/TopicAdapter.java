@@ -11,13 +11,16 @@ import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import com.example.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
-import com.example.rishabhkhanna.peopleword.Interfaces.TouchHelper;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.Topic;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.Collections;
+
+import io.realm.OrderedCollectionChangeSet;
+import io.realm.OrderedRealmCollectionChangeListener;
+import io.realm.Realm;
+import io.realm.RealmList;
 
 /**
  * Created by rishabhkhanna on 22/07/17.
@@ -25,11 +28,11 @@ import java.util.Collections;
 
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> implements ItemTouchHelperAdapter{
     Context context;
-    ArrayList<Topic> topicArrayList;
+    RealmList<Topic> topicArrayList;
     SharedPreferences sharedPreferences;
 
     public static final String TAG = "TopicAdapter";
-    public TopicAdapter(Context context, ArrayList<Topic> topicArrayList) {
+    public TopicAdapter(Context context, RealmList<Topic> topicArrayList) {
         this.context = context;
         this.topicArrayList = topicArrayList;
         sharedPreferences =  context.getSharedPreferences(Constants.TOPIC_NAME,Context.MODE_PRIVATE);
@@ -74,18 +77,38 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        Log.d(TAG, "onItemMove: FROM " + fromPosition  + "TO "  + toPosition);
+
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         if(fromPosition < toPosition){
             for (int i = fromPosition; i < toPosition ;i++){
                 Collections.swap(topicArrayList,i,i+1);
+                swapPosition(topicArrayList,i,i+1);
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
                 Collections.swap(topicArrayList, i, i - 1);
+                swapPosition(topicArrayList,i,i-1);
             }
         }
-
+        realm.copyToRealmOrUpdate(topicArrayList);
+        realm.commitTransaction();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_POS_DB,Context.MODE_PRIVATE);
         notifyItemMoved(fromPosition,toPosition);
+
+
         return true;
+
+    }
+
+    @Override
+    public void onMoved(int fromPos, int toPosition) {
+        Log.d(TAG, "onMoved: " + toPosition);
+
+
+//        realm.commitTransaction();
+        Log.d(TAG, "onMoved: " + topicArrayList.get(toPosition));
 
     }
 
@@ -97,5 +120,15 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             toggleButton = (ToggleButton) itemView.findViewById(R.id.toggleButton);
         }
     }
+
+    public void swapPosition(RealmList<Topic> arraylist,int i ,int j){
+        Log.d(TAG, "swapPosition: shifted from " + i + " "+ j);
+        int iPos = arraylist.get(i).getPosition();
+        arraylist.get(i).setPosition(arraylist.get(j).getPosition());
+        arraylist.get(j).setPosition(iPos);
+
+    }
+
+
 
 }

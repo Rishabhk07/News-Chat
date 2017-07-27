@@ -6,4 +6,5 @@ package com.example.rishabhkhanna.peopleword.Interfaces;
 
 public interface ItemTouchHelperAdapter {
     boolean onItemMove(int fromPosition, int toPosition);
+    void onMoved(int fromPos, int toPosition);
 }

@@ -37,8 +37,33 @@ public class Constants {
     public static final String TOPIC_NAME = "topic_name";
 
     //SharedPrefs DB name
-
     public static final String AUTH_DETAILS = "newsapp";
+
+    //psfs News Topic Position Constants
+
+    public static final String BRIEF_POS = "brief_pos";
+    public static final String TOP_POS = "top_pos";
+    public static final String INDIA_POS = "india_pos";
+    public static final String WORLD_POS = "world_pos";
+    public static final String SPORTS_POS = "sports_pos";
+    public static final String CRICKET_POS = "cricket_pos";
+    public static final String BUSINESS_POS = "business_pos";
+    public static final String ENTERTAIN_POS = "entertainment_pos";
+    public static final String EDUCATION_POS = "education_pos";
+    public static final String ENVIRONMENT_POS = "environ_pos";
+    public static final String TV_POS = "tv_pos";
+    public static final String AUTOMOTIVE_POS = "automotive_pos";
+    public static final String LIFESTYLE_POS = "lifestyle_pos";
+    public static final String GOODGOV_POS = "goodgov_pos";
+
+    //Postition DB name
+
+    public static final String TOPIC_POS_DB = "topic_pos";
+
+    //
+
+    public static final String ALL_TOPIC = "all_topic";
+
 
 
 }

@@ -45,6 +45,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -63,7 +65,7 @@ public class BaseActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
+        Realm.init(this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -86,6 +88,7 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
         if (id == R.id.nav_rate_news) {
 
             fragment = new RateNewFragment();

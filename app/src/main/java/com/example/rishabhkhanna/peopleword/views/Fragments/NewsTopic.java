@@ -41,7 +41,7 @@ public class NewsTopic extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_news_topic, container, false);
         recyclerViewTopic = (RecyclerView) root.findViewById(R.id.rvTopic);
-        TopicAdapter topicAdapter = new TopicAdapter(getContext(), UtilMethods.getTopics());
+        TopicAdapter topicAdapter = new TopicAdapter(getContext(), UtilMethods.getTopics(getContext()));
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
         flexboxLayoutManager.setFlexWrap(FlexWrap.WRAP);
 
@@ -53,5 +53,7 @@ public class NewsTopic extends Fragment {
         touchHelper.attachToRecyclerView(recyclerViewTopic);
         return root;
     }
+
+
 
 }
