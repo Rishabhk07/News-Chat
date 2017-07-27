@@ -40,6 +40,17 @@ public class NewsJson {
     @SerializedName("updatedAt")
     private String mUpdatedAt;
 
+    @SerializedName("users")
+    private List<User> mUser;
+
+    public List<User> getmUser() {
+        return mUser;
+    }
+
+    public void setmUser(List<User> mUser) {
+        this.mUser = mUser;
+    }
+
     public String getCreatedAt() {
         return mCreatedAt;
     }

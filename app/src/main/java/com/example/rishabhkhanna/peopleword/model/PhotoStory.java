@@ -1,13 +1,17 @@
 
 package com.example.rishabhkhanna.peopleword.model;
 
+
 import com.google.gson.annotations.SerializedName;
 
 
+@SuppressWarnings("unused")
 public class PhotoStory {
 
     @SerializedName("ag")
     private String mAg;
+    @SerializedName("au")
+    private String mAu;
     @SerializedName("cap")
     private String mCap;
     @SerializedName("dl")
@@ -37,6 +41,14 @@ public class PhotoStory {
 
     public void setAg(String ag) {
         mAg = ag;
+    }
+
+    public String getAu() {
+        return mAu;
+    }
+
+    public void setAu(String au) {
+        mAu = au;
     }
 
     public String getCap() {

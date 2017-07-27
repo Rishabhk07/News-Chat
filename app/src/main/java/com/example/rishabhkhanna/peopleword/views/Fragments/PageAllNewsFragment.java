@@ -101,6 +101,11 @@ public class PageAllNewsFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
                     if(response.body() != null) {
+                        if(!response.body().get(0).getmUser().isEmpty()){
+                            Log.d(TAG, "onResponse: User Rating" +
+                                    response.body().get(0).getmUser().get(0).getEmail() + " Rating: "
+                                    + response.body().get(0).getmUser().get(0).getmUserTable().getRating());
+                        }
                         newsArrayList.addAll(response.body());
                     }
                     allNewsAdapter.notifyDataSetChanged();

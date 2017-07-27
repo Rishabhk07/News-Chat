@@ -1,7 +1,6 @@
 
 package com.example.rishabhkhanna.peopleword.model;
 
-
 import com.google.gson.annotations.SerializedName;
 
 
@@ -12,8 +11,6 @@ public class User {
     private String mCreatedAt;
     @SerializedName("email")
     private String mEmail;
-    @SerializedName("facebook_access_token")
-    private String mFacebookAccessToken;
     @SerializedName("facebook_refresh_token")
     private Object mFacebookRefreshToken;
     @SerializedName("facebook_user_id")
@@ -33,6 +30,46 @@ public class User {
     @SerializedName("via")
     private Object mVia;
 
+
+    @SerializedName(value = "userbriefs", alternate = {"userautomotive","userbusiness","usercricket","usereducation","userenvironment",
+            "usergood_governances","userindia","userlife_style","usersports","usertop_news","usertv","userworld"})
+    private UserTable mUserTable;
+
+//    @SerializedName("userbriefs")
+//    private ArrayList<UserBriefs> mUserBriefs;
+//
+//    @SerializedName("userautomotive")
+//    private ArrayList<UserAutomotive> mUserAutomotive;
+//
+//    @SerializedName("userbusiness")
+//    private ArrayList<UserBusiness> mUserBusiness;
+//
+//    @SerializedName("usercricket")
+//    private ArrayList<UserCricket> mUserCricket;
+//
+//    @SerializedName("usereducation")
+//    private ArrayList<UserEducation> mUserEducation;
+//
+//    @SerializedName("userenvironment")
+//    private ArrayList<UserEnvironment> mUserEnvi;
+//
+//    @SerializedName("usergood_governances")
+//    private ArrayList<UserGoodgov> mUserGoodgov;
+//
+//    @SerializedName("userindia")
+//    private ArrayList<UserIndia> mUserIndia;
+//    @SerializedName("userlife_style")
+//    private ArrayList<UserLifestyle> mUserLifestyle;
+//    @SerializedName("usersports")
+//    private ArrayList<UserSports> mUserSports;
+//    @SerializedName("usertop_news")
+//    private ArrayList<UserTop> mUserTop;
+//    @SerializedName("usertv")
+//    private ArrayList<UserTv> mUserTv;
+// @SerializedName("userworld")
+//    private ArrayList<UserWorld> mUserWorld;
+
+
     public String getCreatedAt() {
         return mCreatedAt;
     }
@@ -47,14 +84,6 @@ public class User {
 
     public void setEmail(String email) {
         mEmail = email;
-    }
-
-    public String getFacebookAccessToken() {
-        return mFacebookAccessToken;
-    }
-
-    public void setFacebookAccessToken(String facebookAccessToken) {
-        mFacebookAccessToken = facebookAccessToken;
     }
 
     public Object getFacebookRefreshToken() {
@@ -128,5 +157,14 @@ public class User {
     public void setVia(Object via) {
         mVia = via;
     }
+//
+    public UserTable getmUserTable() {
+        return mUserTable;
+    }
+
+    public void setmUserTable(UserTable mUserTable) {
+        this.mUserTable = mUserTable;
+    }
+
 
 }
