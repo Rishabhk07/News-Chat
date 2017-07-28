@@ -105,12 +105,12 @@ public class UtilMethods {
         RealmList<Topic> totalTopics = UtilMethods.getTopics(context);
         if(totalTopics.size() != 0) {
             for (int i = 0; i < totalTopics.size(); i++) {
-                if (sharedPreferences.getBoolean(totalTopics.get(i).getKey(), true)) {
+                if (sharedPreferences.getBoolean(totalTopics.get(i).getKey(), false)) {
                     topics.add(totalTopics.get(i));
                 }
             }
         }
-        Log.d(TAG, "getUserTopics: " + topics.get(0));
+//        Log.d(TAG, "getUserTopics: " + topics.get(0));
         return topics;
     }
 
