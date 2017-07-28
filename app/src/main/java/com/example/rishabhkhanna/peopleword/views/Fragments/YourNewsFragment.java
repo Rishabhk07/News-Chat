@@ -12,7 +12,10 @@ import android.widget.TableLayout;
 
 import com.example.rishabhkhanna.peopleword.Adapters.YourNewsViewPagerAdapter;
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.Topic;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +37,15 @@ public class YourNewsFragment extends Fragment {
         View root =  inflater.inflate(R.layout.fragment_all_news_fragment, container, false);
         viewPager = (ViewPager) root.findViewById(R.id.vpAllNews);
         tabLayout  = (TabLayout) root.findViewById(R.id.tabLayoutAllNews);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        viewPagerAdapter = new YourNewsViewPagerAdapter(getChildFragmentManager(), UtilMethods.getUserTopics(getContext()),getContext());
+
+        ArrayList<Topic> selectedTopicList = UtilMethods.getUserTopics(getContext());
+
+        if(selectedTopicList.size() < 5){
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        }else {
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }
+        viewPagerAdapter = new YourNewsViewPagerAdapter(getChildFragmentManager(),selectedTopicList ,getContext());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
