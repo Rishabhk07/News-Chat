@@ -31,8 +31,8 @@ public class User {
     private Object mVia;
 
 
-    @SerializedName(value = "userbriefs", alternate = {"userautomotive","userbusiness","usercricket","usereducation","userenvironment",
-            "usergood_governances","userindia","userlife_style","usersports","usertop_news","usertv","userworld"})
+    @SerializedName(value = "userbriefs", alternate = {"userautomotive","userentertainment","userbusiness","usercricket","usereducation","userenvironment",
+            "usergood_governance","userindia","userlife_style","usersports","usertop_news","usertv","userworld","userevents"})
     private UserTable mUserTable;
 
 //    @SerializedName("userbriefs")

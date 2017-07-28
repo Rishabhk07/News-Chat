@@ -3,11 +3,13 @@ package com.example.rishabhkhanna.peopleword.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +43,29 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if(newsArrayList.size() > 0) {
+            if(newsArrayList.get(position).getmUser() != null && !newsArrayList.get(position).getmUser().isEmpty()) {
+                if (newsArrayList.get(position).getmUser().get(0).getmUserTable().getRating() == 1) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return 2;
+    }
+
+    @Override
     public AllnewsViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = li.inflate(R.layout.news_list_view,parent,false);
+        int layout = R.layout.news_list_view;
+        if(viewType == 1) {
+            layout = R.layout.news_list_green;
+        }else if(viewType == 0){
+            layout = R.layout.news_list_red;
+        }
+        View itemView = li.inflate(layout,parent,false);
         return new AllnewsViewholder(itemView);
     }
 
@@ -71,6 +93,22 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 context.startActivity(i,options.toBundle());
             }
         });
+
+//                if(thisJsonData.getmUser() != null) {
+//                    Log.d(TAG, "onBindViewHolder: NOTNUll");
+//                    if (!thisJsonData.getmUser().isEmpty()) {
+//                        long rating = thisJsonData.getmUser().get(0).getmUserTable().getRating();
+//                        Log.d(TAG, "onBindViewHolder: Email" + thisJsonData.getmUser().get(0).getEmail());
+//                        Log.d(TAG, "onBindViewHolder: " + thisJsonData.getmUser().get(0).getmUserTable().getRating());
+//                        if (rating == 1) {
+//                            holder.ivLike.setColorFilter(Color.GREEN);
+//                            holder.tvLikes.setTextColor(Color.GREEN);
+//                        } else if (rating == 0) {
+//                            holder.ivDislike.setColorFilter(Color.RED);
+//                            holder.tvDislikes.setTextColor(Color.RED);
+//                        }
+//                    }
+//                }
     }
 
     @Override
@@ -83,6 +121,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         TextView tvLikes;
         TextView tvDislikes;
         TextView tvChats;
+        ImageView ivLike;
+        ImageView ivDislike;
         ImageView ivNewsImage;
         CardView cvNewsList;
 
@@ -94,6 +134,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             ivNewsImage = (ImageView) itemView.findViewById(R.id.ivPageNews);
             tvChats = (TextView) itemView.findViewById(R.id.tvChats);
             cvNewsList = (CardView) itemView.findViewById(R.id.news_list_cv);
+            ivLike = (ImageView) itemView.findViewById(R.id.ivLike);
+            ivDislike = (ImageView) itemView.findViewById(R.id.ivDislike);
         }
     }
 }

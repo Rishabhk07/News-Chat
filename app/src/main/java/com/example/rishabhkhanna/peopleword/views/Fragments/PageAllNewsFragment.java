@@ -26,7 +26,7 @@ import com.example.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListe
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.facebook.AccessToken;
-import com.facebook.Profile;
+
 
 import java.util.ArrayList;
 
@@ -101,11 +101,11 @@ public class PageAllNewsFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
                     if(response.body() != null) {
-                        if(!response.body().get(0).getmUser().isEmpty()){
-                            Log.d(TAG, "onResponse: User Rating" +
-                                    response.body().get(0).getmUser().get(0).getEmail() + " Rating: "
-                                    + response.body().get(0).getmUser().get(0).getmUserTable().getRating());
-                        }
+//                        if(!response.body().get(0).getmUser().isEmpty()){
+//                            Log.d(TAG, "onResponse: User Rating" +
+//                                    response.body().get(0).getmUser().get(0).getEmail() + " Rating: "
+//                                    + response.body().get(0).getmUser().get(0).getmUserTable());
+//                        }
                         newsArrayList.addAll(response.body());
                     }
                     allNewsAdapter.notifyDataSetChanged();

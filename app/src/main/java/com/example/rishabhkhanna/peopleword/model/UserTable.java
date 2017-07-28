@@ -10,10 +10,9 @@ public class UserTable {
     private String mCreatedAt;
     @SerializedName("rating")
     private Long mRating;
-    @SerializedName(value = "automotiveId",alternate = {"userbriefsId",
-            "userautomotiveId","userbusinessId","usercricketId","usereducationId","userenvironmentId",
-            "usergood_governancesId","userindiaId","userlife_styleId",
-            "usersportsId","usertop_newsId","usertvId","userworldId"})
+    @SerializedName(value = "automotiveId",alternate = {"briefId","entertainmentId","businessId","cricketId","educationId","environmentId",
+            "goodGovernanceId","indiaId","life_styleId",
+            "sportsId","top_newsId","tvId","worldId","eventId"})
     private Long mTableId;
     @SerializedName("updatedAt")
     private String mUpdatedAt;
