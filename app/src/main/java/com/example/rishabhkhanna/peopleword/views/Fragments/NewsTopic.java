@@ -1,11 +1,8 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
@@ -13,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rishabhkhanna.peopleword.Adapters.TopicAdapter;
-import com.example.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
-import com.example.rishabhkhanna.peopleword.Interfaces.TouchHelper;
+import com.example.rishabhkhanna.peopleword.utils.TouchHelper;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
-import com.google.android.flexbox.AlignContent;
-import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;

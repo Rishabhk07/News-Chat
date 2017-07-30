@@ -26,7 +26,7 @@ public class UtilMethods {
     public static final String TAG = "UtilMethods";
     public static String getImageurl(String urlId){
         return "http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                urlId + "&width=600&height=500&resizemode=1";
+                urlId + "&width=1000&height=960&resizemode=1";
     }
 
     public static RealmList<Topic> getTopics(Context context){

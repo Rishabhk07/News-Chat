@@ -1,7 +1,9 @@
-package com.example.rishabhkhanna.peopleword.Interfaces;
+package com.example.rishabhkhanna.peopleword.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.example.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
 
 /**
  * Created by rishabhkhanna on 27/07/17.
