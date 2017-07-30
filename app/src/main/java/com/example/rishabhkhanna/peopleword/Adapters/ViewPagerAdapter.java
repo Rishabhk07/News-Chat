@@ -4,12 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
-import com.example.rishabhkhanna.peopleword.utils.Constants;
-import com.example.rishabhkhanna.peopleword.views.Fragments.PageAllNewsFragment;
+import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsPageFragment;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +20,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 //        pageFragmentList = Arrays.asList(new Fragment[9]);
     }
 
-    PageAllNewsFragment newsFragment;
+    AllNewsPageFragment newsFragment;
 
     @Override
     public Fragment getItem(int position) {
@@ -33,54 +29,54 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 //        switch (position) {
 //            case 0:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.BRIEFS_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.BRIEFS_URL);
 //                return newsFragment;
 //            case 1:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.TOP_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.TOP_URL);
 //                return newsFragment;
 //            case 2:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.ENTERTAINMENT_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.ENTERTAINMENT_URL);
 //                return newsFragment;
 //            case 3:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.INDIA_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.INDIA_URL);
 //                return newsFragment;
 //            case 4:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.WORLD_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.WORLD_URL);
 //                return newsFragment;
 //            case 5:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.SPORTS_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.SPORTS_URL);
 //                return newsFragment;
 //            case 6:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.CRICKET_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.CRICKET_URL);
 //                return newsFragment;
 //            case 7:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.BUSINESS_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.BUSINESS_URL);
 //                return newsFragment;
 //            case 8:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.EDUCATION_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.EDUCATION_URL);
 //                return newsFragment;
 //            case 9:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.TV_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.TV_URL);
 //                return newsFragment;
 //            case 10:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.AUTOMOTIVE_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.AUTOMOTIVE_URL);
 //                return newsFragment;
 //            case 11:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.LIFESTYLE_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.LIFESTYLE_URL);
 //                return newsFragment;
 //            case 12:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.ENVIRONMENT_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.ENVIRONMENT_URL);
 //                return newsFragment;
 //            case 13:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.GOODGOV_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.GOODGOV_URL);
 //                return newsFragment;
 //            case 14:
-//                newsFragment = PageAllNewsFragment.newInstance(Constants.EVENTS_URL);
+//                newsFragment = AllNewsPageFragment.newInstance(Constants.EVENTS_URL);
 //                return newsFragment;
 //
 //        }
 
-        newsFragment = PageAllNewsFragment.newInstance(position);
+        newsFragment = AllNewsPageFragment.newInstance(position);
         return newsFragment;
 
     }

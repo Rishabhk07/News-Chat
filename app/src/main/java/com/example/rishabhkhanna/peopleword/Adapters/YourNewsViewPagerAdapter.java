@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.rishabhkhanna.peopleword.model.Topic;
-import com.example.rishabhkhanna.peopleword.views.Fragments.PageAllNewsFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.YourNewsPageFragment;
 
 import java.util.ArrayList;

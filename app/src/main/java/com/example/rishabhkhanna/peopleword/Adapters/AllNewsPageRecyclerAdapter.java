@@ -73,8 +73,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
     public void onBindViewHolder(final AllnewsViewholder holder, int position) {
         final NewsJson thisJsonData = newsArrayList.get(position);
         holder.tvNewsHeading.setText(thisJsonData.getHl());
-        holder.tvLikes.setText(String.valueOf(new Random().nextInt(1000)));
-        holder.tvDislikes.setText(String.valueOf(new Random().nextInt(1000)));
+        holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
+        holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
         Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 thisJsonData.getImageid() + "&width=600&height=500&resizemode=1")
                 .noFade()

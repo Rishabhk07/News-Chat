@@ -41,6 +41,13 @@ public class NewsJson {
     @SerializedName("updatedAt")
     private String mUpdatedAt;
 
+
+    @SerializedName("likes")
+    private int likes;
+    @SerializedName("dislikes")
+    private int dislikes;
+
+
     @SerializedName("users")
     private List<User> mUser;
 
@@ -179,5 +186,22 @@ public class NewsJson {
     public void setUpdatedAt(String updatedAt) {
         mUpdatedAt = updatedAt;
     }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
 
 }

@@ -1,7 +1,6 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,19 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
-import com.example.rishabhkhanna.peopleword.Interfaces.onJsonRecieved;
 import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthDetails;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
-import com.example.rishabhkhanna.peopleword.utils.FetchNews;
-import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.facebook.AccessToken;
 
 
@@ -37,7 +31,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PageAllNewsFragment extends Fragment {
+public class AllNewsPageFragment extends Fragment {
 
     RecyclerView rvPage;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -48,14 +42,14 @@ public class PageAllNewsFragment extends Fragment {
     EndlessRecyclerViewScrollListener scrollListener;
     Call<ArrayList<NewsJson>> call;
     int position;
-    public static final String TAG = "PageAllNewsFragment";
+    public static final String TAG = "AllNewsPageFragment";
     AuthDetails authDetails;
-    public PageAllNewsFragment() {
+    public AllNewsPageFragment() {
         // Required empty public constructor
     }
 
-    public static PageAllNewsFragment newInstance(int position) {
-        PageAllNewsFragment newsFragment = new PageAllNewsFragment();
+    public static AllNewsPageFragment newInstance(int position) {
+        AllNewsPageFragment newsFragment = new AllNewsPageFragment();
         Bundle args = new Bundle();
 //        args.putString(Constants.fragment_key,url);
         args.putInt(Constants.fragment_key, position);
@@ -101,11 +95,6 @@ public class PageAllNewsFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
                     if(response.body() != null) {
-//                        if(!response.body().get(0).getmUser().isEmpty()){
-//                            Log.d(TAG, "onResponse: User Rating" +
-//                                    response.body().get(0).getmUser().get(0).getEmail() + " Rating: "
-//                                    + response.body().get(0).getmUser().get(0).getmUserTable());
-//                        }
                         newsArrayList.addAll(response.body());
                     }
                     allNewsAdapter.notifyDataSetChanged();
