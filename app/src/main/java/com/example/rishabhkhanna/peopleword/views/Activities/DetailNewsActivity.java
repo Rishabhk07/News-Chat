@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class DetailNewsActivity extends AppCompatActivity {
     ImageView imageViewNews;
     BottomNavigationView navigationView;
     LinearLayout linearLayout;
-
+    ProgressBar progressBar;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         Intent i = getIntent();
         final Gson gson = new Gson();
         final NewsJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
@@ -124,16 +126,16 @@ public class DetailNewsActivity extends AppCompatActivity {
     }
 
     private void shareScreen() {
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         linearLayout.setDrawingCacheEnabled(true);
         final Bitmap bitmap = linearLayout.getDrawingCache();
         new AsyncTask<Void,Void,Uri>(){
             @Override
             protected Uri doInBackground(Void... params) {
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
-
+//                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
                 String path = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,"Social News",null);
-
                 Uri uri = Uri.parse(path);
                 return uri;
             }
@@ -145,7 +147,11 @@ public class DetailNewsActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_STREAM,uri);
                 intent.putExtra(Intent.EXTRA_TEXT,"Download the Social News app now");
                 linearLayout.setDrawingCacheEnabled(false);
+
                 startActivity(Intent.createChooser(intent,"share using .."));
+
+                progressBar.setIndeterminate(false);
+                progressBar.setVisibility(View.GONE);
                 super.onPostExecute(uri);
             }
         }.execute();

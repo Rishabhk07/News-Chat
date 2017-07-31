@@ -74,6 +74,13 @@
                 android:paddingRight="15dp"
                 android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
                 android:transitionName="transContent"/>
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </ScrollView>
 
