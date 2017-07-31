@@ -17,12 +17,20 @@ public interface getAuth {
     @POST("auth/facebook")
     Call<AuthResponse> facebookUserAuth(
             @Field("access_token") String access_token,
-            @Field("user_id") String user_id
+            @Field("user_id") String user_id,
+            @Field("fcm_token") String fcm_token
             );
     @FormUrlEncoded
     @POST("auth/fbUpdateAcessToken")
     Call<AuthResponse> facebookTokenUpdate(
             @Field("access_token") String access_token,
             @Field("user_id") String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("auth/updateFcmToken")
+    Call<AuthResponse> fcmTokenUpdate(
+            @Field("token") String fcmToken,
+            @Field("user_id") String userId
     );
 }

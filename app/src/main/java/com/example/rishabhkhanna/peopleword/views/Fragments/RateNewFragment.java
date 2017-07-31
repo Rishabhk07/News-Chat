@@ -36,6 +36,7 @@ import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 
@@ -269,13 +270,14 @@ public class RateNewFragment extends Fragment {
                     Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
                 }
 
-
+                String fcm_token = FirebaseInstanceId.getInstance().getToken();
                 API.getInstance()
                         .retrofit
                         .create(getAuth.class)
                         .facebookUserAuth(
                                 loginResult.getAccessToken().getToken(),
-                                loginResult.getAccessToken().getUserId()
+                                loginResult.getAccessToken().getUserId(),
+                                fcm_token
                         ).enqueue(new Callback<AuthResponse>() {
                     @Override
                     public void onResponse(retrofit2.Call<AuthResponse> call, Response<AuthResponse> response) {
@@ -344,17 +346,6 @@ public class RateNewFragment extends Fragment {
         };
 
 
-//        AccessToken.refreshCurrentAccessTokenAsync(new AccessToken.AccessTokenRefreshCallback() {
-//            @Override
-//            public void OnTokenRefreshed(AccessToken accessToken) {
-//
-//            }
-//
-//            @Override
-//            public void OnTokenRefreshFailed(FacebookException exception) {
-//
-//            }
-//        });
         return signup_root;
     }
 
