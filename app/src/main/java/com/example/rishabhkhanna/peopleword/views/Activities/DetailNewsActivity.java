@@ -5,9 +5,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -18,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +34,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -43,12 +48,14 @@ public class DetailNewsActivity extends AppCompatActivity {
     TextView detailTV;
     ImageView imageViewNews;
     BottomNavigationView navigationView;
+    LinearLayout linearLayout;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_news);
+        linearLayout = (LinearLayout) findViewById(R.id.llDetailNews);
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
@@ -117,45 +124,33 @@ public class DetailNewsActivity extends AppCompatActivity {
     }
 
     private void shareScreen() {
-        View root = getWindow().getDecorView().findViewById(R.id.activity_detail_news);
-        // step 1 , getting the drawing cache
-        View screenView = root.getRootView();
-        screenView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());
-        screenView.setDrawingCacheEnabled(false);
-        // step 2, storing the bitmap in file
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/screenshots";
-        File dir = new File(dirPath);
-        if (!dir.exists()) {
-            dir.mkdir();
-            File file = new File(dirPath, String.valueOf(System.currentTimeMillis()));
+        linearLayout.setDrawingCacheEnabled(true);
+        final Bitmap bitmap = linearLayout.getDrawingCache();
+        new AsyncTask<Void,Void,Uri>(){
+            @Override
+            protected Uri doInBackground(Void... params) {
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
 
-            try {
-                FileOutputStream outputStream = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 85, outputStream);
-                outputStream.flush();
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-//            step 3, sharing the new bitmap saved
-            Uri uri = Uri.fromFile(file);
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setType("image/*");
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,"Social News",null);
 
-            intent.putExtra(Intent.EXTRA_SUBJECT,"");
-            intent.putExtra(Intent.EXTRA_TEXT,"");
-            intent.putExtra(Intent.EXTRA_STREAM,uri);
-
-            try{
-                startActivity(Intent.createChooser(intent,"Share Screenshot"));
-            }catch (ActivityNotFoundException e){
-                e.printStackTrace();
+                Uri uri = Uri.parse(path);
+                return uri;
             }
 
+            @Override
+            protected void onPostExecute(Uri uri) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_STREAM,uri);
+                intent.putExtra(Intent.EXTRA_TEXT,"Download the Social News app now");
+                linearLayout.setDrawingCacheEnabled(false);
+                startActivity(Intent.createChooser(intent,"share using .."));
+                super.onPostExecute(uri);
+            }
+        }.execute();
 
-        }
+
 
     }
 }

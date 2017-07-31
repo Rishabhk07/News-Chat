@@ -19,17 +19,4 @@
         android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
         android:title="Full Story"
         />
-    <item
-        android:id="@+id/action_like"
-        android:enabled="true"
-        android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
-        android:title="Like"
-        />
-    <item
-        android:id="@+id/action_Dislike"
-        android:enabled="true"
-        android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
-        android:title="Dislike"
-        />
-
 </menu>
