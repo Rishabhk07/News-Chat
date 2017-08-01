@@ -18,6 +18,11 @@ public class Topic extends RealmObject {
         this.position = position;
     }
 
+    public Topic(String name, String key) {
+        this.name = name;
+        this.key = key;
+    }
+
     public Topic() {
     }
 

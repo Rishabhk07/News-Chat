@@ -1,6 +1,9 @@
 package com.example.rishabhkhanna.peopleword.Network.interfaces;
 
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
+import com.example.rishabhkhanna.peopleword.model.Topic;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,7 +21,7 @@ public interface getAuth {
     Call<AuthResponse> facebookUserAuth(
             @Field("access_token") String access_token,
             @Field("user_id") String user_id,
-            @Field("fcm_token") String fcm_token
+            @Field("firebase_token") String firebase_token
             );
     @FormUrlEncoded
     @POST("auth/fbUpdateAcessToken")
@@ -33,4 +36,12 @@ public interface getAuth {
             @Field("token") String fcmToken,
             @Field("user_id") String userId
     );
+
+    @FormUrlEncoded
+    @POST("auth/updateTopics")
+    Call<AuthResponse> updateUserTopics(
+            @Field("user_topics") String user_topics,
+            @Field("user_id") String user_id
+            );
+
 }

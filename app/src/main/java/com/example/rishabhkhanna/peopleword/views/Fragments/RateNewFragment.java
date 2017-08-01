@@ -271,6 +271,7 @@ public class RateNewFragment extends Fragment {
                 }
 
                 String fcm_token = FirebaseInstanceId.getInstance().getToken();
+                Log.d(TAG, "onSuccess: FCM TOKEN" + fcm_token);
                 API.getInstance()
                         .retrofit
                         .create(getAuth.class)

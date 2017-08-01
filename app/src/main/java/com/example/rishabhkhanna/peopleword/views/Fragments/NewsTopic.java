@@ -1,21 +1,38 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rishabhkhanna.peopleword.Adapters.TopicAdapter;
+import com.example.rishabhkhanna.peopleword.Network.API;
+import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
+import com.example.rishabhkhanna.peopleword.model.AuthResponse;
+import com.example.rishabhkhanna.peopleword.model.Topic;
+import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.TouchHelper;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
+import com.facebook.AccessToken;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
+import io.realm.RealmList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +41,8 @@ public class NewsTopic extends Fragment {
 
 
     RecyclerView recyclerViewTopic;
+    RealmList<Topic> topics = new RealmList<>();
+    public static final String TAG = "NewsTopic";
     public NewsTopic() {
         // Required empty public constructor
     }
@@ -35,7 +54,8 @@ public class NewsTopic extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_news_topic, container, false);
         recyclerViewTopic = (RecyclerView) root.findViewById(R.id.rvTopic);
-        TopicAdapter topicAdapter = new TopicAdapter(getContext(), UtilMethods.getTopics(getContext()));
+        topics = UtilMethods.getTopics(getContext());
+        TopicAdapter topicAdapter = new TopicAdapter(getContext(), topics);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());
         flexboxLayoutManager.setFlexWrap(FlexWrap.WRAP);
 
@@ -48,6 +68,36 @@ public class NewsTopic extends Fragment {
         return root;
     }
 
+    @Override
+    public void onPause() {
+        ArrayList<Topic> selectedTopics = new ArrayList<>();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.TOPIC_NAME, Context.MODE_PRIVATE);
 
+        for (int i = 0; i < topics.size(); i++) {
+            selectedTopics.add(
+                    new Topic(topics.get(i).getName()
+                            , String.valueOf(sharedPreferences.getBoolean(topics.get(i).getKey(), false))));
 
+        }
+        String topics = new Gson().toJson(selectedTopics);
+        if(AccessToken.getCurrentAccessToken() != null){
+            API.getInstance()
+                    .retrofit
+                    .create(getAuth.class)
+                    .updateUserTopics(topics,AccessToken.getCurrentAccessToken().getUserId())
+                    .enqueue(new Callback<AuthResponse>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                            Log.d(TAG, "onResponse: " + response.body());
+                        }
+
+                        @Override
+                        public void onFailure(Call<AuthResponse> call, Throwable t) {
+                            Log.d(TAG, "onFailure: " + call.request());
+                        }
+                    });
+        }
+
+        super.onPause();
+    }
 }

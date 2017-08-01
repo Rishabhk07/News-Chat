@@ -24,7 +24,7 @@ public class FirebaseTokenService extends FirebaseInstanceIdService{
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         String userId = null;
         Log.d(TAG, "onTokenRefresh: FCM" + refreshedToken);
-        if(AccessToken.getCurrentAccessToken().getUserId() != null){
+        if(AccessToken.getCurrentAccessToken() != null){
             userId = AccessToken.getCurrentAccessToken().getUserId();
             API.getInstance()
                     .retrofit
