@@ -76,9 +76,10 @@ public class NewsTopic extends Fragment {
         for (int i = 0; i < topics.size(); i++) {
             selectedTopics.add(
                     new Topic(topics.get(i).getName()
-                            , String.valueOf(sharedPreferences.getBoolean(topics.get(i).getKey(), false))));
+                            , topics.get(i).getKey(),sharedPreferences.getBoolean(topics.get(i).getKey(), false)));
 
         }
+        Log.d(TAG, "onPause: Topics Fragment Pause");
         String topics = new Gson().toJson(selectedTopics);
         if(AccessToken.getCurrentAccessToken() != null){
             API.getInstance()

@@ -55,7 +55,7 @@ public class UtilMethods {
             selectedTopic.add(new Topic("Top News", "top_news",2));
 
             selectedTopic.add(new Topic("India", "india",3));
-            selectedTopic.add(new Topic("Good Governance", "good_gov",4));
+            selectedTopic.add(new Topic("Good Governance", "good_governance",4));
             selectedTopic.add(new Topic("TV", "tv",5));
 
             selectedTopic.add(new Topic("World", "world",6));

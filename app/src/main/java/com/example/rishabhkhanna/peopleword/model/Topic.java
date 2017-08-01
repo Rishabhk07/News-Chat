@@ -10,7 +10,9 @@ import io.realm.annotations.PrimaryKey;
 public class Topic extends RealmObject {
     String name;
     String key;
+    boolean value;
     int position;
+
 
     public Topic(String name, String key, int position) {
         this.name = name;
@@ -18,9 +20,10 @@ public class Topic extends RealmObject {
         this.position = position;
     }
 
-    public Topic(String name, String key) {
+    public Topic(String name, String key, Boolean value) {
         this.name = name;
         this.key = key;
+        this.value = value;
     }
 
     public Topic() {
