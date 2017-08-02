@@ -3,7 +3,7 @@ A news app where you can give your opinion by liking or disliking a certain news
 The app is still in development phase and some features still needs implemented
 
 # Backend
-backend for this app is written is Nodejs, its where users will login, news will be fethced by Toi and displayed to user according to their own interest
+backend for this app is written is Nodejs, its where users will login, news will be fethced by Toi and displayed to user according to their own interest.
 Backend is under developement.
 
 # screenShots
