@@ -4,7 +4,7 @@ The app is still in development phase and some features still needs implemented
 
 # Backend
 backend for this app is written is Nodejs, its where users will login, news will be fethced by Toi and displayed to user according to their own interest
-the link to back end is [here](https://github.com/Rishabhk07/backend-news-app)
+Backend is under developement.
 
 # screenShots
 
