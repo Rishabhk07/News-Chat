@@ -2,6 +2,7 @@ package com.example.rishabhkhanna.peopleword.views.Activities;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -52,6 +53,40 @@ public class BaseActivity extends AppCompatActivity
 
     public static final String TAG = "BaseActivity";
     public Fragment fragment;
+    String thisTab = null;
+    Boolean ontop = false;
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStop: ");
+        ontop = false;
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        ontop = true;
+        Log.d(TAG, "onResume: " + ontop);
+        super.onStart();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        thisTab = intent.getStringExtra("notification_key");
+        if(ontop) {
+            Log.d(TAG, "onNewIntent: " + thisTab);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            Log.d(TAG, "onCreate: " + thisTab);
+            if (thisTab != null) {
+                fragment = AllNewsFragment.getInstance(thisTab);
+            } else {
+                fragment = new AllNewsFragment();
+            }
+            fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
+        }
+        super.onNewIntent(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +94,7 @@ public class BaseActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Briefs");
-        String thisTab = getIntent().getStringExtra("notification_key");
+        thisTab = getIntent().getStringExtra("notification_key");
 
         DrawerLayout drawer =  (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

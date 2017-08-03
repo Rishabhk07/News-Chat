@@ -71,6 +71,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this,notificationId,intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
+
             notificationId = new Random().nextInt();
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             Log.d(TAG, "onMessageReceived: " + notificationId);
