@@ -59,6 +59,7 @@ public class BaseActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Briefs");
+        String thisTab = getIntent().getStringExtra("notification_key");
 
         DrawerLayout drawer =  (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,7 +69,15 @@ public class BaseActivity extends AppCompatActivity
         Realm.init(this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Log.d(TAG, "onCreate: "  + thisTab);
+        if(thisTab != null){
+            fragment = AllNewsFragment.getInstance(thisTab);
+        }else{
+            fragment = new AllNewsFragment();
+        }
 
+        fragmentTransaction.replace(R.id.flActivity_main,fragment).commit();
     }
 
     @Override

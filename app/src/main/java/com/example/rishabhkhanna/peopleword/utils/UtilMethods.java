@@ -24,15 +24,18 @@ import io.realm.Sort;
 
 public class UtilMethods {
     public static final String TAG = "UtilMethods";
-    public static String getImageurl(String urlId){
+
+    //get image url from imageId
+    public static String getImageurl(String urlId) {
         return "http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 urlId + "&width=1400&height=960&resizemode=1";
     }
 
-    public static RealmList<Topic> getTopics(Context context){
+    //get all topics of news
+    public static RealmList<Topic> getTopics(Context context) {
         RealmList<Topic> selectedTopic =
                 new RealmList<>();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_POS_DB,Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_POS_DB, Context.MODE_PRIVATE);
 
         Realm realm = Realm.getDefaultInstance();
 
@@ -45,35 +48,35 @@ public class UtilMethods {
             }
         });
 
-        if(results.isEmpty()){
+        if (results.isEmpty()) {
             realm.beginTransaction();
             selectedTopic.clear();
 
             Log.d(TAG, "getTopics: results are null");
-            selectedTopic.add(new Topic("Briefs", "briefs",0));
-            selectedTopic.add(new Topic("Entertainment", "entertainment",1));
-            selectedTopic.add(new Topic("Top News", "top_news",2));
+            selectedTopic.add(new Topic("Briefs", "briefs", 0));
+            selectedTopic.add(new Topic("Entertainment", "entertainment", 1));
+            selectedTopic.add(new Topic("Top News", "top_news", 2));
 
-            selectedTopic.add(new Topic("India", "india",3));
-            selectedTopic.add(new Topic("Good Governance", "good_governance",4));
-            selectedTopic.add(new Topic("TV", "tv",5));
+            selectedTopic.add(new Topic("India", "india", 3));
+            selectedTopic.add(new Topic("Good Governance", "good_governance", 4));
+            selectedTopic.add(new Topic("TV", "tv", 5));
 
-            selectedTopic.add(new Topic("World", "world",6));
+            selectedTopic.add(new Topic("World", "world", 6));
 
-            selectedTopic.add(new Topic("Sports", "sports",7));
+            selectedTopic.add(new Topic("Sports", "sports", 7));
 
-            selectedTopic.add(new Topic("Cricket", "cricket",8));
-            selectedTopic.add(new Topic("Business", "business",9));
-            selectedTopic.add(new Topic("Education", "education",10));
+            selectedTopic.add(new Topic("Cricket", "cricket", 8));
+            selectedTopic.add(new Topic("Business", "business", 9));
+            selectedTopic.add(new Topic("Education", "education", 10));
 
-            selectedTopic.add(new Topic("Life Style", "life_style",11));
-            selectedTopic.add(new Topic("Automotive", "automotive",12));
-            selectedTopic.add(new Topic("Environment", "environment",13));
+            selectedTopic.add(new Topic("Life Style", "life_style", 11));
+            selectedTopic.add(new Topic("Automotive", "automotive", 12));
+            selectedTopic.add(new Topic("Environment", "environment", 13));
             realm.copyToRealmOrUpdate(selectedTopic);
 
             realm.commitTransaction();
             return selectedTopic;
-        }else{
+        } else {
             selectedTopic.clear();
             selectedTopic.addAll(results);
             Log.d(TAG, "getTopics: is not null");
@@ -81,29 +84,23 @@ public class UtilMethods {
 
         }
 
-
-
-
-//        }else{
-////            ArrayList<Topic> topicArrayList  = new ArrayList<Topic>(Arrays.asList(new Gson().toJson(topicList,Topic[].class)));
-//            ArrayList<Topic> topicArrayList = new Gson().fromJson(topicList, (Type) new ArrayList<Topic>());
-//            return topicArrayList;
-//        }
     }
 
-    public static final AuthDetails getAuthDetails(Context context, String dbName){
-        SharedPreferences  sharedPreferences  = context.getSharedPreferences(dbName,Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(Constants.LOGIN_TOKEN,"null");
-        String user_id = sharedPreferences.getString(Constants.LOGIN_USER_ID,"null");
-        AuthDetails details = new AuthDetails(token,user_id);
+    // get auth details of current login user
+    public static final AuthDetails getAuthDetails(Context context, String dbName) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(dbName, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(Constants.LOGIN_TOKEN, "null");
+        String user_id = sharedPreferences.getString(Constants.LOGIN_USER_ID, "null");
+        AuthDetails details = new AuthDetails(token, user_id);
         return details;
     }
 
-    public static final ArrayList<Topic> getUserTopics(Context context){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_NAME,Context.MODE_PRIVATE);
+    // get topics which user has marked as true
+    public static final ArrayList<Topic> getUserTopics(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_NAME, Context.MODE_PRIVATE);
         ArrayList<Topic> topics = new ArrayList<>();
         RealmList<Topic> totalTopics = UtilMethods.getTopics(context);
-        if(totalTopics.size() != 0) {
+        if (totalTopics.size() != 0) {
             for (int i = 0; i < totalTopics.size(); i++) {
                 if (sharedPreferences.getBoolean(totalTopics.get(i).getKey(), false)) {
                     topics.add(totalTopics.get(i));
@@ -114,6 +111,43 @@ public class UtilMethods {
         return topics;
     }
 
+    //get page number from topic
+
+    public static int getPageFromTopic(String topic) {
+        switch (topic) {
+            case "briefs":
+                return 0;
+            case "top_news":
+                return 1;
+            case "entertainment":
+                return 2;
+            case "india":
+                return 3;
+            case "good_governance":
+                return 13;
+            case "tv":
+                return 9;
+            case "world":
+                return 4;
+            case "sports":
+                return 5;
+            case "cricket":
+                return 6;
+            case "business":
+                return 7;
+            case "education":
+                return 8;
+            case "life_style":
+                return 11;
+            case "automotive":
+                return 10;
+            case "environment":
+                return 12;
+            default:
+                return 0;
+
+        }
+    }
 
 
 }

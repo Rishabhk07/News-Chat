@@ -132,7 +132,7 @@ public class YourNewsPageFragment extends Fragment {
             case "india":
                 call = NewsAPI.getInstance().getNews.getIndiaNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
                 break;
-            case "good_gov":
+            case "good_governance":
                 call = NewsAPI.getInstance().getNews.getGoodGovNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
                 break;
             case "tv":

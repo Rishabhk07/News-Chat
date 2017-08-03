@@ -59,13 +59,14 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             remoteView.setTextViewText(R.id.tvNotificationTime,currentTime);
             NotificationCompat.Builder builder  = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.mipmap.ic_launcher)
-//                    .setContentTitle(remoteMessage.getData().get("title"))
-//                    .setContentText(remoteMessage.getData().get("detail"))
-                    .setCustomContentView(remoteView)
+                    .setContentTitle(remoteMessage.getData().get("title"))
+//                    .setCustomContentView(remoteView)
                     .setCustomBigContentView(remoteBigView);
 
             Intent intent = new Intent(this,BaseActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this,123,intent, PendingIntent.FLAG_ONE_SHOT);
+            Log.d(TAG, "onMessageReceived: " + remoteMessage.getData().get("news_id"));
+            intent.putExtra("notification_key",remoteMessage.getData().get("news_id"));
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,notificationId,intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
             notificationId = new Random().nextInt();
