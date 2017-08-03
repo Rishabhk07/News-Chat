@@ -53,8 +53,10 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             remoteView.setTextViewText(R.id.tvNotificationHeading,remoteMessage.getData().get("title"));
             remoteBigView.setTextViewText(R.id.tvNotification,remoteMessage.getData().get("title"));
             remoteBigView.setImageViewBitmap(R.id.imNotification,bitmap);
+
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm aa");
             String currentTime = simpleDateFormat.format(Calendar.getInstance().getTime());
+            remoteBigView.setTextViewText(R.id.tvExNotificationTime,currentTime);
             Log.d(TAG, "onMessageReceived: Current Time" + currentTime);
             remoteView.setTextViewText(R.id.tvNotificationTime,currentTime);
             NotificationCompat.Builder builder  = new NotificationCompat.Builder(this)

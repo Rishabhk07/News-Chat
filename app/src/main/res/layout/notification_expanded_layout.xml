@@ -26,16 +26,15 @@
         android:layout_marginBottom="12dp"
         />
 
-        <ImageView
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:src="@drawable/ic_menu_share"
-            android:clickable="true"
-            android:tint="@android:color/white"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
+            android:layout_margin="16dp"
             android:padding="5dp"
-            android:id="@+id/imNotificationShare"
+            android:id="@+id/tvExNotificationTime"
+            android:textColor="@android:color/white"
+            android:text="12:00 PM"
             />
 </RelativeLayout>
