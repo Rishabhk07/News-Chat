@@ -117,6 +117,9 @@ public class DetailNewsActivity extends AppCompatActivity {
                         shareScreen();
                         break;
                     case R.id.action_chat:
+                        Intent i = new Intent(DetailNewsActivity.this,ChatActivity.class);
+                        i.putExtra(Constants.CHAT_KEY,new Gson().toJson(thisNews));
+                        startActivity(i);
                         break;
                 }
                 return true;

@@ -112,7 +112,6 @@ public class UtilMethods {
     }
 
     //get page number from topic
-
     public static int getPageFromTopic(String topic) {
         switch (topic) {
             case "briefs":

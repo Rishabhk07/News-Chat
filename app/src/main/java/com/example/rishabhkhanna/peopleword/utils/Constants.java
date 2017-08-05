@@ -31,6 +31,7 @@ public class Constants {
     public static final String SECTION_TITLE = "title";
     public static final String LOGIN_TOKEN = "login_token";
     public static final String LOGIN_USER_ID = "login_user_id";
+    public static final String CHAT_KEY = "chat_key";
 
     //
 

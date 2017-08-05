@@ -41,6 +41,7 @@ public class AllNewsPageFragment extends Fragment {
     boolean fetchFristApi = true;
     EndlessRecyclerViewScrollListener scrollListener;
     Call<ArrayList<NewsJson>> call;
+    String currentPage = null;
     int position;
     public static final String TAG = "AllNewsPageFragment";
     AuthDetails authDetails;
@@ -172,48 +173,63 @@ public class AllNewsPageFragment extends Fragment {
         switch (position) {
             case 0:
                 call = NewsAPI.getInstance().getNews.getBriefs(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "briefs";
                 break;
             case 1:
                 call = NewsAPI.getInstance().getNews.getTopNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "top_news";
                 break;
             case 2:
                 call = NewsAPI.getInstance().getNews.getEntertainment(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "entertainment";
                 break;
             case 3:
                 call = NewsAPI.getInstance().getNews.getIndiaNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "india";
                 break;
             case 4:
                 call = NewsAPI.getInstance().getNews.getWorldNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "world";
                 break;
             case 5:
                 call = NewsAPI.getInstance().getNews.getSports(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "sports";
                 break;
             case 6:
                 call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "cricket";
                 break;
             case 7:
                 call = NewsAPI.getInstance().getNews.getBusinessNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "business";
                 break;
             case 8:
                 call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "education";
                 break;
             case 9:
                 call = NewsAPI.getInstance().getNews.getTVNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "tv";
                 break;
             case 10:
                 call = NewsAPI.getInstance().getNews.getAuomotiveNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "automotive";
                 break;
             case 11:
                 call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "life_style";
                 break;
             case 12:
                 call = NewsAPI.getInstance().getNews.getEnvironmentNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "environment";
                 break;
             case 13:
                 call = NewsAPI.getInstance().getNews.getGoodGovNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "good_governance";
                 break;
             case 14:
                 call = NewsAPI.getInstance().getNews.getEvents(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                currentPage = "events";
                 break;
         }
 
