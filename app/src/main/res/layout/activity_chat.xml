@@ -27,10 +27,11 @@
             android:id="@+id/btnSend"
             />
     </LinearLayout>
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/sendLayout"
         android:orientation="vertical"
-        ></LinearLayout>
+        android:id="@+id/rvChat"
+        ></android.support.v7.widget.RecyclerView>
 </RelativeLayout>
