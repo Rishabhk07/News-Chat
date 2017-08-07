@@ -51,6 +51,7 @@ public class DetailNewsActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     LinearLayout linearLayout;
     ProgressBar progressBar;
+    boolean shareProgress = false;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +115,10 @@ public class DetailNewsActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.action_share:
-                        shareScreen();
+                        if(!shareProgress) {
+                            shareProgress = true;
+                            shareScreen();
+                        }
                         break;
                     case R.id.action_chat:
                         Intent i = new Intent(DetailNewsActivity.this,ChatActivity.class);
@@ -155,11 +159,10 @@ public class DetailNewsActivity extends AppCompatActivity {
 
                 progressBar.setIndeterminate(false);
                 progressBar.setVisibility(View.GONE);
+                shareProgress = false;
                 super.onPostExecute(uri);
             }
         }.execute();
-
-
 
     }
 }
