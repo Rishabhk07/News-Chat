@@ -93,6 +93,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         Log.d(TAG, "onResponse: " + response.body());
                         Picasso.with(context)
                                 .load(response.body().getData().getUrl())
+                                .placeholder(R.drawable.person_placeholder)
                                 .into(holder.imChatHead);
                     }
                     @Override
