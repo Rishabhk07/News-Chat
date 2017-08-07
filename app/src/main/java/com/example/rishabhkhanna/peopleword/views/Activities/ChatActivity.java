@@ -113,7 +113,7 @@ public class ChatActivity extends AppCompatActivity {
                             socket.connect();
                             getChats();
                         }
-                    });
+                    }).show();
 
                 }
 
