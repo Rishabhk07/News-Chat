@@ -1,5 +1,7 @@
 package com.example.rishabhkhanna.peopleword.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by rishabhkhanna on 04/08/17.
  */
@@ -8,6 +10,7 @@ public class Chat {
     String message;
     String msid;
     Long news_id;
+    @SerializedName("from")
     String user_id;
 
     public Chat(String message, String msid, Long news_id, String user_id) {

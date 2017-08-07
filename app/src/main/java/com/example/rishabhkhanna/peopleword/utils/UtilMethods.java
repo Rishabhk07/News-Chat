@@ -148,5 +148,12 @@ public class UtilMethods {
         }
     }
 
+    //get Profile Picture url from facebook user_id
+
+    public static String getProfilePicutre(String user_id){
+        String url = "https://graph.facebook.com/"+ user_id + "/picture?type=normal&redirect=false";
+        return url;
+    }
+
 
 }

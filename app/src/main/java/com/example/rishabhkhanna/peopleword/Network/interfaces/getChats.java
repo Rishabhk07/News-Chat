@@ -18,6 +18,7 @@ public interface getChats {
     @FormUrlEncoded
     @POST("/getChats")
     Call<ArrayList<Chat>> getChat(
-            @Field("news_id") Long news_id
+            @Field("news_id") Long news_id,
+            @Field("msid") String msid
     );
 }
