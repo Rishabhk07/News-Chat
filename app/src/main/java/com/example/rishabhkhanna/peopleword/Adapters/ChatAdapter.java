@@ -40,6 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public int getItemViewType(int position) {
         if(AccessToken.getCurrentAccessToken() != null){
+            Log.d(TAG, "getItemViewType: " + chatList.get(position).getUser_id());
             if(chatList.get(position).getUser_id().equals(AccessToken.getCurrentAccessToken().getUserId())){
                 return 1;
             }

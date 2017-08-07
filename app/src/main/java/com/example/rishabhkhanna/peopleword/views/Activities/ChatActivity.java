@@ -114,21 +114,15 @@ public class ChatActivity extends AppCompatActivity {
             public void call(Object... args) {
                 JSONObject data = (JSONObject) args[0];
                 Log.d(TAG, "call: " + data);
-                Chat chat = null;
-                try {
-                    chat = new Chat(data.getString("message")
-                            , data.getString("msid")
-                            , Long.valueOf(data.getString("news_id"))
-                            , data.getString("from"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Chat chat = new Gson().fromJson(String.valueOf(data),Chat.class);
+
                 chatsList.add(chat);
 
                 runOnUiThread(new TimerTask() {
                     @Override
                     public void run() {
                         chatAdapter.notifyDataSetChanged();
+                        recyclerView.scrollToPosition(chatsList.size() - 1);
                     }
                 });
             }
@@ -156,6 +150,7 @@ public class ChatActivity extends AppCompatActivity {
                         chatsList.clear();
                         chatsList.addAll(response.body());
                         chatAdapter.notifyDataSetChanged();
+                        recyclerView.scrollToPosition(chatsList.size() - 1);
                     }
 
                     @Override
