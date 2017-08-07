@@ -1,6 +1,7 @@
 package com.example.rishabhkhanna.peopleword.Adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rishabhkhanna.peopleword.Network.GetProfilePicture;
+import com.example.rishabhkhanna.peopleword.Network.interfaces.getProfilePic;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.Chat;
+import com.example.rishabhkhanna.peopleword.model.FBProfilePicture;
 import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
@@ -22,6 +26,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by rishabhkhanna on 06/08/17.
@@ -61,12 +69,38 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ChatViewHolder holder, int position) {
+    public void onBindViewHolder(final ChatViewHolder holder, int position) {
         holder.tvChatMessage.setText(chatList.get(position).getMessage());
+        new AsyncTask<Void,Void,String>(){
 
-        Picasso.with(context)
-                .load(Profile.getCurrentProfile().getProfilePictureUri(100,100))
-                .into(holder.imChatHead);
+            @Override
+            protected String doInBackground(Void... params) {
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
+        GetProfilePicture.getInstance().retrofit.create(getProfilePic.class)
+                .getProfilePhoto(chatList.get(position).getUser_id(),"large",false)
+                .enqueue(new Callback<FBProfilePicture>() {
+                    @Override
+                    public void onResponse(Call<FBProfilePicture> call, Response<FBProfilePicture> response) {
+                        Log.d(TAG, "onResponse: " + call.request());
+                        Log.d(TAG, "onResponse: " + response.body());
+                        Picasso.with(context)
+                                .load(response.body().getData().getUrl())
+                                .into(holder.imChatHead);
+                    }
+                    @Override
+                    public void onFailure(Call<FBProfilePicture> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + call.request());
+                    }
+                });
+
     }
 
     @Override

@@ -21,4 +21,5 @@ public interface getChats {
             @Field("news_id") Long news_id,
             @Field("msid") String msid
     );
+
 }

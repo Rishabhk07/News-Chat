@@ -58,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         try {
-            socket = IO.socket("http://192.168.0.48:9999/");
+            socket = IO.socket("http://192.168.1.33:9999/");
             Log.d(TAG, "onStart: IO.socket successfully");
         } catch (URISyntaxException e) {
             Log.d(TAG, "onStart: unable to connect");
