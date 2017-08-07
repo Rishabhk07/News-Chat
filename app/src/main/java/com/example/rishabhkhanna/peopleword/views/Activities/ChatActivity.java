@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.Adapters.ChatAdapter;
 import com.example.rishabhkhanna.peopleword.Network.ChatAPI;
@@ -32,6 +33,8 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.TimerTask;
 
 import io.socket.client.IO;
@@ -81,13 +84,21 @@ public class ChatActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: ");
+
                 if (socket.connected()) {
                     if (AccessToken.getCurrentAccessToken() != null) {
                         AccessToken.getCurrentAccessToken().getUserId();
                         String chatMsg = etChat.getText().toString();
-                        Chat chat = new Chat(chatMsg, thisJson.getMsid(), thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId());
-                        Log.d(TAG, "onClick: " + socket.emit("new_message", new Gson().toJson(chat)));
+                        Log.d(TAG, "onClick: " + chatMsg);
+                        if(chatMsg.isEmpty()){
+                            Log.d(TAG, "onClick: in chat isEmplty");
+                            Toast.makeText(ChatActivity.this, "Message is Empty", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Chat chat = new Chat(chatMsg, thisJson.getMsid(), thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId());
+                            Log.d(TAG, "onClick: " + socket.emit("new_message", new Gson().toJson(chat)));
+                            etChat.setText("");
+
+                        }
                     }
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
@@ -134,6 +145,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         socket.emit("leave_group", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
+        socket.disconnect();
         super.onStop();
     }
 
