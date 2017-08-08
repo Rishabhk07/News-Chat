@@ -12,6 +12,8 @@ public class Chat {
     Long news_id;
     @SerializedName("from")
     String user_id;
+
+    @SerializedName("anonym")
     Boolean anonym_user;
 
     public Chat(String message, String msid, Long news_id, String user_id, Boolean anonym_user) {

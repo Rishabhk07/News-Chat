@@ -84,23 +84,30 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 super.onPostExecute(s);
             }
         }.execute();
-        GetProfilePicture.getInstance().retrofit.create(getProfilePic.class)
-                .getProfilePhoto(chatList.get(position).getUser_id(),"large",false)
-                .enqueue(new Callback<FBProfilePicture>() {
-                    @Override
-                    public void onResponse(Call<FBProfilePicture> call, Response<FBProfilePicture> response) {
-                        Log.d(TAG, "onResponse: " + call.request());
-                        Log.d(TAG, "onResponse: " + response.body());
-                        Picasso.with(context)
-                                .load(response.body().getData().getUrl())
-                                .placeholder(R.drawable.person_placeholder)
-                                .into(holder.imChatHead);
-                    }
-                    @Override
-                    public void onFailure(Call<FBProfilePicture> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + call.request());
-                    }
-                });
+        if(chatList.get(position).getAnonym_user()){
+            Picasso.with(context)
+                    .load(R.drawable.person_placeholder)
+                    .into(holder.imChatHead);
+        }else{
+            GetProfilePicture.getInstance().retrofit.create(getProfilePic.class)
+                    .getProfilePhoto(chatList.get(position).getUser_id(),"large",false)
+                    .enqueue(new Callback<FBProfilePicture>() {
+                        @Override
+                        public void onResponse(Call<FBProfilePicture> call, Response<FBProfilePicture> response) {
+                            Log.d(TAG, "onResponse: " + call.request());
+                            Log.d(TAG, "onResponse: " + response.body());
+                            Picasso.with(context)
+                                    .load(response.body().getData().getUrl())
+                                    .placeholder(R.drawable.person_placeholder)
+                                    .into(holder.imChatHead);
+                        }
+                        @Override
+                        public void onFailure(Call<FBProfilePicture> call, Throwable t) {
+                            Log.d(TAG, "onFailure: " + call.request());
+                        }
+                    });
+        }
+
 
     }
 
