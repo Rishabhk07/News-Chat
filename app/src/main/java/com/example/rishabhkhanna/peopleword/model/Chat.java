@@ -12,12 +12,22 @@ public class Chat {
     Long news_id;
     @SerializedName("from")
     String user_id;
+    Boolean anonym_user;
 
-    public Chat(String message, String msid, Long news_id, String user_id) {
+    public Chat(String message, String msid, Long news_id, String user_id, Boolean anonym_user) {
         this.message = message;
         this.msid = msid;
         this.news_id = news_id;
         this.user_id = user_id;
+        this.anonym_user = anonym_user;
+    }
+
+    public Boolean getAnonym_user() {
+        return anonym_user;
+    }
+
+    public void setAnonym_user(Boolean anonym_user) {
+        this.anonym_user = anonym_user;
     }
 
     public String getMessage() {

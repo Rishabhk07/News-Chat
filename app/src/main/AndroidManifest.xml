@@ -64,7 +64,8 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".views.Activities.ChatActivity"></activity>
+        <activity android:name=".views.Activities.ChatActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

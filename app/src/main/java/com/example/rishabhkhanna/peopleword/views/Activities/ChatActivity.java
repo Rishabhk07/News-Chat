@@ -3,17 +3,22 @@ package com.example.rishabhkhanna.peopleword.views.Activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.Adapters.ChatAdapter;
@@ -25,8 +30,10 @@ import com.example.rishabhkhanna.peopleword.model.ChatRoom;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,13 +54,15 @@ import retrofit2.Response;
 public class ChatActivity extends AppCompatActivity {
 
     EditText etChat;
-    Button btnSend;
+    FloatingActionButton btnSend;
+    ImageView userImageView;
     public static final String TAG = "ChatActivity";
     Socket socket = null;
     NewsJson thisJson;
     RecyclerView recyclerView;
     ArrayList<Chat> chatsList = new ArrayList<>();
     ChatAdapter chatAdapter;
+    boolean anonym_user = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +83,48 @@ public class ChatActivity extends AppCompatActivity {
 
         }
         etChat = (EditText) findViewById(R.id.etChat);
-        btnSend = (Button) findViewById(R.id.btnSend);
+        btnSend = (FloatingActionButton) findViewById(R.id.btnSend);
         recyclerView = (RecyclerView) findViewById(R.id.rvChat);
+        userImageView = (ImageView) findViewById(R.id.imSelectUser);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         getChats();
         chatAdapter = new ChatAdapter(chatsList, this);
         recyclerView.setAdapter(chatAdapter);
+        Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100,100)).into(userImageView);
+
+        userImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(ChatActivity.this, v);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                popupMenu.getMenu().add(1,1,1,Profile.getCurrentProfile().getName());
+                popupMenu.getMenu().add(1,2,2,"Anonymous user");
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case 1:
+                                Picasso.with(ChatActivity.this)
+                                        .load(Profile.getCurrentProfile().getProfilePictureUri(100,100))
+                                        .into(userImageView);
+                                anonym_user = false;
+                                break;
+                            case 2:
+                                Picasso.with(ChatActivity.this)
+                                        .load(R.drawable.person_placeholder)
+                                        .into(userImageView);
+                                anonym_user = true;
+                                Log.d(TAG, "onMenuItemClick: on Anonymous user view");
+                                break;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +138,10 @@ public class ChatActivity extends AppCompatActivity {
                             Log.d(TAG, "onClick: in chat isEmplty");
                             Toast.makeText(ChatActivity.this, "Message is Empty", Toast.LENGTH_SHORT).show();
                         }else {
-                            Chat chat = new Chat(chatMsg, thisJson.getMsid(), thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId());
+
+                                Chat chat = new Chat(chatMsg, thisJson.getMsid(),
+                                        thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId(),anonym_user);
+
                             Log.d(TAG, "onClick: " + socket.emit("new_message", new Gson().toJson(chat)));
                             etChat.setText("");
 
