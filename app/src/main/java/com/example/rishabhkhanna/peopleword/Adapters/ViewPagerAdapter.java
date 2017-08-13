@@ -27,54 +27,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         //get Item is called to instantite the fragment for the given page
         // write login for which fragment to return
 
-//        switch (position) {
-//            case 0:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.BRIEFS_URL);
-//                return newsFragment;
-//            case 1:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.TOP_URL);
-//                return newsFragment;
-//            case 2:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.ENTERTAINMENT_URL);
-//                return newsFragment;
-//            case 3:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.INDIA_URL);
-//                return newsFragment;
-//            case 4:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.WORLD_URL);
-//                return newsFragment;
-//            case 5:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.SPORTS_URL);
-//                return newsFragment;
-//            case 6:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.CRICKET_URL);
-//                return newsFragment;
-//            case 7:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.BUSINESS_URL);
-//                return newsFragment;
-//            case 8:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.EDUCATION_URL);
-//                return newsFragment;
-//            case 9:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.TV_URL);
-//                return newsFragment;
-//            case 10:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.AUTOMOTIVE_URL);
-//                return newsFragment;
-//            case 11:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.LIFESTYLE_URL);
-//                return newsFragment;
-//            case 12:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.ENVIRONMENT_URL);
-//                return newsFragment;
-//            case 13:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.GOODGOV_URL);
-//                return newsFragment;
-//            case 14:
-//                newsFragment = AllNewsPageFragment.newInstance(Constants.EVENTS_URL);
-//                return newsFragment;
-//
-//        }
 
         newsFragment = AllNewsPageFragment.newInstance(position);
         return newsFragment;
