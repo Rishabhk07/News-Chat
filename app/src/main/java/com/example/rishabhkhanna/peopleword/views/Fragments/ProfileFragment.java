@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.rishabhkhanna.peopleword.Adapters.ProfileViewPagerAdapter;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.facebook.AccessToken;
@@ -33,7 +36,8 @@ public class ProfileFragment extends Fragment {
     ImageView imProfileImage;
     TextView tvName;
     TextView tvEmail;
-
+    ViewPager viewPager;
+    TabLayout tabLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +51,12 @@ public class ProfileFragment extends Fragment {
             tvName.setText(Profile.getCurrentProfile().getName());
             sharedPreferences.getString(Constants.AUTH_EMAIL,"");
         }
-
+        viewPager = (ViewPager) view.findViewById(R.id.profileViewpager);
+        tabLayout = (TabLayout) view.findViewById(R.id.profileTablayout);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        ProfileViewPagerAdapter profileViewPagerAdapter = new ProfileViewPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(profileViewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         return view;
     }
 
