@@ -161,39 +161,6 @@ public class RateNewFragment extends Fragment {
             }
         });
 
-
-        //Interface callback to show data after download
-//        onJsonRecieved onJsonRecieved = new onJsonRecieved() {
-//            @Override
-//            public void onSuccess(ArrayList<NewsJson> fetchedNewsList) {
-//                newsArrayList.addAll(fetchedNewsList);
-//                swipeCardAdapter.notifyDataSetChanged();
-//            }
-
-//            @Override
-//            public void onError(VolleyError error) {
-//                Log.d(TAG, "onError: " + error);
-//                Toast.makeText(getActivity(), "Sorry could not fetch news at this moment", Toast.LENGTH_SHORT).show();
-//            }
-//        };
-
-        //get Toi data
-//        FetchNews.getNewsJson(getActivity(), onJsonRecieved);
-
-
-//        NewsAPI.getInstance().getNews.getBriefs("0").enqueue(new Callback<ArrayList<NewsJson>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-//                newsArrayList.addAll(response.body());
-//                swipeCardAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-//
-//            }
-//        });
-
         ArrayList<String> arrayList = new ArrayList();
         arrayList.add("briefs");
         arrayList.add("entertainment");
@@ -291,6 +258,7 @@ public class RateNewFragment extends Fragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(Constants.LOGIN_TOKEN, loginResult.getAccessToken().getToken());
                         editor.putString(Constants.LOGIN_USER_ID, loginResult.getAccessToken().getUserId());
+                        editor.putString(Constants.AUTH_EMAIL,response.body().getUser().getEmail());
                         editor.apply();
                         progressBar.setVisibility(View.GONE);
                         getActivity().recreate();
@@ -335,6 +303,7 @@ public class RateNewFragment extends Fragment {
                                 public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                                     Log.d(TAG, "onResponse: " + response.body());
                                     Log.d(TAG, "onResponse: " + response.body().getUser().getName());
+
                                 }
 
                                 @Override
