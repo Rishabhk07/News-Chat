@@ -13,7 +13,7 @@ public class ChatAPI {
 
     public ChatAPI() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.33:9999/")
+                .baseUrl("http://192.168.1.36:9999/")
                 .addConverterFactory(
                         GsonConverterFactory.create()
                 ).build();

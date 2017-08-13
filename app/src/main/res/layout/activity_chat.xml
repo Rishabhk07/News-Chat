@@ -18,12 +18,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/imSelectUser"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="message"
-        android:id="@+id/etChat"
-        android:layout_weight="1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="message"
+            android:id="@+id/etChat"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            />
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
             android:id="@+id/btnSend"
             android:elevation="0dp"
             android:backgroundTint="#323232"
+            app:borderWidth="0dp"
             />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
