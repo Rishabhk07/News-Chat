@@ -51,6 +51,19 @@ public class NewsJson {
     @SerializedName("users")
     private List<User> mUser;
 
+
+    @SerializedName(value = "userbriefs", alternate = {"userautomotive","userentertainment","userbusiness","usercricket","usereducation","userenvironment",
+            "usergood_governance","userindia","userlife_style","usersports","usertop_news","usertv","userworld","userevents"})
+    private UserTable mUserTable;
+
+    public UserTable getmUserTable() {
+        return mUserTable;
+    }
+
+    public void setmUserTable(UserTable mUserTable) {
+        this.mUserTable = mUserTable;
+    }
+
     public List<User> getmUser() {
         return mUser;
     }
