@@ -4,8 +4,6 @@ package com.example.rishabhkhanna.peopleword.model;
 
 import com.google.gson.annotations.SerializedName;
 
-
-@SuppressWarnings("unused")
 public class PhotoStory {
 
     @SerializedName("ag")
