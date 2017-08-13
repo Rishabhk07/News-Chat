@@ -2,6 +2,7 @@ package com.example.rishabhkhanna.peopleword.Network.interfaces;
 
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
+import com.example.rishabhkhanna.peopleword.model.RatedNewsPojo;
 
 import java.util.ArrayList;
 
@@ -41,4 +42,11 @@ public interface rateNews {
             @Field("user_id") String userId,
             @Query("msid") ArrayList<String> user_id
     );
+
+    @FormUrlEncoded
+    @POST ("rate/getRatedNews")
+    Call<RatedNewsPojo> getRatedNews(
+            @Field("user_id") String userId
+    );
+
 }
