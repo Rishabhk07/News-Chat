@@ -35,6 +35,7 @@ import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
+import com.example.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
 import com.facebook.FacebookSdk;
@@ -155,6 +156,9 @@ public class BaseActivity extends AppCompatActivity
             editor.putString(Constants.LOGIN_USER_ID,"null");
             editor.apply();
             fragment = new RateNewFragment();
+        }else if(id == R.id.nav_edit){
+            fragment = new ProfileFragment();
+
         }
         fragmentTransaction.replace(R.id.flActivity_main,fragment).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
