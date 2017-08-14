@@ -46,7 +46,8 @@ public interface rateNews {
     @FormUrlEncoded
     @POST ("rate/getRatedNews")
     Call<RatedNewsPojo> getRatedNews(
-            @Field("user_id") String userId
+            @Field("user_id") String userId,
+            @Field("user_rating") int user_rating
     );
 
 }
