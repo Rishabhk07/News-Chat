@@ -18,7 +18,6 @@ import com.daprlabs.cardstack.SwipeDeck;
 import com.example.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
 import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import com.example.rishabhkhanna.peopleword.Network.interfaces.getNews;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.rateNews;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthDetails;
@@ -162,24 +161,29 @@ public class RateNewFragment extends Fragment {
         });
 
         ArrayList<String> arrayList = new ArrayList();
+        final ArrayList<ArrayList<NewsJson>> news = new ArrayList<>();
         arrayList.add("briefs");
         arrayList.add("entertainment");
         API.getInstance()
                 .retrofit
-                .create(getNews.class)
-                .getEntertainment("0",authDetails.getAuthToken(),authDetails.getUserId()).enqueue(new Callback<ArrayList<NewsJson>>() {
-            @Override
-            public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                Log.d(TAG, "onResponse: " + call.request());
-                newsArrayList.addAll(response.body());
-                swipeCardAdapter.notifyDataSetChanged();
-            }
+                .create(rateNews.class)
+                .getNews(AccessToken.getCurrentAccessToken().getUserId())
+                .enqueue(new Callback<ArrayList<ArrayList<NewsJson>>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<ArrayList<NewsJson>>> call, Response<ArrayList<ArrayList<NewsJson>>> response) {
+                        Log.d(TAG, "onResponse: " + response.body());
+                        news.addAll(response.body());
+                        for(int i = 0 ;i < news.size(); i++){
+                            newsArrayList.addAll(news.get(i));
+                        }
+                        swipeCardAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ArrayList<ArrayList<NewsJson>>> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
 
         //button click listner
         likeBtn.setOnClickListener(new View.OnClickListener() {
