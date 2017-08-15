@@ -47,6 +47,16 @@ public class NewsJson {
     @SerializedName("dislikes")
     private int dislikes;
 
+    @SerializedName("chats")
+    private int chats;
+
+    public int getChats() {
+        return chats;
+    }
+
+    public void setChats(int chats) {
+        this.chats = chats;
+    }
 
     @SerializedName("users")
     private List<User> mUser;
