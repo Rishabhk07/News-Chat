@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
-import com.example.rishabhkhanna.peopleword.Adapters.ProfilePageAdapter;
 import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.rateNews;
 import com.example.rishabhkhanna.peopleword.R;
@@ -75,24 +75,12 @@ public class ProfileNewsFragment extends Fragment {
                 public void onResponse(Call<RatedNewsPojo> call, Response<RatedNewsPojo> response) {
                     userNews.clear();
                     userNews.addAll(response.body().getBriefs());
-                    userNews.addAll(response.body().getTopNews());
-                    userNews.addAll(response.body().getIndia());
-                    userNews.addAll(response.body().getWorlds());
-                    userNews.addAll(response.body().getSports());
-                    userNews.addAll(response.body().getCrickets());
-                    userNews.addAll(response.body().getBusinesses());
-                    userNews.addAll(response.body().getEducation());
-                    userNews.addAll(response.body().getEntertainments());
-                    userNews.addAll(response.body().getTvs());
-                    userNews.addAll(response.body().getLifeStyles());
-                    userNews.addAll(response.body().getAutomotives());
-                    userNews.addAll(response.body().getGoodGovernances());
-
                     adapter.notifyDataSetChanged();
+                    Log.d(TAG, "onResponse: " + call.request());
                 }
                 @Override
                 public void onFailure(Call<RatedNewsPojo> call, Throwable t) {
-
+                    Log.d(TAG, "onFailure: ");
                 }
             });
         }else {
@@ -108,9 +96,6 @@ public class ProfileNewsFragment extends Fragment {
                     return API.getInstance().retrofit.create(rateNews.class).getRatedNews(
                             AccessToken.getCurrentAccessToken().getUserId(),1);
                 case 1:
-                    return API.getInstance().retrofit.create(rateNews.class).getRatedNews(
-                            AccessToken.getCurrentAccessToken().getUserId(),0);
-                case 2:
                     return API.getInstance().retrofit.create(rateNews.class).getRatedNews(
                             AccessToken.getCurrentAccessToken().getUserId(),0);
             }
