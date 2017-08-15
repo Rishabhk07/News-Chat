@@ -45,11 +45,12 @@ public class ProfileFragment extends Fragment {
         imProfileImage = (ImageView) view.findViewById(R.id.imProfile);
         tvName = (TextView) view.findViewById(R.id.tvProfileName);
         tvEmail = (TextView) view.findViewById(R.id.tvProfileEmail);
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_TOKEN, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         if(Profile.getCurrentProfile() != null){
             Picasso.with(getContext()).load(Profile.getCurrentProfile().getProfilePictureUri(300,300)).into(imProfileImage);
             tvName.setText(Profile.getCurrentProfile().getName());
-            sharedPreferences.getString(Constants.AUTH_EMAIL,"");
+
+            tvEmail.setText(sharedPreferences.getString(Constants.AUTH_EMAIL,""));
         }
         viewPager = (ViewPager) view.findViewById(R.id.profileViewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.profileTablayout);
