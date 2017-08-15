@@ -75,6 +75,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         holder.tvNewsHeading.setText(thisJsonData.getHl());
         holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
         holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
+        holder.tvChats.setText(String.valueOf(thisJsonData.getChats()));
         Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 thisJsonData.getImageid() + "&width=600&height=500&resizemode=1")
                 .noFade()
