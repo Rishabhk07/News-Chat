@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,6 +71,8 @@ public class ChatActivity extends AppCompatActivity {
         thisJson = new Gson().fromJson(getIntent().getStringExtra(Constants.CHAT_KEY), NewsJson.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
         try {
             socket = IO.socket("http://192.168.1.36:9999/");
             Log.d(TAG, "onStart: IO.socket successfully");
