@@ -120,8 +120,6 @@ public class AllNewsPageFragment extends Fragment {
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 counter++;
                 Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count " + totalItemsCount + "counter: " + counter);
-                String nextPageUrl = url + counter;
-//                FetchNews.getUrlNews(getContext(), onJsonRecieved, nextPageUrl);
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
@@ -152,6 +150,7 @@ public class AllNewsPageFragment extends Fragment {
                         allNewsAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
                         Log.d(TAG, "onResponse: " + call.request());
+                        Log.d(TAG, "onResponse: " + newsArrayList.size());
                     }
 
                     @Override
@@ -161,6 +160,8 @@ public class AllNewsPageFragment extends Fragment {
                     }
                 });
 
+                scrollListener.resetState();
+
             }
         });
 
@@ -169,7 +170,7 @@ public class AllNewsPageFragment extends Fragment {
 
 
     private Call<ArrayList<NewsJson>> setupCall(int position, int counter) {
-
+        Log.d(TAG, "setupCall: " + counter);
         switch (position) {
             case 0:
                 call = NewsAPI.getInstance().getNews.getBriefs(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
