@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import com.example.rishabhkhanna.peopleword.Network.NewsAPI;
@@ -35,6 +36,7 @@ public class AllNewsPageFragment extends Fragment {
 
     RecyclerView rvPage;
     SwipeRefreshLayout swipeRefreshLayout;
+    ProgressBar progressBar;
     ArrayList<NewsJson> newsArrayList = new ArrayList<>();
     String url;
     int counter;
@@ -82,10 +84,14 @@ public class AllNewsPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("All News");
         View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
 
-        Log.d(TAG, "onCreateView: ");
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
+        progressBar = (ProgressBar) root.findViewById(R.id.all_news_progress);
+        if(counter == 0 && fetchFristApi){
+            progressBar.setVisibility(View.VISIBLE);
+        }
         rvPage = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList, getContext());
 
@@ -98,6 +104,7 @@ public class AllNewsPageFragment extends Fragment {
                     if(response.body() != null) {
                         newsArrayList.addAll(response.body());
                     }
+                    progressBar.setVisibility(View.GONE);
                     allNewsAdapter.notifyDataSetChanged();
                     Log.d(TAG, "onResponse: " + call.request());
                 }
@@ -123,6 +130,7 @@ public class AllNewsPageFragment extends Fragment {
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        progressBar.setVisibility(View.GONE);
                         newsArrayList.addAll(response.body());
                         allNewsAdapter.notifyDataSetChanged();
                     }
