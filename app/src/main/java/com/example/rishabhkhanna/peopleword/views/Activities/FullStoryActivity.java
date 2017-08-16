@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,8 +44,19 @@ public class FullStoryActivity extends AppCompatActivity {
         tvFullStory = (TextView) findViewById(R.id.tvFullStory);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctFullStory);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
+
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 //        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
 //        collapsingToolbarLayout.home
         Gson gson = new Gson();
