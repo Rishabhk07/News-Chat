@@ -54,9 +54,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     @Override
     public int getItemViewType(int position) {
-        Log.d(TAG, "getItemViewType: position : " + position);
-        if(newsArrayList.size() > 0) {
-            if(newsArrayList.get(position).getmUser() != null && !newsArrayList.get(position).getmUser().isEmpty()) {
+        if (newsArrayList.size() > 0) {
+            if (newsArrayList.get(position).getmUser() != null && !newsArrayList.get(position).getmUser().isEmpty()) {
                 if (newsArrayList.get(position).getmUser().get(0).getmUserTable().getRating() == 1) {
                     return 1;
                 } else {
@@ -69,15 +68,14 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     @Override
     public AllnewsViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(TAG, "onCreateViewHolder: ViewType: " + viewType);
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int layout = R.layout.news_list_view;
-        if(viewType == 1) {
+        if (viewType == 1) {
             layout = R.layout.news_list_green;
-        }else if(viewType == 0){
+        } else if (viewType == 0) {
             layout = R.layout.news_list_red;
         }
-        View itemView = li.inflate(layout,parent,false);
+        View itemView = li.inflate(layout, parent, false);
         return new AllnewsViewholder(itemView);
     }
 
@@ -89,12 +87,12 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
         holder.tvChats.setText(String.valueOf(thisJsonData.getChats()));
 
-        if(AccessToken.getCurrentAccessToken() != null) {
+        if (AccessToken.getCurrentAccessToken() != null) {
             holder.ivLike.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     Log.d(TAG, "onTouch: touch kiya re");
-                    like(thisJsonData,position);
+                    like(thisJsonData, position);
                     return true;
                 }
             });
@@ -102,21 +100,21 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             holder.ivDislike.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    dislike(thisJsonData,position);
+                    dislike(thisJsonData, position);
                     return true;
                 }
             });
             holder.tvLikes.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    like(thisJsonData,position);
+                    like(thisJsonData, position);
                     return true;
                 }
             });
             holder.tvDislikes.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    dislike(thisJsonData,position);
+                    dislike(thisJsonData, position);
                     return true;
                 }
             });
@@ -127,35 +125,19 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 .noFade()
                 .fit()
                 .into(holder.ivNewsImage);
-        Log.d(TAG, "onBindViewHolder: " + newsArrayList.get(position).getImageid());
+
         holder.cvNewsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
                 Intent i = new Intent(context, DetailNewsActivity.class);
-                i.putExtra(Constants.DETAIL_NEWS_KEY,gson.toJson(thisJsonData,NewsJson.class));
+                i.putExtra(Constants.DETAIL_NEWS_KEY, gson.toJson(thisJsonData, NewsJson.class));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
-                        , Pair.create((View)holder.ivNewsImage, "shared"),
-                            Pair.create((View)holder.tvNewsHeading,"transHeading"));
-                context.startActivity(i,options.toBundle());
+                        , Pair.create((View) holder.ivNewsImage, "shared"),
+                        Pair.create((View) holder.tvNewsHeading, "transHeading"));
+                context.startActivity(i, options.toBundle());
             }
         });
-
-//                if(thisJsonData.getmUser() != null) {
-//                    Log.d(TAG, "onBindViewHolder: NOTNUll");
-//                    if (!thisJsonData.getmUser().isEmpty()) {
-//                        long rating = thisJsonData.getmUser().get(0).getmUserTable().getRating();
-//                        Log.d(TAG, "onBindViewHolder: Email" + thisJsonData.getmUser().get(0).getEmail());
-//                        Log.d(TAG, "onBindViewHolder: " + thisJsonData.getmUser().get(0).getmUserTable().getRating());
-//                        if (rating == 1) {
-//                            holder.ivLike.setColorFilter(Color.GREEN);
-//                            holder.tvLikes.setTextColor(Color.GREEN);
-//                        } else if (rating == 0) {
-//                            holder.ivDislike.setColorFilter(Color.RED);
-//                            holder.tvDislikes.setTextColor(Color.RED);
-//                        }
-//                    }
-//                }
     }
 
     @Override
@@ -163,7 +145,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         return newsArrayList.size();
     }
 
-    static class AllnewsViewholder extends RecyclerView.ViewHolder{
+    static class AllnewsViewholder extends RecyclerView.ViewHolder {
         TextView tvNewsHeading;
         TextView tvLikes;
         TextView tvDislikes;
@@ -187,7 +169,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         }
     }
 
-    public void like(NewsJson thisJsonData, final int position){
+    public void like(NewsJson thisJsonData, final int position) {
         String token = AccessToken.getCurrentAccessToken().getToken();
         String userID = AccessToken.getCurrentAccessToken().getUserId();
         API.getInstance()
@@ -198,13 +180,13 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                         userID,
                         thisJsonData.getMsid(),
                         String.valueOf(thisJsonData.getId()),
-                        thisJsonData.getmUser().size() >  0 ? thisJsonData.getmUser().get(0).getmUserTable().getRating() : -1
+                        thisJsonData.getmUser().size() > 0 ? thisJsonData.getmUser().get(0).getmUserTable().getRating() : -1
                 ).enqueue(new Callback<NewsJson>() {
             @Override
             public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
                 Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
                 Log.d(TAG, "onResponse: " + call.request());
-                newsArrayList.set(position,response.body());
+                newsArrayList.set(position, response.body());
                 notifyDataSetChanged();
             }
 
@@ -216,7 +198,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     }
 
-    public void dislike(NewsJson thisJsonData, final int position){
+    public void dislike(NewsJson thisJsonData, final int position) {
         String token = AccessToken.getCurrentAccessToken().getToken();
         String userID = AccessToken.getCurrentAccessToken().getUserId();
         API.getInstance()
@@ -234,10 +216,11 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
                 Log.d(TAG, "onResponse: " + call.request());
                 Log.d(TAG, "onResponse: " + response);
-                newsArrayList.set(position,response.body());
+                newsArrayList.set(position, response.body());
                 notifyDataSetChanged();
 
             }
+
             @Override
             public void onFailure(Call<NewsJson> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + call.request());
