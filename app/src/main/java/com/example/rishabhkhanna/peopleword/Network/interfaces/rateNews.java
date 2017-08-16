@@ -20,20 +20,22 @@ import retrofit2.http.Query;
 public interface rateNews {
     @FormUrlEncoded
     @POST("rate/like")
-    Call<AuthResponse> likeNews(
+    Call<NewsJson> likeNews(
             @Field("access_token") String access_token,
             @Field("user_id") String user_id,
             @Field("news_msid") String news_msid,
-            @Field("news_id") String news_id
+            @Field("news_id") String news_id,
+            @Field("rating") long rating
     );
 
     @FormUrlEncoded
     @POST("rate/dislike")
-    Call<AuthResponse> dislikeNews(
+    Call<NewsJson> dislikeNews(
             @Field("access_token") String access_token,
             @Field("user_id") String user_id,
             @Field("news_msid") String news_msid,
-            @Field("news_id") String news_id
+            @Field("news_id") String news_id,
+            @Field("rating") long rating
     );
 
     @FormUrlEncoded
