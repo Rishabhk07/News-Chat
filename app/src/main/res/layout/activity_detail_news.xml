@@ -58,7 +58,7 @@
                 android:layout_marginTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:textSize="17dp"
+                android:textSize="19sp"
                 android:transitionName="transHeading"
                 />
 
@@ -73,7 +73,12 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
-                android:transitionName="transContent"/>
+                android:transitionName="transContent"
+                android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                android:elegantTextHeight="true"
+                android:textSize="16sp"
+                android:lineSpacingMultiplier="1.2"
+                />
             <ProgressBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
