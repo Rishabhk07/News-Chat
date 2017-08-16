@@ -100,16 +100,17 @@ public class RateNewFragment extends Fragment {
                                 token,
                                 userID,
                                 swipedNews.getMsid(),
-                                String.valueOf(swipedNews.getId())
-                        ).enqueue(new Callback<AuthResponse>() {
+                                String.valueOf(swipedNews.getId()),
+                                -1
+                        ).enqueue(new Callback<NewsJson>() {
                     @Override
-                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                    public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
                         Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
                         Log.d(TAG, "onResponse: " + call.request());
                     }
 
                     @Override
-                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                    public void onFailure(Call<NewsJson> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
@@ -128,16 +129,17 @@ public class RateNewFragment extends Fragment {
                                 token,
                                 userID,
                                 swipedNews.getMsid(),
-                                String.valueOf(swipedNews.getId())
-                        ).enqueue(new Callback<AuthResponse>() {
+                                String.valueOf(swipedNews.getId()),
+                                -1
+                        ).enqueue(new Callback<NewsJson>() {
                     @Override
-                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                    public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
                         Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
                         Log.d(TAG, "onResponse: " + call.request());
                     }
 
                     @Override
-                    public void onFailure(Call<AuthResponse> call, Throwable t) {
+                    public void onFailure(Call<NewsJson> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
