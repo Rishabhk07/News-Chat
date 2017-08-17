@@ -23,6 +23,7 @@ import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -38,9 +39,11 @@ import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
+import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -50,18 +53,27 @@ import java.util.ArrayList;
 import io.realm.Realm;
 
 public class BaseActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String TAG = "BaseActivity";
     public Fragment fragment;
     String thisTab = null;
     Boolean ontop = false;
+    ImageView headerImageView;
+    NavigationView navigationView;
 
     @Override
     protected void onStop() {
         Log.d(TAG, "onStop: ");
         ontop = false;
         super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ontop = true;
+        Log.d(TAG, "onRestart: ");
     }
 
     @Override
@@ -74,30 +86,31 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onNewIntent(Intent intent) {
         thisTab = intent.getStringExtra("notification_key");
-        if(ontop) {
-            Log.d(TAG, "onNewIntent: " + thisTab);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            Log.d(TAG, "onCreate: " + thisTab);
-            if (thisTab != null) {
-                fragment = AllNewsFragment.getInstance(thisTab);
-            } else {
-                fragment = new AllNewsFragment();
-            }
-            fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
+        Log.d(TAG, "onNewIntent: ");
+//        if(ontop) {
+        Log.d(TAG, "onNewIntent: " + thisTab);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Log.d(TAG, "onCreate: " + thisTab);
+        if (thisTab != null) {
+            fragment = AllNewsFragment.getInstance(thisTab);
+        } else {
+            fragment = new AllNewsFragment();
         }
+        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
+//        }
         super.onNewIntent(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ontop = true;
+        Log.d(TAG, "onCreate: ");
         setContentView(R.layout.activity_nav_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Briefs");
         thisTab = getIntent().getStringExtra("notification_key");
-
-        DrawerLayout drawer =  (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -106,14 +119,19 @@ public class BaseActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Log.d(TAG, "onCreate: "  + thisTab);
-        if(thisTab != null){
+        Log.d(TAG, "onCreate: " + thisTab);
+        if (thisTab != null) {
             fragment = AllNewsFragment.getInstance(thisTab);
-        }else{
+        } else {
             fragment = new AllNewsFragment();
         }
-
-        fragmentTransaction.replace(R.id.flActivity_main,fragment).commit();
+        fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
+        if (AccessToken.getCurrentAccessToken() != null) {
+            navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View headerView = navigationView.getHeaderView(0);
+            headerImageView = (ImageView) headerView.findViewById(R.id.headerImageView);
+            Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(headerImageView);
+        }
     }
 
     @Override
@@ -137,30 +155,31 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_rate_news) {
 
             fragment = new RateNewFragment();
-
+            setTitle("Rate News");
         } else if (id == R.id.allNews) {
 
-             fragment = new AllNewsFragment();
-
+            fragment = new AllNewsFragment();
+            setTitle("All News");
         } else if (id == R.id.nav_Topic) {
 
             fragment = new NewsTopic();
-
+            setTitle("Topics");
         } else if (id == R.id.nav_your_news) {
             fragment = new YourNewsFragment();
+            setTitle("Your News");
         } else if (id == R.id.nav_signout) {
             LoginManager.getInstance().logOut();
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Constants.LOGIN_TOKEN,"null");
-            editor.putString(Constants.LOGIN_USER_ID,"null");
+            editor.putString(Constants.LOGIN_TOKEN, "null");
+            editor.putString(Constants.LOGIN_USER_ID, "null");
             editor.apply();
             fragment = new RateNewFragment();
-        }else if(id == R.id.nav_edit){
+        } else if (id == R.id.nav_edit) {
             fragment = new ProfileFragment();
-
+            setTitle("Profile");
         }
-        fragmentTransaction.replace(R.id.flActivity_main,fragment).commit();
+        fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
