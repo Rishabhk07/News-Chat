@@ -85,6 +85,7 @@ public class YourNewsPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("Your News");
         View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
         Log.d(TAG, "onCreateView: In OnCreate");
