@@ -51,5 +51,7 @@ public class Constants {
 
     //login page string key
     public static final String LOGIN_STRING = "login_string";
+    public static final String loginFragmentIntent = "login_fragment";
+    public static final String loginPage = "login_page";
 
 }
