@@ -35,6 +35,7 @@ import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.FetchNews;
 import com.example.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
+import com.example.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import com.example.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
 import com.example.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
@@ -151,38 +152,60 @@ public class BaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(Constants.LOGIN_TOKEN,"null");
         if (id == R.id.nav_rate_news) {
+            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                getLoginPage();
+            }else{
+                fragment = new RateNewFragment();
+                setTitle("Rate News");
+            }
 
-            fragment = new RateNewFragment();
-            setTitle("Rate News");
         } else if (id == R.id.allNews) {
-
-            fragment = new AllNewsFragment();
-            setTitle("All News");
+            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                getLoginPage();
+            }else {
+                fragment = new AllNewsFragment();
+                setTitle("All News");
+            }
         } else if (id == R.id.nav_Topic) {
-
-            fragment = new NewsTopic();
-            setTitle("Topics");
+            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                getLoginPage();
+            }else {
+                fragment = new NewsTopic();
+                setTitle("Topics");
+            }
         } else if (id == R.id.nav_your_news) {
-            fragment = new YourNewsFragment();
-            setTitle("Your News");
+            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                getLoginPage();
+            }else {
+                fragment = new YourNewsFragment();
+                setTitle("Your News");
+            }
         } else if (id == R.id.nav_signout) {
             LoginManager.getInstance().logOut();
-            SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(Constants.LOGIN_TOKEN, "null");
             editor.putString(Constants.LOGIN_USER_ID, "null");
             editor.apply();
-            fragment = new RateNewFragment();
+            getLoginPage();
         } else if (id == R.id.nav_edit) {
-            fragment = new ProfileFragment();
-            setTitle("Profile");
+            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                getLoginPage();
+            }else {
+                fragment = new ProfileFragment();
+                setTitle("Profile");
+            }
         }
         fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getLoginPage() {
+        fragment = new LoginFragment();
     }
 
 }
