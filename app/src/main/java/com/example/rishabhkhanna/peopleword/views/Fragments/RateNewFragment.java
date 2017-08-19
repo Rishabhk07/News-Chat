@@ -55,7 +55,7 @@ public class RateNewFragment extends Fragment {
     CallbackManager callbackManager;
     SharedPreferences sharedPreferences;
     public static final String TAG = "RateNewsActivity";
-    AccessTokenTracker accessTokenTracker;
+
     AuthDetails authDetails;
     public RateNewFragment() {
         // Required empty public constructor
@@ -74,7 +74,6 @@ public class RateNewFragment extends Fragment {
         }
         if ((sharedPreferences.getString(Constants.LOGIN_TOKEN, "null")).equals("null")) {
             callbackManager = CallbackManager.Factory.create();
-            return getSignupPage(inflater, container);
         }
 
         View root = inflater.inflate(R.layout.fragment_rate_new, container, false);
@@ -211,133 +210,4 @@ public class RateNewFragment extends Fragment {
         return root;
     }
 
-    private View getSignupPage(LayoutInflater inflater, ViewGroup container) {
-        FacebookSdk.sdkInitialize(getContext());
-        View signup_root = inflater.inflate(R.layout.signup_login_layout, container, false);
-        final ProgressBar progressBar = (ProgressBar) signup_root.findViewById(R.id.marker_progress);
-        final LoginButton loginButton = (LoginButton) signup_root.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        loginButton.setFragment(this);
-
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                progressBar.setVisibility(View.VISIBLE);
-                loginButton.setVisibility(View.GONE);
-                Log.d(TAG, "onSuccess: accessToken" + loginResult.getAccessToken());
-                Log.d(TAG, "onSuccess: permissions" + loginResult.getRecentlyGrantedPermissions());
-                Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getToken());
-                Log.d(TAG, "onSuccess: token" + loginResult.getAccessToken().getExpires().toString());
-                Log.d(TAG, "onSuccess: application Id" + loginResult.getAccessToken().getApplicationId());
-                Log.d(TAG, "onSuccess: user_id" + loginResult.getAccessToken().getUserId());
-                Log.d(TAG, "onSuccess: isExpired" + loginResult.getAccessToken().isExpired());
-                if (Profile.getCurrentProfile() == null) {
-                    ProfileTracker profileTracker = new ProfileTracker() {
-                        @Override
-                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                            Profile.setCurrentProfile(currentProfile);
-                            this.stopTracking();
-                        }
-                    };
-                } else {
-                    Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
-                }
-
-                String fcm_token = FirebaseInstanceId.getInstance().getToken();
-                Log.d(TAG, "onSuccess: FCM TOKEN" + fcm_token);
-                API.getInstance()
-                        .retrofit
-                        .create(getAuth.class)
-                        .facebookUserAuth(
-                                loginResult.getAccessToken().getToken(),
-                                loginResult.getAccessToken().getUserId(),
-                                fcm_token
-                        ).enqueue(new Callback<AuthResponse>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<AuthResponse> call, Response<AuthResponse> response) {
-
-                        Log.d(TAG, "onResponse: " + response);
-                        Log.d(TAG, "onResponse: " + response.body().getUser().getName());
-                        Log.d(TAG, "onResponse: " + response.body().getUser().getEmail());
-
-                        Log.d(TAG, "onResponse: " + call.request());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(Constants.LOGIN_TOKEN, loginResult.getAccessToken().getToken());
-                        editor.putString(Constants.LOGIN_USER_ID, loginResult.getAccessToken().getUserId());
-                        editor.putString(Constants.AUTH_EMAIL,response.body().getUser().getEmail());
-                        editor.apply();
-                        progressBar.setVisibility(View.GONE);
-                        getActivity().recreate();
-                    }
-
-                    @Override
-                    public void onFailure(Call<AuthResponse> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
-                        Log.d(TAG, "onFailure: " + call.request());
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                        loginButton.setVisibility(View.VISIBLE);
-                        LoginManager.getInstance().logOut();
-                        Toast.makeText(getActivity(), "Cannot Login Right Now", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel: Cancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "onError: " + error.getMessage());
-            }
-        });
-//
-
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if (currentAccessToken != null) {
-                    AccessToken.setCurrentAccessToken(currentAccessToken);
-                    API.getInstance().retrofit
-                            .create(getAuth.class)
-                            .facebookTokenUpdate(currentAccessToken.getToken(), currentAccessToken.getUserId())
-                            .enqueue(new Callback<AuthResponse>() {
-                                @Override
-                                public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                                    Log.d(TAG, "onResponse: " + response.body());
-                                    Log.d(TAG, "onResponse: " + response.body().getUser().getName());
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<AuthResponse> call, Throwable t) {
-
-                                }
-                            });
-                }
-            }
-        };
-
-
-        return signup_root;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: request code" + requestCode);
-        Log.d(TAG, "onActivityResult: result code" + resultCode);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onDestroy() {
-        if (accessTokenTracker != null) {
-            accessTokenTracker.stopTracking();
-        }
-        super.onDestroy();
-    }
 }
