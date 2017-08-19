@@ -49,4 +49,7 @@ public class Constants {
     //Profile pager link
     public static final String PROFILE_NEWS = "profile_news";
 
+    //login page string key
+    public static final String LOGIN_STRING = "login_string";
+
 }
