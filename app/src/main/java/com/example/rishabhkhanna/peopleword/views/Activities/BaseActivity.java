@@ -62,7 +62,7 @@ public class BaseActivity extends AppCompatActivity
     Boolean ontop = false;
     ImageView headerImageView;
     NavigationView navigationView;
-
+    int loginRecreate = 0;
     @Override
     protected void onStop() {
         Log.d(TAG, "onStop: ");
@@ -87,18 +87,24 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onNewIntent(Intent intent) {
         thisTab = intent.getStringExtra("notification_key");
-        Log.d(TAG, "onNewIntent: ");
-//        if(ontop) {
-        Log.d(TAG, "onNewIntent: " + thisTab);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Log.d(TAG, "onCreate: " + thisTab);
-        if (thisTab != null) {
-            fragment = AllNewsFragment.getInstance(thisTab);
-        } else {
-            fragment = new AllNewsFragment();
-        }
-        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
+        loginRecreate = intent.getIntExtra(Constants.loginFragmentIntent,0);
+
+//
+//        Log.d(TAG, "onNewIntent: " + thisTab);
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        Log.d(TAG, "onCreate: " + thisTab);
+//        if (thisTab != null) {
+//            fragment = AllNewsFragment.getInstance(thisTab);
+//        } else {
+//            fragment = new AllNewsFragment();
 //        }
+//        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
+
+        Log.d(TAG, "onNewIntent: Recreate" + loginRecreate);
+
+            setFragment(thisTab);
+
+
         super.onNewIntent(intent);
     }
 
@@ -111,6 +117,8 @@ public class BaseActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         thisTab = getIntent().getStringExtra("notification_key");
+//        loginRecreate = getIntent().getIntExtra(Constants.loginFragmentIntent,0);
+        Log.d(TAG, "onCreate: loginrEcreate: " + loginRecreate );
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -119,14 +127,8 @@ public class BaseActivity extends AppCompatActivity
         Realm.init(this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Log.d(TAG, "onCreate: " + thisTab);
-        if (thisTab != null) {
-            fragment = AllNewsFragment.getInstance(thisTab);
-        } else {
-            fragment = new AllNewsFragment();
-        }
-        fragmentTransaction.replace(R.id.flActivity_main, fragment).commit();
+        setFragment(null);
         if (AccessToken.getCurrentAccessToken() != null) {
             navigationView = (NavigationView) findViewById(R.id.nav_view);
             View headerView = navigationView.getHeaderView(0);
@@ -154,31 +156,31 @@ public class BaseActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Constants.LOGIN_TOKEN,"null");
+        int loginPage = 0;
         if (id == R.id.nav_rate_news) {
-            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
-                getLoginPage();
+            if(token.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                loginPage = 1;
+                getLoginPage(loginPage);
             }else{
                 fragment = new RateNewFragment();
                 setTitle("Rate News");
             }
 
         } else if (id == R.id.allNews) {
-            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
-                getLoginPage();
-            }else {
                 fragment = new AllNewsFragment();
                 setTitle("All News");
-            }
         } else if (id == R.id.nav_Topic) {
-            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
-                getLoginPage();
+            if(token.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                loginPage = 3;
+                getLoginPage(loginPage);
             }else {
                 fragment = new NewsTopic();
                 setTitle("Topics");
             }
         } else if (id == R.id.nav_your_news) {
-            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
-                getLoginPage();
+            if(token.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                loginPage = 2;
+                getLoginPage(loginPage);
             }else {
                 fragment = new YourNewsFragment();
                 setTitle("Your News");
@@ -189,10 +191,12 @@ public class BaseActivity extends AppCompatActivity
             editor.putString(Constants.LOGIN_TOKEN, "null");
             editor.putString(Constants.LOGIN_USER_ID, "null");
             editor.apply();
-            getLoginPage();
+            loginRecreate = 0;
+            setFragment(null);
         } else if (id == R.id.nav_edit) {
-            if(fragment.equals("null") || AccessToken.getCurrentAccessToken() == null){
-                getLoginPage();
+            if(token.equals("null") || AccessToken.getCurrentAccessToken() == null){
+                loginPage = 4;
+                getLoginPage(loginPage);
             }else {
                 fragment = new ProfileFragment();
                 setTitle("Profile");
@@ -204,8 +208,40 @@ public class BaseActivity extends AppCompatActivity
         return true;
     }
 
-    private void getLoginPage() {
-        fragment = new LoginFragment();
+    private void getLoginPage(int page) {
+        fragment = LoginFragment.newInstance("Login Here",page);
+    }
+
+    private void setFragment(String thisTab){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        switch(loginRecreate){
+            case 0:
+                if (thisTab != null) {
+                    fragment = AllNewsFragment.getInstance(thisTab);
+                } else {
+                    fragment = new AllNewsFragment();
+                }
+                setTitle("All News");
+                break;
+            case 1:
+                fragment = new RateNewFragment();
+                setTitle("Rate News");
+                break;
+            case 2:
+                fragment = new YourNewsFragment();
+                setTitle("Your News");
+                break;
+            case 3:
+                fragment = new NewsTopic();
+                setTitle("Topics");
+                break;
+            case 4:
+                fragment = new ProfileFragment();
+                setTitle("Profile");
+                break;
+        }
+
+        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
     }
 
 }

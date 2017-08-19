@@ -19,6 +19,7 @@ import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -39,6 +40,7 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     public String intro = "Login to view your personalised news";
+    int fragmentPage = 0;
     AccessTokenTracker accessTokenTracker;
     public static final String TAG = "LoginFragment";
     CallbackManager callbackManager;
@@ -48,10 +50,11 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static LoginFragment newInstance(String param1) {
+    public static LoginFragment newInstance(String param1, int fragmentPage) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         args.putString(Constants.LOGIN_STRING,param1);
+        args.putInt(Constants.loginPage,fragmentPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,6 +64,7 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             intro = getArguments().getString(Constants.LOGIN_STRING);
+            fragmentPage = getArguments().getInt(Constants.loginPage);
         }
     }
 
@@ -184,7 +188,10 @@ public class LoginFragment extends Fragment {
                 editor.putString(Constants.AUTH_EMAIL,response.body().getUser().getEmail());
                 editor.apply();
                 progressBar.setVisibility(View.GONE);
-                getActivity().recreate();
+//                getActivity().recreate();
+                Intent intent = new Intent(getContext(), BaseActivity.class).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra(Constants.loginFragmentIntent,fragmentPage);
+                startActivity(intent);
             }
 
             @Override
