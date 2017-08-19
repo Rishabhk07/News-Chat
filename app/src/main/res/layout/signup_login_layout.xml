@@ -11,6 +11,7 @@
         android:text="Login to Rate News on your Favourite Topics"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_marginTop="40dp"
+        android:id="@+id/tvLogin"
         />
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
