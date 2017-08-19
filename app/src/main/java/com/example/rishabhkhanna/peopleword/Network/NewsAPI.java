@@ -15,7 +15,7 @@ public class NewsAPI {
 
     private NewsAPI() {
         getNews = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.34:9890/")
+                .baseUrl("http://192.168.1.39:9890/")
                 .addConverterFactory(
                         GsonConverterFactory.create()
                 )

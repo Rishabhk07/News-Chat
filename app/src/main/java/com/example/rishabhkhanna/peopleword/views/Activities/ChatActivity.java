@@ -74,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
         try {
-            socket = IO.socket("http://192.168.1.34:9999/");
+            socket = IO.socket("http://192.168.1.39:9999/");
             Log.d(TAG, "onStart: IO.socket successfully");
         } catch (URISyntaxException e) {
             Log.d(TAG, "onStart: unable to connect");
