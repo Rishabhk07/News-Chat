@@ -11,13 +11,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:backgroundTint="#80000000"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
+        android:id="@+id/headerImageView"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="5dp"
         />
 
@@ -25,16 +28,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Rishabh Khanna"
+        android:text="guest"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/textView2" />
+        android:id="@+id/tvHeaderName"
+        android:textColor="@android:color/white"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvHeaderMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="rishabhkhanna777@gmail.com"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
         />
 
 </LinearLayout>
