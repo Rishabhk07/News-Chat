@@ -79,6 +79,16 @@
                 android:textSize="16sp"
                 android:lineSpacingMultiplier="1.2"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="source: Times of India"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#9E9E9E"
+                android:paddingLeft="15dp"
+                android:paddingTop="8dp"
+                android:id="@+id/tvSource"
+                />
             <ProgressBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
