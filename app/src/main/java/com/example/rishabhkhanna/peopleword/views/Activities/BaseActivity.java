@@ -128,7 +128,8 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_rate_news) {
             if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                 loginPage = 1;
-                getLoginPage(loginPage);
+
+                getLoginPage(getResources().getString(R.string.rate_news),loginPage);
                 setTitle("Login");
             } else {
                 fragment = new RateNewFragment();
@@ -141,7 +142,7 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_Topic) {
             if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                 loginPage = 3;
-                getLoginPage(loginPage);
+                getLoginPage(getResources().getString(R.string.news_topics),loginPage);
                 setTitle("Login");
             } else {
                 fragment = new NewsTopic();
@@ -150,7 +151,7 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_your_news) {
             if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                 loginPage = 2;
-                getLoginPage(loginPage);
+                getLoginPage(getResources().getString(R.string.your_news),loginPage);
                 setTitle("Login");
             } else {
                 fragment = new YourNewsFragment();
@@ -171,7 +172,7 @@ public class BaseActivity extends AppCompatActivity
             navigationView.getMenu().findItem(id).setChecked(true);
             if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                 loginPage = 4;
-                getLoginPage(loginPage);
+                getLoginPage(getResources().getString(R.string.profile),loginPage);
                 setTitle("Login");
             } else {
                 fragment = new ProfileFragment();
@@ -205,8 +206,8 @@ public class BaseActivity extends AppCompatActivity
         super.onStart();
     }
 
-    private void getLoginPage(int page) {
-        fragment = LoginFragment.newInstance("Login Here", page);
+    private void getLoginPage(String intro, int page) {
+        fragment = LoginFragment.newInstance(intro, page);
     }
 
     private void setFragment(String thisTab) {
