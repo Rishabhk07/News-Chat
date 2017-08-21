@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.Adapters.ChatAdapter;
@@ -58,6 +60,10 @@ public class ChatActivity extends AppCompatActivity {
     EditText etChat;
     FloatingActionButton btnSend;
     ImageView userImageView;
+    TextView tvHeading;
+    TextView tvDetail;
+    ImageView ivClear;
+    CardView cardViewNews;
     public static final String TAG = "ChatActivity";
     Socket socket = null;
     NewsJson thisJson;
@@ -71,8 +77,6 @@ public class ChatActivity extends AppCompatActivity {
         thisJson = new Gson().fromJson(getIntent().getStringExtra(Constants.CHAT_KEY), NewsJson.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
         try {
             socket = IO.socket("http://192.168.1.39:9999/");
             Log.d(TAG, "onStart: IO.socket successfully");
@@ -90,13 +94,19 @@ public class ChatActivity extends AppCompatActivity {
         btnSend = (FloatingActionButton) findViewById(R.id.btnSend);
         recyclerView = (RecyclerView) findViewById(R.id.rvChat);
         userImageView = (ImageView) findViewById(R.id.imSelectUser);
+        tvHeading = (TextView) findViewById(R.id.tvHeading);
+        tvDetail = (TextView) findViewById(R.id.tvDetail);
+        cardViewNews = (CardView) findViewById(R.id.cvNews);
+        ivClear = (ImageView) findViewById(R.id.ivClear);
+
+        tvHeading.setText(thisJson.getHl());
+        tvDetail.setText(thisJson.getSyn());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         getChats();
         chatAdapter = new ChatAdapter(chatsList, this);
         recyclerView.setAdapter(chatAdapter);
         Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100,100)).into(userImageView);
-
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +201,12 @@ public class ChatActivity extends AppCompatActivity {
         };
         socket.on("from_server", onNewMessage);
 
+        ivClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardViewNews.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
