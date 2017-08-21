@@ -13,7 +13,10 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +50,7 @@ public class DetailNewsActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     LinearLayout linearLayout;
     ProgressBar progressBar;
+    TextView tvSource;
     boolean shareProgress = false;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -59,6 +63,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        tvSource = (TextView) findViewById(R.id.tvSource);
         Intent i = getIntent();
         final Gson gson = new Gson();
         final NewsJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
@@ -119,10 +124,23 @@ public class DetailNewsActivity extends AppCompatActivity {
                     case R.id.action_chat:
                         Intent i = new Intent(DetailNewsActivity.this,ChatActivity.class);
                         i.putExtra(Constants.CHAT_KEY,new Gson().toJson(thisNews));
-                        startActivity(i);
+                        i.putExtra(Constants.DETAIL_NEWS_KEY,new Gson().toJson(thisNews));
+                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                DetailNewsActivity.this,
+                                Pair.create((View)headTv,"transHeading"));
+                        startActivity(i,optionsCompat.toBundle());
                         break;
                 }
                 return true;
+            }
+        });
+
+        tvSource.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                CustomTabsIntent customTabsIntent = builder.build();
+                customTabsIntent.launchUrl(DetailNewsActivity.this, Uri.parse(thisNews.getSu()));
             }
         });
 
