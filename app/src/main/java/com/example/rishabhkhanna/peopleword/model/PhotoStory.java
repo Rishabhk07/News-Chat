@@ -4,7 +4,9 @@ package com.example.rishabhkhanna.peopleword.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PhotoStory {
+import io.realm.RealmObject;
+
+public class PhotoStory extends RealmObject{
 
     @SerializedName("ag")
     private String mAg;

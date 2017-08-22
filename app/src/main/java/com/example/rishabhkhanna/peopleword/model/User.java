@@ -3,24 +3,27 @@ package com.example.rishabhkhanna.peopleword.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+
 
 @SuppressWarnings("unused")
-public class User {
+public class User extends RealmObject {
 
     @SerializedName("createdAt")
     private String mCreatedAt;
     @SerializedName("email")
     private String mEmail;
     @SerializedName("facebook_refresh_token")
-    private Object mFacebookRefreshToken;
+    private String mFacebookRefreshToken;
     @SerializedName("facebook_user_id")
     private String mFacebookUserId;
     @SerializedName("google_access_token")
-    private Object mGoogleAccessToken;
+    private String mGoogleAccessToken;
     @SerializedName("google_refresh_token")
-    private Object mGoogleRefreshToken;
+    private String mGoogleRefreshToken;
     @SerializedName("google_ser_id")
-    private Object mGoogleSerId;
+    private String mGoogleSerId;
     @SerializedName("id")
     private Long mId;
     @SerializedName("name")
@@ -28,7 +31,7 @@ public class User {
     @SerializedName("updatedAt")
     private String mUpdatedAt;
     @SerializedName("via")
-    private Object mVia;
+    private String mVia;
 
 
     @SerializedName(value = "userbriefs", alternate = {"userautomotive","userentertainment","userbusiness","usercricket","usereducation","userenvironment",
@@ -86,11 +89,11 @@ public class User {
         mEmail = email;
     }
 
-    public Object getFacebookRefreshToken() {
+    public String getFacebookRefreshToken() {
         return mFacebookRefreshToken;
     }
 
-    public void setFacebookRefreshToken(Object facebookRefreshToken) {
+    public void setFacebookRefreshToken(String facebookRefreshToken) {
         mFacebookRefreshToken = facebookRefreshToken;
     }
 
@@ -102,27 +105,27 @@ public class User {
         mFacebookUserId = facebookUserId;
     }
 
-    public Object getGoogleAccessToken() {
+    public String getGoogleAccessToken() {
         return mGoogleAccessToken;
     }
 
-    public void setGoogleAccessToken(Object googleAccessToken) {
+    public void setGoogleAccessToken(String googleAccessToken) {
         mGoogleAccessToken = googleAccessToken;
     }
 
-    public Object getGoogleRefreshToken() {
+    public String getGoogleRefreshToken() {
         return mGoogleRefreshToken;
     }
 
-    public void setGoogleRefreshToken(Object googleRefreshToken) {
+    public void setGoogleRefreshToken(String googleRefreshToken) {
         mGoogleRefreshToken = googleRefreshToken;
     }
 
-    public Object getGoogleSerId() {
+    public String getGoogleSerId() {
         return mGoogleSerId;
     }
 
-    public void setGoogleSerId(Object googleSerId) {
+    public void setGoogleSerId(String googleSerId) {
         mGoogleSerId = googleSerId;
     }
 
@@ -150,11 +153,11 @@ public class User {
         mUpdatedAt = updatedAt;
     }
 
-    public Object getVia() {
+    public String getVia() {
         return mVia;
     }
 
-    public void setVia(Object via) {
+    public void setVia(String via) {
         mVia = via;
     }
 //

@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-public class NewsJson {
+
+public class NewsJson extends RealmObject{
 
     @SerializedName("createdAt")
     private String mCreatedAt;
@@ -25,7 +29,7 @@ public class NewsJson {
     @SerializedName("msid")
     private String mMsid;
     @SerializedName("photoStory")
-    private List<PhotoStory> mPhotoStory;
+    private RealmList<PhotoStory> mPhotoStory;
     @SerializedName("st")
     private String mSt;
     @SerializedName("story")
@@ -59,7 +63,7 @@ public class NewsJson {
     }
 
     @SerializedName("users")
-    private List<User> mUser;
+    private RealmList<User> mUser;
 
 
     @SerializedName(value = "userbriefs", alternate = {"userautomotive","userentertainment","userbusiness","usercricket","usereducation","userenvironment",
@@ -74,11 +78,11 @@ public class NewsJson {
         this.mUserTable = mUserTable;
     }
 
-    public List<User> getmUser() {
+    public RealmList<User> getmUser() {
         return mUser;
     }
 
-    public void setmUser(List<User> mUser) {
+    public void setmUser(RealmList<User> mUser) {
         this.mUser = mUser;
     }
 
@@ -146,11 +150,11 @@ public class NewsJson {
         mMsid = msid;
     }
 
-    public List<PhotoStory> getPhotoStory() {
+    public RealmList<PhotoStory> getPhotoStory() {
         return mPhotoStory;
     }
 
-    public void setPhotoStory(List<PhotoStory> photoStory) {
+    public void setPhotoStory(RealmList<PhotoStory> photoStory) {
         mPhotoStory = photoStory;
     }
 

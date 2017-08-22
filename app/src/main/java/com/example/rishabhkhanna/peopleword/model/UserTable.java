@@ -2,10 +2,12 @@ package com.example.rishabhkhanna.peopleword.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+
 /**
  * Created by rishabhkhanna on 28/07/17.
  */
-public class UserTable {
+public class UserTable extends RealmObject{
     @SerializedName("createdAt")
     private String mCreatedAt;
     @SerializedName("rating")
