@@ -255,12 +255,13 @@ public class BaseActivity extends AppCompatActivity
             String email = sharedPreferences.getString(Constants.AUTH_EMAIL, "");
             tvHeaderMail.setVisibility(View.VISIBLE);
             tvHeaderMail.setText(email);
+            navigationView.getMenu().findItem(R.id.nav_signout).setVisible(true);
 
         } else {
             Picasso.with(this).load(R.drawable.person_placeholder).into(headerImageView);
             tvHeaderName.setText("Guest");
             tvHeaderMail.setVisibility(View.GONE);
-
+            navigationView.getMenu().findItem(R.id.nav_signout).setVisible(false);
         }
 
     }
