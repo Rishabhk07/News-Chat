@@ -18,8 +18,10 @@ import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.model.AuthResponse;
+import com.example.rishabhkhanna.peopleword.model.Chat;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.views.Activities.BaseActivity;
+import com.example.rishabhkhanna.peopleword.views.Activities.ChatActivity;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -189,9 +191,16 @@ public class LoginFragment extends Fragment {
                 editor.apply();
                 progressBar.setVisibility(View.GONE);
 //                getActivity().recreate();
-                Intent intent = new Intent(getContext(), BaseActivity.class).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.putExtra(Constants.loginFragmentIntent,fragmentPage);
-                startActivity(intent);
+                if(fragmentPage == 5){
+                    getActivity().recreate();
+                }else {
+                    Intent intent = new Intent(getContext(), BaseActivity.class).setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.putExtra(Constants.loginFragmentIntent,fragmentPage);
+                    startActivity(intent);
+                }
+
+
+
             }
 
             @Override
