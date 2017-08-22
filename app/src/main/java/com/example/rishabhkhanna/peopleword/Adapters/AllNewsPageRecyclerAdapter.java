@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.Network.API;
 import com.example.rishabhkhanna.peopleword.Network.interfaces.rateNews;
@@ -26,6 +27,7 @@ import com.example.rishabhkhanna.peopleword.model.AuthResponse;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.model.ToiJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
@@ -130,12 +132,18 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
+
                 Intent i = new Intent(context, DetailNewsActivity.class);
                 i.putExtra(Constants.DETAIL_NEWS_KEY, gson.toJson(thisJsonData, NewsJson.class));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
                         , Pair.create((View) holder.ivNewsImage, "shared"),
                         Pair.create((View) holder.tvNewsHeading, "transHeading"));
-                context.startActivity(i, options.toBundle());
+                if(UtilMethods.isNetConnected(context)){
+                    context.startActivity(i, options.toBundle());
+                }else{
+                    Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
