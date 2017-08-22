@@ -1,7 +1,11 @@
 package com.example.rishabhkhanna.peopleword.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import com.example.rishabhkhanna.peopleword.model.AuthDetails;
@@ -149,10 +153,24 @@ public class UtilMethods {
     }
 
     //get Profile Picture url from facebook user_id
-
     public static String getProfilePicutre(String user_id){
         String url = "https://graph.facebook.com/"+ user_id + "/picture?type=normal&redirect=false";
         return url;
+    }
+
+    public static Boolean isNetConnected(Context context){
+        ConnectivityManager connectivityManager  = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo  = connectivityManager.getActiveNetworkInfo();
+        if(activeNetworkInfo != null && activeNetworkInfo.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static void showSnackBar(String message, int id, Activity activity){
+        Snackbar snackbar = Snackbar.make(activity.findViewById(id), message,Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
 
