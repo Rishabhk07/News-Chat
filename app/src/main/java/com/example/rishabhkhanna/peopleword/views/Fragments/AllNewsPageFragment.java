@@ -20,11 +20,15 @@ import com.example.rishabhkhanna.peopleword.model.AuthDetails;
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 import com.example.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
+import com.example.rishabhkhanna.peopleword.utils.UtilMethods;
 import com.facebook.AccessToken;
 
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -98,24 +102,52 @@ public class AllNewsPageFragment extends Fragment {
         //get Toi data
         if (counter == 0 && fetchFristApi) {
 //            FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
-            setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
-                @Override
-                public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                    if(response.body() != null) {
-                        newsArrayList.addAll(response.body());
-                    }
-                    progressBar.setVisibility(View.GONE);
-                    allNewsAdapter.notifyDataSetChanged();
-                    Log.d(TAG, "onResponse: " + call.request());
-                }
+            if (UtilMethods.isNetConnected(getContext())) {
+                setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        if (response.body() != null) {
+                            newsArrayList.addAll(response.body());
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        allNewsAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "onResponse: " + call.request());
+                        String db_name = position + "_news_backup.realm";
+                        RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                        final Realm realm = Realm.getInstance(config);
+                        realm.executeTransactionAsync(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                RealmList realmList = new RealmList();
+                                realmList.addAll(newsArrayList);
+                                realm.copyToRealmOrUpdate(realmList);
 
-                @Override
-                public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                    Log.d(TAG, "onError: " + t.getMessage());
-                    Log.d(TAG, "onResponse: " + call.request());
-                }
-            });
-            fetchFristApi = false;
+                            }
+                        }, new Realm.Transaction.OnSuccess() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d(TAG, "onSuccess: News saved to Realm");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                        Log.d(TAG, "onError: " + t.getMessage());
+                        Log.d(TAG, "onResponse: " + call.request());
+                    }
+                });
+                fetchFristApi = false;
+            } else {
+                String db_name = position + "_news_backup.realm";
+                RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                final Realm realm = Realm.getInstance(config);
+                newsArrayList.addAll(realm.where(NewsJson.class).findAll());
+                allNewsAdapter.notifyDataSetChanged();
+                Log.d(TAG, "onCreateView: news from Realm, since not online");
+                progressBar.setVisibility(View.GONE);
+
+            }
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPage.setLayoutManager(linearLayoutManager);
