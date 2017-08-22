@@ -1,9 +1,13 @@
 package com.example.rishabhkhanna.peopleword.views.Activities;
 
+import android.Manifest;
 import android.animation.Animator;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageItemInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 
 import android.net.Uri;
@@ -16,9 +20,11 @@ import android.support.annotation.RequiresApi;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.rishabhkhanna.peopleword.R;
 
 import com.example.rishabhkhanna.peopleword.model.NewsJson;
@@ -47,6 +54,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.security.Permission;
 
 
 public class DetailNewsActivity extends AppCompatActivity {
@@ -63,6 +71,7 @@ public class DetailNewsActivity extends AppCompatActivity {
     FrameLayout frameLayoutreplace;
     boolean shareProgress = false;
     boolean chatLogin = false;
+    int PERM_REQ  = 1234;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -129,10 +138,10 @@ public class DetailNewsActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.action_share:
-
-                        if (!shareProgress) {
-                            shareProgress = true;
-                            shareScreen();
+                        if(isPermissionGranted()){
+                            if (!shareProgress) {
+                                shareScreen();
+                            }
                         }
                         break;
                     case R.id.action_chat:
@@ -170,7 +179,37 @@ public class DetailNewsActivity extends AppCompatActivity {
 
     }
 
+    private Boolean isPermissionGranted() {
+
+        int perRead = ContextCompat.checkSelfPermission(DetailNewsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int perWrite = ContextCompat.checkSelfPermission(DetailNewsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+
+        if(perRead == PackageManager.PERMISSION_GRANTED && perWrite == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(
+                    DetailNewsActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERM_REQ
+            );
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult: " + requestCode);
+        if(requestCode == PERM_REQ){
+         if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+             shareScreen();
+         }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     private void shareScreen() {
+        shareProgress = true;
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         linearLayout.setDrawingCacheEnabled(true);
@@ -196,9 +235,9 @@ public class DetailNewsActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent, "share using .."));
 
                 progressBar.setIndeterminate(false);
-                progressBar.setVisibility(View.GONE);
-                shareProgress = false;
                 super.onPostExecute(uri);
+                shareProgress = false;
+                progressBar.setVisibility(View.GONE);
             }
         }.execute();
 
