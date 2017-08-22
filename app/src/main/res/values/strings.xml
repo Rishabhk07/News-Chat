@@ -12,9 +12,14 @@
     <string name="facebook_app_id">485700021767720</string>
     <string name="fb_login_protocol_scheme">fb485700021767720</string>
 
+    <!--not connected to internet -->
+    <string name="not_connected">Not Connected to Internet</string>
+
+    <!--Login Page into-->
     <string name="rate_news">See and Rate only news you have not rated till now, swipe right to Like and left to Dislike</string>
     <string name="your_news">See your personalised news, select topics and its order from new topic section and see only those news, in that order</string>
     <string name="news_topics">select your favourite news topic and see news from only those topics in your news section, you can also change the order of the news by long pressing and shifting topics</string>
     <string name="profile">View your profile information, see what you have liked and disliked in Breifs</string>
     <string name="chat">Chat with people about current news, and share your views</string>
+
 </resources>
