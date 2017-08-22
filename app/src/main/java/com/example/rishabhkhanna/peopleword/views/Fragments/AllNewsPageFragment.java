@@ -3,6 +3,8 @@ package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.example.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
@@ -51,6 +54,7 @@ public class AllNewsPageFragment extends Fragment {
     int position;
     public static final String TAG = "AllNewsPageFragment";
     AuthDetails authDetails;
+    FrameLayout frameLayout;
     public AllNewsPageFragment() {
         // Required empty public constructor
     }
@@ -113,6 +117,7 @@ public class AllNewsPageFragment extends Fragment {
                         allNewsAdapter.notifyDataSetChanged();
                         Log.d(TAG, "onResponse: " + call.request());
                         String db_name = position + "_news_backup.realm";
+
                         RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
                         final Realm realm = Realm.getInstance(config);
                         realm.executeTransactionAsync(new Realm.Transaction() {
@@ -144,9 +149,11 @@ public class AllNewsPageFragment extends Fragment {
                 final Realm realm = Realm.getInstance(config);
                 newsArrayList.addAll(realm.where(NewsJson.class).findAll());
                 allNewsAdapter.notifyDataSetChanged();
-                Log.d(TAG, "onCreateView: news from Realm, since not online");
+                Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
                 progressBar.setVisibility(View.GONE);
-
+                if(newsArrayList.size() == 0) {
+                    root = inflater.inflate(R.layout.fragment_network_not_connected, container, false);
+                }
             }
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -182,23 +189,27 @@ public class AllNewsPageFragment extends Fragment {
             @Override
             public void onRefresh() {
                 counter = 0;
-                setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                        newsArrayList.clear();
-                        newsArrayList.addAll(response.body());
-                        allNewsAdapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
-                        Log.d(TAG, "onResponse: " + call.request());
-                        Log.d(TAG, "onResponse: " + newsArrayList.size());
-                    }
+                if (UtilMethods.isNetConnected(getContext())) {
+                    setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                            newsArrayList.clear();
+                            newsArrayList.addAll(response.body());
+                            allNewsAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
+                            Log.d(TAG, "onResponse: " + call.request());
+                            Log.d(TAG, "onResponse: " + newsArrayList.size());
+                        }
 
-                    @Override
-                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                        Log.d(TAG, "onError: " + t.getMessage());
-                        Log.d(TAG, "onResponse: " + call.request());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                            Log.d(TAG, "onError: " + t.getMessage());
+                            Log.d(TAG, "onResponse: " + call.request());
+                        }
+                    });
+                }else{
+                    swipeRefreshLayout.setRefreshing(false);
+                }
 
                 scrollListener.resetState();
 
