@@ -1,107 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail_news_relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity"
     android:orientation="vertical"
-    >
+    tools:context="com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_navigation_detail_news"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
         app:itemIconTint="@color/bel_grey_text"
         app:itemTextColor="@color/bel_grey_text"
-        android:background="@android:color/white"
-        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_detail_news"
         />
+
     <LinearLayout
+        android:id="@+id/llDetailNews"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_above="@id/bottom_navigation"
-        android:id="@+id/llDetailNews"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
-        >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/detail_image"
-        android:transitionName="shared"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/detail_image"
-        >
-        <LinearLayout
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="shared" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="#323232"
-                android:fontFamily="sans-serif"
-                android:id="@+id/news_headline_full"
-                android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
-                android:layout_marginTop="15dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="19sp"
-                android:transitionName="transHeading"
-                />
+            android:layout_below="@id/detail_image">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:textColor="#323232"
-                android:fontFamily="sans-serif"
-                android:id="@+id/news_deatil_full"
-                android:layout_marginTop="7dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
-                android:transitionName="transContent"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:elegantTextHeight="true"
-                android:textSize="16sp"
-                android:lineSpacingMultiplier="1.2"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="source: Times of India"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#9E9E9E"
-                android:paddingLeft="15dp"
-                android:paddingTop="8dp"
-                android:id="@+id/tvSource"
-                />
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/progress_bar"
-                android:visibility="gone"
-                />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/news_headline_full"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
+                    android:textColor="#323232"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:transitionName="transHeading" />
+
+                <TextView
+                    android:id="@+id/news_deatil_full"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:elegantTextHeight="true"
+                    android:fontFamily="sans-serif"
+                    android:lineSpacingMultiplier="1.2"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
+                    android:textColor="#323232"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:transitionName="transContent" />
+
+                <TextView
+                    android:id="@+id/tvSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="8dp"
+                    android:text="source: Times of India"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="#9E9E9E" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/framelayoutReplace"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        >
+    </FrameLayout>
 </RelativeLayout>
+
 
 
 

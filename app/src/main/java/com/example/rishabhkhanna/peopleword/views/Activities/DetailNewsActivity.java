@@ -15,7 +15,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,10 +26,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rishabhkhanna.peopleword.R;
 
@@ -34,6 +40,8 @@ import com.example.rishabhkhanna.peopleword.model.NewsJson;
 
 import com.example.rishabhkhanna.peopleword.utils.Constants;
 
+import com.example.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
+import com.facebook.AccessToken;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -51,7 +59,11 @@ public class DetailNewsActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     ProgressBar progressBar;
     TextView tvSource;
+    RelativeLayout relativeLayout;
+    FrameLayout frameLayoutreplace;
     boolean shareProgress = false;
+    boolean chatLogin = false;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +76,13 @@ public class DetailNewsActivity extends AppCompatActivity {
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         tvSource = (TextView) findViewById(R.id.tvSource);
+        relativeLayout = (RelativeLayout) findViewById(R.id.detail_news_relative);
+        frameLayoutreplace = (FrameLayout) findViewById(R.id.framelayoutReplace);
         Intent i = getIntent();
         final Gson gson = new Gson();
         final NewsJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
         headTv.setText(thisNews.getHl());
         detailTV.setText(thisNews.getSyn());
-
         Picasso.with(DetailNewsActivity.this)
                 .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + thisNews.getImageid() + "&width=1500&height=1440&resizemode=1")
                 .noFade()
@@ -116,19 +129,29 @@ public class DetailNewsActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.action_share:
-                        if(!shareProgress) {
+
+                        if (!shareProgress) {
                             shareProgress = true;
                             shareScreen();
                         }
                         break;
                     case R.id.action_chat:
-                        Intent i = new Intent(DetailNewsActivity.this,ChatActivity.class);
-                        i.putExtra(Constants.CHAT_KEY,new Gson().toJson(thisNews));
-                        i.putExtra(Constants.DETAIL_NEWS_KEY,new Gson().toJson(thisNews));
-                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                DetailNewsActivity.this,
-                                Pair.create((View)headTv,"transHeading"));
-                        startActivity(i,optionsCompat.toBundle());
+                        chatLogin = true;
+                        if (AccessToken.getCurrentAccessToken() != null) {
+                            Intent i = new Intent(DetailNewsActivity.this, ChatActivity.class);
+                            i.putExtra(Constants.CHAT_KEY, new Gson().toJson(thisNews));
+                            i.putExtra(Constants.DETAIL_NEWS_KEY, new Gson().toJson(thisNews));
+                            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                    DetailNewsActivity.this,
+                                    Pair.create((View) headTv, "transHeading"));
+                            startActivity(i, optionsCompat.toBundle());
+                        } else {
+                            frameLayoutreplace.setVisibility(View.VISIBLE);
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.framelayoutReplace,
+                                    LoginFragment.newInstance(getResources().getString(R.string.chat), 5)).commit();
+                            navigationView.setVisibility(View.GONE);
+                        }
                         break;
                 }
                 return true;
@@ -151,12 +174,12 @@ public class DetailNewsActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         linearLayout.setDrawingCacheEnabled(true);
         final Bitmap bitmap = linearLayout.getDrawingCache();
-        new AsyncTask<Void,Void,Uri>(){
+        new AsyncTask<Void, Void, Uri>() {
             @Override
             protected Uri doInBackground(Void... params) {
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 //                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bytes);
-                String path = MediaStore.Images.Media.insertImage(getContentResolver(),bitmap,"Social News",null);
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Social News", null);
                 Uri uri = Uri.parse(path);
                 return uri;
             }
@@ -165,11 +188,11 @@ public class DetailNewsActivity extends AppCompatActivity {
             protected void onPostExecute(Uri uri) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_STREAM,uri);
-                intent.putExtra(Intent.EXTRA_TEXT,"Download the Social News app now");
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.putExtra(Intent.EXTRA_TEXT, "Download the Social News app now");
                 linearLayout.setDrawingCacheEnabled(false);
 
-                startActivity(Intent.createChooser(intent,"share using .."));
+                startActivity(Intent.createChooser(intent, "share using .."));
 
                 progressBar.setIndeterminate(false);
                 progressBar.setVisibility(View.GONE);
@@ -178,5 +201,16 @@ public class DetailNewsActivity extends AppCompatActivity {
             }
         }.execute();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (chatLogin) {
+            frameLayoutreplace.setVisibility(View.GONE);
+            navigationView.setVisibility(View.VISIBLE);
+            chatLogin = false;
+        } else {
+            super.onBackPressed();
+        }
     }
 }
