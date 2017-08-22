@@ -136,7 +136,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.action_chat:
-                        chatLogin = true;
+
                         if (AccessToken.getCurrentAccessToken() != null) {
                             Intent i = new Intent(DetailNewsActivity.this, ChatActivity.class);
                             i.putExtra(Constants.CHAT_KEY, new Gson().toJson(thisNews));
@@ -146,6 +146,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                                     Pair.create((View) headTv, "transHeading"));
                             startActivity(i, optionsCompat.toBundle());
                         } else {
+                            chatLogin = true;
                             frameLayoutreplace.setVisibility(View.VISIBLE);
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.framelayoutReplace,
