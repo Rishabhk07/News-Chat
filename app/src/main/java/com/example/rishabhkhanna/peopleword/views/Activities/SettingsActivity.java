@@ -5,46 +5,41 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Toast;
 
+import com.example.rishabhkhanna.peopleword.Network.API;
+import com.example.rishabhkhanna.peopleword.Network.interfaces.getAuth;
 import com.example.rishabhkhanna.peopleword.R;
+import com.example.rishabhkhanna.peopleword.model.AuthResponse;
+import com.facebook.AccessToken;
 
-import java.io.ObjectStreamException;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingsActivity extends PreferenceActivity{
     public static final String TAG = "Setting Activity";
+    CheckBoxPreference briefNotification;
+    CheckBoxPreference topicNotification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.prefrences);
         setTitle("Settings");
-        final CheckBoxPreference notification = (CheckBoxPreference) findPreference("notification");
-        final CheckBoxPreference topicNotification = (CheckBoxPreference) findPreference("topic_notification");
-//        notification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object newValue) {
-//                Log.d(TAG, "onPreferenceChange: " + newValue);
-//                if((Boolean)newValue) {
-//                    topicNotification.setChecked(false);
-//                }else {
-//                    Log.d(TAG, "onPreferenceChange: TOPIC IN NOTI" + topicNotification.isChecked());
-//                    if(!topicNotification.isChecked()){
-//                        notification.setChecked(true);
-//                        newValue = true;
-//                    }
-//                }
-//                return true;
-//            }
-//        });
 
-        notification.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        briefNotification = (CheckBoxPreference) findPreference("notification");
+
+        topicNotification = (CheckBoxPreference) findPreference("topic_notification");
+
+        briefNotification.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if(notification.isChecked()){
+                if(briefNotification.isChecked()){
                     topicNotification.setChecked(false);
+                    setSettingsToServer(true);
                 }else {
                     if(!topicNotification.isChecked()){
-                        notification.setChecked(true);
+                        briefNotification.setChecked(true);
                     }
                 }
                 return false;
@@ -55,31 +50,45 @@ public class SettingsActivity extends PreferenceActivity{
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 if(topicNotification.isChecked()){
-                    notification.setChecked(false);
+                    briefNotification.setChecked(false);
+                    setSettingsToServer(false);
                 }else{
-                    if(!notification.isChecked()){
+                    if(!briefNotification.isChecked()){
                         topicNotification.setChecked(true);
                     }
                 }
                 return false;
             }
         });
-//        topicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object newValue) {
-//                Log.d(TAG, "onPreferenceChange: TOPIC" + newValue);
-//                if((Boolean)newValue){
-//                    notification.setChecked(false);
-//                }else {
-//                    if(!notification.isChecked()){
-//                        topicNotification.setChecked(true);
-//                        newValue = true;
-//                    }
-//                }
-//                return true;
-//            }
-//        });
 
+    }
+
+    public void setSettingsToServer(final Boolean notification){
+        if(AccessToken.getCurrentAccessToken() != null){
+            API.getInstance().retrofit.create(getAuth.class).updateNotification(
+                    AccessToken.getCurrentAccessToken().getUserId(),
+                    notification).enqueue(new Callback<AuthResponse>() {
+                @Override
+                public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                    if(response.body().getSuccess()){
+                        Toast.makeText(SettingsActivity.this, "Setting Updated", Toast.LENGTH_SHORT).show();
+                    }else if(response.body().getSuccess()){
+                        Toast.makeText(SettingsActivity.this, "Cannot update setting", Toast.LENGTH_SHORT).show();
+                        if(notification){
+                            topicNotification.setChecked(true);
+                        }else{
+                            briefNotification.setChecked(true);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+
+                }
+            });
+        }
     }
 
 
