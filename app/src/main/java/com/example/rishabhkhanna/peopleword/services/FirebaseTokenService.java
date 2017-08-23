@@ -1,8 +1,6 @@
 package com.example.rishabhkhanna.peopleword.services;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
+
 import android.util.Log;
 
 import com.example.rishabhkhanna.peopleword.Network.API;
@@ -42,7 +40,5 @@ public class FirebaseTokenService extends FirebaseInstanceIdService{
                         }
                     });
         }
-
-
     }
 }
