@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Notifications"
+        android:key="notification_prefrences"
+        >
+        <CheckBoxPreference
+            android:key="notification"
+            android:title="Important News Only"
+            android:summary="get notified for only important news, like Top News of the day"
+            android:defaultValue="true"
+            ></CheckBoxPreference>
+
+        <CheckBoxPreference
+            android:key="topic_notification"
+            android:title="Your News Notifications"
+            android:summary="get notifications for all the topics selected in News Topics"
+            android:defaultValue="false"
+            ></CheckBoxPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Backup">
+        <CheckBoxPreference
+            android:key="backup"
+            android:title="Save News for offline"
+            android:summary="save news you have viewed for offline access, you will able to see saved news even when offline"
+            android:defaultValue="true"
+            >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
