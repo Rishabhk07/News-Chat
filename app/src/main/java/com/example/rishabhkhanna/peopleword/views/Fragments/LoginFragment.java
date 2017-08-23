@@ -141,6 +141,15 @@ public class LoginFragment extends Fragment {
                                 }
                             });
                 }
+                if (Profile.getCurrentProfile() == null) {
+                    ProfileTracker profileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                            Profile.setCurrentProfile(currentProfile);
+                            this.stopTracking();
+                        }
+                    };
+                }
             }
         };
 
@@ -167,6 +176,7 @@ public class LoginFragment extends Fragment {
 
     public void saveLoginInfo(final LoginResult loginResult){
         String fcm_token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "saveLoginInfo: TOKEN: " + fcm_token);
         API.getInstance()
                 .retrofit
                 .create(getAuth.class)
@@ -213,5 +223,6 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getActivity(), "Cannot Login Right Now", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
