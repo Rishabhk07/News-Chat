@@ -1,7 +1,9 @@
 package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
@@ -115,25 +117,31 @@ public class AllNewsPageFragment extends Fragment {
                         }
                         progressBar.setVisibility(View.GONE);
                         allNewsAdapter.notifyDataSetChanged();
-                        Log.d(TAG, "onResponse: " + call.request());
-                        String db_name = position + "_news_backup.realm";
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        Boolean backup = sharedPreferences.getBoolean("backup",true);
+                        Log.d(TAG, "onResponse: backup: " + backup);
+                        if(backup){
+                            Log.d(TAG, "onResponse: " + call.request());
+                            String db_name = position + "_news_backup.realm";
 
-                        RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
-                        final Realm realm = Realm.getInstance(config);
-                        realm.executeTransactionAsync(new Realm.Transaction() {
-                            @Override
-                            public void execute(Realm realm) {
-                                RealmList realmList = new RealmList();
-                                realmList.addAll(newsArrayList);
-                                realm.copyToRealmOrUpdate(realmList);
+                            RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                            final Realm realm = Realm.getInstance(config);
+                            realm.executeTransactionAsync(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    RealmList realmList = new RealmList();
+                                    realmList.addAll(newsArrayList);
+                                    realm.copyToRealmOrUpdate(realmList);
 
-                            }
-                        }, new Realm.Transaction.OnSuccess() {
-                            @Override
-                            public void onSuccess() {
-                                Log.d(TAG, "onSuccess: News saved to Realm");
-                            }
-                        });
+                                }
+                            }, new Realm.Transaction.OnSuccess() {
+                                @Override
+                                public void onSuccess() {
+                                    Log.d(TAG, "onSuccess: News saved to Realm");
+                                }
+                            });
+                        }
+
                     }
 
                     @Override
