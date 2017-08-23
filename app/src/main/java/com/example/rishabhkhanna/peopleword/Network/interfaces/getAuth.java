@@ -44,4 +44,11 @@ public interface getAuth {
             @Field("user_id") String user_id
             );
 
+    @FormUrlEncoded
+    @POST("auth/updateNotification")
+    Call<AuthResponse> updateNotification(
+            @Field("user_id") String user_id,
+            @Field("notification") Boolean notification
+    );
+
 }
