@@ -130,6 +130,7 @@ public class AllNewsPageFragment extends Fragment {
                                 @Override
                                 public void execute(Realm realm) {
                                     RealmList realmList = new RealmList();
+                                    realm.deleteAll();
                                     realmList.addAll(newsArrayList);
                                     realm.copyToRealmOrUpdate(realmList);
 
@@ -162,6 +163,7 @@ public class AllNewsPageFragment extends Fragment {
                 if(newsArrayList.size() == 0) {
                     root = inflater.inflate(R.layout.fragment_network_not_connected, container, false);
                 }
+                fetchFristApi = false;
             }
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
