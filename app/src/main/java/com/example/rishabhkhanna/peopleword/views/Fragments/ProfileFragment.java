@@ -2,6 +2,7 @@ package com.example.rishabhkhanna.peopleword.views.Fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.example.rishabhkhanna.peopleword.Adapters.ProfileViewPagerAdapter;
 import com.example.rishabhkhanna.peopleword.R;
 import com.example.rishabhkhanna.peopleword.utils.Constants;
+import com.example.rishabhkhanna.peopleword.views.Activities.SettingsActivity;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.squareup.picasso.Picasso;
@@ -38,6 +40,7 @@ public class ProfileFragment extends Fragment {
     TextView tvEmail;
     ViewPager viewPager;
     TabLayout tabLayout;
+    ImageView settingImageView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class ProfileFragment extends Fragment {
         imProfileImage = (ImageView) view.findViewById(R.id.imProfile);
         tvName = (TextView) view.findViewById(R.id.tvProfileName);
         tvEmail = (TextView) view.findViewById(R.id.tvProfileEmail);
+        settingImageView = (ImageView) view.findViewById(R.id.imageViewSetting);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         if(Profile.getCurrentProfile() != null){
             Picasso.with(getContext()).load(Profile.getCurrentProfile().getProfilePictureUri(300,300)).into(imProfileImage);
@@ -58,6 +62,13 @@ public class ProfileFragment extends Fragment {
         ProfileViewPagerAdapter profileViewPagerAdapter = new ProfileViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(profileViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        settingImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(i);
+            }
+        });
         return view;
     }
 
