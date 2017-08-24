@@ -5,7 +5,7 @@
     android:id="@+id/activity_photo_story"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rishabhkhanna.peopleword.views.Activities.PhotoStoryActivity"
+    tools:context="com.example.rishabhkhanna.peopleword.me.rishabhkhanna.peopleword.views.Activities.PhotoStoryActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
     <android.support.v7.widget.RecyclerView

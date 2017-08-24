@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rishabhkhanna.peopleword">
+    package="me.rishabhkhanna.peopleword">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,14 +12,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateVisible|adjustResize"
-        >
+        android:windowSoftInputMode="stateVisible|adjustResize">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".views.Activities.BaseActivity"
+            android:name="me.rishabhkhanna.peopleword.views.Activities.BaseActivity"
+            android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_nav_drawer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
@@ -30,24 +30,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.Activities.DetailNewsActivity"
+            android:name="me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.Activities.FullStoryActivity"
+            android:name="me.rishabhkhanna.peopleword.views.Activities.FullStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.Activities.PhotoStoryActivity"
+            android:name="me.rishabhkhanna.peopleword.views.Activities.PhotoStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".services.FirebaseTokenService"
+            android:name="me.rishabhkhanna.peopleword.services.FirebaseTokenService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".services.FirebaseMessageService">
+        <service android:name="me.rishabhkhanna.peopleword.services.FirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -64,8 +64,10 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".views.Activities.ChatActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name="me.rishabhkhanna.peopleword.views.Activities.ChatActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="me.rishabhkhanna.peopleword.views.Activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

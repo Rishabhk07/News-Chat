@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity">
+    tools:context="com.example.rishabhkhanna.peopleword.me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

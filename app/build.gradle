@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "com.example.rishabhkhanna.peopleword"
+        applicationId "me.rishabhkhanna.peopleword"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -33,6 +33,7 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
@@ -50,9 +51,9 @@ dependencies {
     compile 'com.google.android:flexbox:0.3.0'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
     compile 'at.blogc:expandabletextview:1.0.3'
-
+    compile 'com.android.support:customtabs:25.3.1'
+    testCompile 'junit:junit:4.12'
 }
 
 apply plugin: 'com.google.gms.google-services'
