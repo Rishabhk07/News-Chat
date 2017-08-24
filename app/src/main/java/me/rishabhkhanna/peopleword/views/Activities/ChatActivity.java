@@ -25,6 +25,7 @@ import me.rishabhkhanna.peopleword.model.Chat;
 import me.rishabhkhanna.peopleword.model.ChatRoom;
 import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.Constants;
+
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.google.gson.Gson;
@@ -65,19 +66,9 @@ public class ChatActivity extends AppCompatActivity {
         thisJson = new Gson().fromJson(getIntent().getStringExtra(Constants.CHAT_KEY), NewsJson.class);
         super.onCreate(savedInstanceState);
         setContentView(me.rishabhkhanna.peopleword.R.layout.activity_chat);
-        try {
-            socket = IO.socket("http://192.168.1.39:9090/");
-            Log.d(TAG, "onStart: IO.socket successfully");
-        } catch (URISyntaxException e) {
-            Log.d(TAG, "onStart: unable to connect");
-            e.printStackTrace();
-        }
-        if (socket != null) {
-            Log.d(TAG, "onCreate: " + socket.connect());
-            if (AccessToken.getCurrentAccessToken() != null)
-                socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
+        socket = ChatAPI.getSocket();
 
-        }
+
         etChat = (EditText) findViewById(me.rishabhkhanna.peopleword.R.id.etChat);
         btnSend = (FloatingActionButton) findViewById(me.rishabhkhanna.peopleword.R.id.btnSend);
         recyclerView = (RecyclerView) findViewById(me.rishabhkhanna.peopleword.R.id.rvChat);
@@ -94,22 +85,22 @@ public class ChatActivity extends AppCompatActivity {
         getChats();
         chatAdapter = new ChatAdapter(chatsList, this);
         recyclerView.setAdapter(chatAdapter);
-        Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100,100)).into(userImageView);
+        Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(userImageView);
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(ChatActivity.this, v);
                 MenuInflater menuInflater = popupMenu.getMenuInflater();
-                popupMenu.getMenu().add(1,1,1,Profile.getCurrentProfile().getName());
-                popupMenu.getMenu().add(1,2,2,"Anonymous user");
+                popupMenu.getMenu().add(1, 1, 1, Profile.getCurrentProfile().getName());
+                popupMenu.getMenu().add(1, 2, 2, "Anonymous user");
                 popupMenu.show();
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
+                        switch (item.getItemId()) {
                             case 1:
                                 Picasso.with(ChatActivity.this)
-                                        .load(Profile.getCurrentProfile().getProfilePictureUri(100,100))
+                                        .load(Profile.getCurrentProfile().getProfilePictureUri(100, 100))
                                         .into(userImageView);
                                 anonym_user = false;
                                 break;
@@ -136,13 +127,13 @@ public class ChatActivity extends AppCompatActivity {
                         AccessToken.getCurrentAccessToken().getUserId();
                         String chatMsg = etChat.getText().toString();
                         Log.d(TAG, "onClick: " + chatMsg);
-                        if(chatMsg.isEmpty()){
+                        if (chatMsg.isEmpty()) {
                             Log.d(TAG, "onClick: in chat isEmplty");
                             Toast.makeText(ChatActivity.this, "Message is Empty", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
 
-                                Chat chat = new Chat(chatMsg, thisJson.getMsid(),
-                                        thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId(),anonym_user);
+                            Chat chat = new Chat(chatMsg, thisJson.getMsid(),
+                                    thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId(), anonym_user);
 
                             Log.d(TAG, "onClick: " + socket.emit("new_message", new Gson().toJson(chat)));
                             etChat.setText("");
@@ -155,11 +146,15 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             socket.connect();
+                            if (AccessToken.getCurrentAccessToken() != null)
+                                socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             socket.connect();
+                            if (AccessToken.getCurrentAccessToken() != null)
+                                socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
                             getChats();
                         }
                     }).show();
@@ -174,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
             public void call(Object... args) {
                 JSONObject data = (JSONObject) args[0];
                 Log.d(TAG, "call: " + data);
-                Chat chat = new Gson().fromJson(String.valueOf(data),Chat.class);
+                Chat chat = new Gson().fromJson(String.valueOf(data), Chat.class);
 
                 chatsList.add(chat);
 
@@ -195,29 +190,42 @@ public class ChatActivity extends AppCompatActivity {
                 cardViewNews.setVisibility(View.GONE);
             }
         });
+
+        if (socket != null) {
+            Log.d(TAG, "onCreate: " + socket.connect());
+            if (AccessToken.getCurrentAccessToken() != null)
+                socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
+
+        }
     }
 
     @Override
     protected void onStop() {
-        socket.emit("leave_group", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
-        socket.disconnect();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        socket.disconnect();
+        super.onDestroy();
     }
 
     public void getChats() {
         ChatAPI.getChatInstance()
                 .retrofit
                 .create(getChats.class)
-                .getChat(thisJson.getId(),thisJson.getMsid())
+                .getChat(thisJson.getId(), thisJson.getMsid())
                 .enqueue(new Callback<ArrayList<Chat>>() {
                     @Override
                     public void onResponse(Call<ArrayList<Chat>> call, Response<ArrayList<Chat>> response) {
                         Log.d(TAG, "onResponse: chat message request : " + call.request());
                         Log.d(TAG, "onResponse: Chat Response : " + response.body());
-                        chatsList.clear();
-                        chatsList.addAll(response.body());
-                        chatAdapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(chatsList.size() - 1);
+                        if (response.body() != null) {
+                            chatsList.clear();
+                            chatsList.addAll(response.body());
+                            chatAdapter.notifyDataSetChanged();
+                            recyclerView.scrollToPosition(chatsList.size() - 1);
+                        }
                     }
 
                     @Override
