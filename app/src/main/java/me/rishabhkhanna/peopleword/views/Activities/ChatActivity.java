@@ -1,6 +1,7 @@
 package me.rishabhkhanna.peopleword.views.Activities;
 
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -175,7 +176,7 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         chatAdapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(chatsList.size() - 1);
+                        recyclerView.scrollToPosition((chatsList.size() - 1));
                     }
                 });
             }
@@ -203,6 +204,13 @@ public class ChatActivity extends AppCompatActivity {
                 socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
 
         }
+
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                recyclerView.scrollToPosition(chatsList.size() - 1);
+            }
+        });
     }
 
     @Override
@@ -230,7 +238,7 @@ public class ChatActivity extends AppCompatActivity {
                             chatsList.clear();
                             chatsList.addAll(response.body());
                             chatAdapter.notifyDataSetChanged();
-                            recyclerView.scrollToPosition(chatsList.size() - 1);
+                            recyclerView.scrollToPosition((chatsList.size() - 1));
                         }
                     }
 
@@ -241,6 +249,8 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 }
 
