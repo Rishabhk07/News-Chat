@@ -128,16 +128,14 @@ public class ChatActivity extends AppCompatActivity {
                         String chatMsg = etChat.getText().toString();
                         Log.d(TAG, "onClick: " + chatMsg);
                         if (chatMsg.isEmpty()) {
-                            Log.d(TAG, "onClick: in chat isEmplty");
                             Toast.makeText(ChatActivity.this, "Message is Empty", Toast.LENGTH_SHORT).show();
                         } else {
 
                             Chat chat = new Chat(chatMsg, thisJson.getMsid(),
                                     thisJson.getId(), AccessToken.getCurrentAccessToken().getUserId(), anonym_user);
 
-                            Log.d(TAG, "onClick: " + socket.emit("new_message", new Gson().toJson(chat)));
+                            socket.emit("new_message", new Gson().toJson(chat));
                             etChat.setText("");
-
                         }
                     }
                 } else {
@@ -188,6 +186,14 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cardViewNews.setVisibility(View.GONE);
+            }
+        });
+
+
+        socket.on("ping", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.d(TAG, "call: ping recieved");
             }
         });
 
