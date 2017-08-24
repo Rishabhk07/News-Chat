@@ -106,6 +106,7 @@
             android:elevation="0dp"
             android:backgroundTint="#323232"
             app:borderWidth="0dp"
+            app:elevation="0dp"
             />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
