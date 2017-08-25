@@ -26,10 +26,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import io.realm.internal.Util;
 import me.rishabhkhanna.peopleword.utils.Constants;
 
+import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
 import me.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
+import me.rishabhkhanna.peopleword.views.Fragments.NetworkNotConnectedFragment;
 import me.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import me.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
 import me.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
@@ -124,36 +127,49 @@ public class BaseActivity extends AppCompatActivity
         String token = sharedPreferences.getString(Constants.LOGIN_TOKEN, "null");
         int loginPage = 0;
         if (id == me.rishabhkhanna.peopleword.R.id.nav_rate_news) {
-            if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                loginPage = 1;
+            if(UtilMethods.isNetConnected(BaseActivity.this)){
+                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+                    loginPage = 1;
 
-                getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.rate_news),loginPage);
-                setTitle("Login");
-            } else {
-                fragment = new RateNewFragment();
-                setTitle("Rate News");
+                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.rate_news),loginPage);
+                    setTitle("Login");
+                } else {
+                    fragment = new RateNewFragment();
+                    setTitle("Rate News");
+                }
+            }else{
+                fragment = new NetworkNotConnectedFragment();
             }
+
 
         } else if (id == me.rishabhkhanna.peopleword.R.id.allNews) {
             fragment = new AllNewsFragment();
             setTitle("All News");
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_Topic) {
-            if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                loginPage = 3;
-                getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.news_topics),loginPage);
-                setTitle("Login");
-            } else {
-                fragment = new NewsTopic();
-                setTitle("Topics");
+            if(UtilMethods.isNetConnected(BaseActivity.this)) {
+                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+                    loginPage = 3;
+                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.news_topics), loginPage);
+                    setTitle("Login");
+                } else {
+                    fragment = new NewsTopic();
+                    setTitle("Topics");
+                }
+            }else{
+                fragment = new NetworkNotConnectedFragment();
             }
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_your_news) {
-            if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                loginPage = 2;
-                getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.your_news),loginPage);
-                setTitle("Login");
-            } else {
-                fragment = new YourNewsFragment();
-                setTitle("Your News");
+            if(UtilMethods.isNetConnected(BaseActivity.this)) {
+                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+                    loginPage = 2;
+                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.your_news), loginPage);
+                    setTitle("Login");
+                } else {
+                    fragment = new YourNewsFragment();
+                    setTitle("Your News");
+                }
+            }else{
+                fragment = new NetworkNotConnectedFragment();
             }
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_signout) {
             LoginManager.getInstance().logOut();
@@ -166,15 +182,19 @@ public class BaseActivity extends AppCompatActivity
             setFragment(null);
             setProfilePicture();
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_profile) {
-            Log.d(TAG, "onNavigationItemSelected: " + id);
-            navigationView.getMenu().findItem(id).setChecked(true);
-            if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                loginPage = 4;
-                getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.profile),loginPage);
-                setTitle("Login");
-            } else {
-                fragment = new ProfileFragment();
-                setTitle("Profile");
+            if(UtilMethods.isNetConnected(BaseActivity.this)) {
+                Log.d(TAG, "onNavigationItemSelected: " + id);
+                navigationView.getMenu().findItem(id).setChecked(true);
+                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+                    loginPage = 4;
+                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.profile), loginPage);
+                    setTitle("Login");
+                } else {
+                    fragment = new ProfileFragment();
+                    setTitle("Profile");
+                }
+            }else{
+                fragment = new NetworkNotConnectedFragment();
             }
         }
         fragmentTransaction.replace(me.rishabhkhanna.peopleword.R.id.flActivity_main, fragment).commit();
