@@ -50,7 +50,7 @@ public class PhotoStoryAdapter extends RecyclerView.Adapter<PhotoStoryAdapter.Vi
             holder.tvPhotostory.setText(Html.fromHtml(thisPhotstory.getCap()));
         }
         Picasso.with(context).
-                load(UtilMethods.getImageurl(thisPhotstory.getId()))
+                load(UtilMethods.getImageurl(thisPhotstory.getId(),"1400","960"))
                 .placeholder(R.drawable.photo_placeholder)
                 .into(holder.ivPhotostory);
         holder.tvPhotostory.setOnClickListener(new View.OnClickListener() {

@@ -38,7 +38,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             RemoteViews remoteBigView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.notification_expanded_layout);
 
             try {
-                bitmap = Picasso.with(this).load(UtilMethods.getImageurl(remoteMessage.getData().get("image"))).get();
+                bitmap = Picasso.with(this).load(UtilMethods.getImageurl(remoteMessage.getData().get("image"),"1400","960")).get();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -57,7 +57,7 @@ public class FullStoryActivity extends AppCompatActivity {
         Gson gson = new Gson();
         NewsJson thisNews = gson.fromJson(getIntent().getStringExtra(Constants.FULL_STORY_KEY), NewsJson.class);
         Picasso.with(this)
-                .load(UtilMethods.getImageurl(thisNews.getImageid()))
+                .load(UtilMethods.getImageurl(thisNews.getImageid(),"1400","960"))
                 .fit()
                 .into(ivFullStory);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

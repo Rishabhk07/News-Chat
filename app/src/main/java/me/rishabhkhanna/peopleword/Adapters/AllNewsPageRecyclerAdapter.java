@@ -115,8 +115,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             });
         }
 
-        Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                thisJsonData.getImageid() + "&width=600&height=500&resizemode=1")
+        Picasso.with(context).load(UtilMethods.getImageurl(thisJsonData.getImageid(),"600","500"))
                 .noFade()
                 .fit()
                 .into(holder.ivNewsImage);

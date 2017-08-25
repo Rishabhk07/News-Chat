@@ -42,6 +42,7 @@ import me.rishabhkhanna.peopleword.model.NewsJson;
 
 import me.rishabhkhanna.peopleword.utils.Constants;
 
+import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
@@ -87,7 +88,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv.setText(thisNews.getHl());
         detailTV.setText(thisNews.getSyn());
         Picasso.with(DetailNewsActivity.this)
-                .load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" + thisNews.getImageid() + "&width=1500&height=1440&resizemode=1")
+                .load(UtilMethods.getImageurl(thisNews.getImageid(),"1400","960"))
                 .noFade()
                 .fit()
                 .into(imageViewNews, new Callback() {
