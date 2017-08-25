@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.rishabhkhanna.peopleword.me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity">
+    tools:context="me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -36,7 +36,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:src="@mipmap/ic_launcher"
-            android:transitionName="shared" />
+            android:transitionName="shared"
+            />
 
         <ScrollView
             android:layout_width="match_parent"
