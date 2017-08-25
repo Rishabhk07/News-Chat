@@ -29,9 +29,9 @@ public class UtilMethods {
     public static final String TAG = "UtilMethods";
 
     //get image url from imageId
-    public static String getImageurl(String urlId) {
+    public static String getImageurl(String urlId, String width,String height) {
         return "http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                urlId + "&width=1400&height=960&resizemode=1";
+                urlId + "&width="+width+"&height="+height+"&resizemode=1";
     }
 
     //get all topics of news
