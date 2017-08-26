@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import me.rishabhkhanna.peopleword.Network.NewsAPI;
@@ -146,6 +147,14 @@ public class AllNewsPageFragment extends Fragment {
                     public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
                         Log.d(TAG, "onError: " + t.getMessage());
                         Log.d(TAG, "onResponse: " + call.request());
+                        Toast.makeText(getContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
+                        String db_name = position + "_news_backup.realm";
+                        RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                        final Realm realm = Realm.getInstance(config);
+                        newsArrayList.addAll(realm.where(NewsJson.class).findAll());
+                        allNewsAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
                 fetchFristApi = false;
