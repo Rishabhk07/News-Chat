@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import io.realm.internal.Util;
 import me.rishabhkhanna.peopleword.utils.Constants;
 
@@ -85,6 +87,7 @@ public class BaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         ontop = true;
         setContentView(me.rishabhkhanna.peopleword.R.layout.activity_nav_drawer);
         Log.d(TAG, "onCreate: ");

@@ -66,9 +66,13 @@
 
         <activity
             android:name="me.rishabhkhanna.peopleword.views.Activities.ChatActivity"
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:configChanges="screenLayout|screenSize"
              />
         <activity android:name="me.rishabhkhanna.peopleword.views.Activities.SettingsActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="658284e411bf6dd78736577db09381b9352bc92c" />
     </application>
 
 </manifest>
