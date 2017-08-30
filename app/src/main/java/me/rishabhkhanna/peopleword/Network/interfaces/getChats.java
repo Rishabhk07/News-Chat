@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 
 public interface getChats {
     @FormUrlEncoded
-    @POST("/getChats")
+    @POST("chat/getChats")
     Call<ArrayList<Chat>> getChat(
             @Field("news_id") Long news_id,
             @Field("msid") String msid
