@@ -1,8 +1,11 @@
 package me.rishabhkhanna.peopleword.Adapters;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+import android.view.ViewGroup;
 
 import me.rishabhkhanna.peopleword.views.Fragments.AllNewsPageFragment;
 
@@ -13,23 +16,19 @@ import java.util.List;
  */
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    List<Fragment> pageFragmentList;
-
+    public static final String TAG = "ViewpagerAdapter";
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
 //        pageFragmentList = Arrays.asList(new Fragment[9]);
     }
 
-    AllNewsPageFragment newsFragment;
 
     @Override
     public Fragment getItem(int position) {
         //get Item is called to instantite the fragment for the given page
         // write login for which fragment to return
-
-
-        newsFragment = AllNewsPageFragment.newInstance(position);
-        return newsFragment;
+        Log.d(TAG, "getItem: new fragment is initialised");
+        return AllNewsPageFragment.newInstance(position);
 
     }
 
@@ -74,4 +73,5 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         }
         return super.getPageTitle(position);
     }
+
 }
