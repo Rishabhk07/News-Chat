@@ -5,6 +5,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import me.rishabhkhanna.peopleword.Network.API;
@@ -63,6 +64,7 @@ public class SettingsActivity extends PreferenceActivity{
     }
 
     public void setSettingsToServer(final Boolean notification){
+        Log.d(TAG, "setSettingsToServer: ");
         if(AccessToken.getCurrentAccessToken() != null){
             API.getInstance().retrofit.create(getAuth.class).updateNotification(
                     AccessToken.getCurrentAccessToken().getUserId(),
@@ -83,7 +85,6 @@ public class SettingsActivity extends PreferenceActivity{
 
                 @Override
                 public void onFailure(Call<AuthResponse> call, Throwable t) {
-
 
                 }
             });
