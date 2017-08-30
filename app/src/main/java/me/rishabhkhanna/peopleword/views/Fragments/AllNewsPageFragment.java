@@ -1,6 +1,8 @@
 package me.rishabhkhanna.peopleword.views.Fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +26,7 @@ import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.Constants;
 import me.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
+
 import com.facebook.AccessToken;
 
 
@@ -55,6 +58,8 @@ public class AllNewsPageFragment extends Fragment {
     public static final String TAG = "AllNewsPageFragment";
     AuthDetails authDetails;
     FrameLayout frameLayout;
+    Context context;
+
     public AllNewsPageFragment() {
         // Required empty public constructor
     }
@@ -77,10 +82,10 @@ public class AllNewsPageFragment extends Fragment {
 
             position = getArguments().getInt(Constants.fragment_key);
             counter = 0;
-            if(AccessToken.getCurrentAccessToken() != null){
-                authDetails = new AuthDetails(AccessToken.getCurrentAccessToken().getToken(),AccessToken.getCurrentAccessToken().getUserId());
-            }else{
-                authDetails = new AuthDetails("null","null");
+            if (AccessToken.getCurrentAccessToken() != null) {
+                authDetails = new AuthDetails(AccessToken.getCurrentAccessToken().getToken(), AccessToken.getCurrentAccessToken().getUserId());
+            } else {
+                authDetails = new AuthDetails("null", "null");
             }
 //            setupCall(position, counter);
             fetchFristApi = true;
@@ -88,6 +93,11 @@ public class AllNewsPageFragment extends Fragment {
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -97,7 +107,7 @@ public class AllNewsPageFragment extends Fragment {
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.srlAllNews);
         progressBar = (ProgressBar) root.findViewById(me.rishabhkhanna.peopleword.R.id.all_news_progress);
-        if(counter == 0 && fetchFristApi){
+        if (counter == 0 && fetchFristApi) {
             progressBar.setVisibility(View.VISIBLE);
         }
         rvPage = (RecyclerView) root.findViewById(me.rishabhkhanna.peopleword.R.id.rvPageAllNews);
@@ -115,10 +125,10 @@ public class AllNewsPageFragment extends Fragment {
                         }
                         progressBar.setVisibility(View.GONE);
                         allNewsAdapter.notifyDataSetChanged();
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        Boolean backup = sharedPreferences.getBoolean("backup",true);
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        Boolean backup = sharedPreferences.getBoolean("backup", true);
                         Log.d(TAG, "onResponse: backup: " + backup);
-                        if(backup){
+                        if (backup) {
                             Log.d(TAG, "onResponse: " + call.request());
                             String db_name = position + "_news_backup.realm";
 
@@ -147,7 +157,7 @@ public class AllNewsPageFragment extends Fragment {
                     public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
                         Log.d(TAG, "onError: " + t.getMessage());
                         Log.d(TAG, "onResponse: " + call.request());
-                        Toast.makeText(getContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
                         String db_name = position + "_news_backup.realm";
                         RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
                         final Realm realm = Realm.getInstance(config);
@@ -166,7 +176,7 @@ public class AllNewsPageFragment extends Fragment {
                 allNewsAdapter.notifyDataSetChanged();
                 Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
                 progressBar.setVisibility(View.GONE);
-                if(newsArrayList.size() == 0) {
+                if (newsArrayList.size() == 0) {
                     root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_network_not_connected, container, false);
                 }
                 fetchFristApi = false;
@@ -200,7 +210,6 @@ public class AllNewsPageFragment extends Fragment {
         rvPage.addOnScrollListener(scrollListener);
 
 
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -209,9 +218,12 @@ public class AllNewsPageFragment extends Fragment {
                     setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                         @Override
                         public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                            newsArrayList.clear();
-                            newsArrayList.addAll(response.body());
-                            allNewsAdapter.notifyDataSetChanged();
+                            Log.d(TAG, "onResponse: " + response.body());
+                            if (response.body() != null) {
+                                newsArrayList.clear();
+                                newsArrayList.addAll(response.body());
+                                allNewsAdapter.notifyDataSetChanged();
+                            }
                             swipeRefreshLayout.setRefreshing(false);
                             Log.d(TAG, "onResponse: " + call.request());
                             Log.d(TAG, "onResponse: " + newsArrayList.size());
@@ -223,7 +235,7 @@ public class AllNewsPageFragment extends Fragment {
                             Log.d(TAG, "onResponse: " + call.request());
                         }
                     });
-                }else{
+                } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
@@ -240,63 +252,63 @@ public class AllNewsPageFragment extends Fragment {
         Log.d(TAG, "setupCall: " + counter);
         switch (position) {
             case 0:
-                call = NewsAPI.getInstance().getNews.getBriefs(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getBriefs(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "briefs";
                 break;
             case 1:
-                call = NewsAPI.getInstance().getNews.getTopNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getTopNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "top_news";
                 break;
             case 2:
-                call = NewsAPI.getInstance().getNews.getEntertainment(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getEntertainment(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "entertainment";
                 break;
             case 3:
-                call = NewsAPI.getInstance().getNews.getIndiaNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getIndiaNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "india";
                 break;
             case 4:
-                call = NewsAPI.getInstance().getNews.getWorldNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getWorldNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "world";
                 break;
             case 5:
-                call = NewsAPI.getInstance().getNews.getSports(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getSports(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "sports";
                 break;
             case 6:
-                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "cricket";
                 break;
             case 7:
-                call = NewsAPI.getInstance().getNews.getBusinessNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getBusinessNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "business";
                 break;
             case 8:
-                call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "education";
                 break;
             case 9:
-                call = NewsAPI.getInstance().getNews.getTVNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getTVNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "tv";
                 break;
             case 10:
-                call = NewsAPI.getInstance().getNews.getAuomotiveNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getAuomotiveNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "automotive";
                 break;
             case 11:
-                call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "life_style";
                 break;
             case 12:
-                call = NewsAPI.getInstance().getNews.getEnvironmentNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getEnvironmentNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "environment";
                 break;
             case 13:
-                call = NewsAPI.getInstance().getNews.getGoodGovNews(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getGoodGovNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "good_governance";
                 break;
             case 14:
-                call = NewsAPI.getInstance().getNews.getEvents(String.valueOf(counter),authDetails.getAuthToken(),authDetails.getUserId());
+                call = NewsAPI.getInstance().getNews.getEvents(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "events";
                 break;
         }
