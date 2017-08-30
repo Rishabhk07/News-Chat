@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.daprlabs.cardstack.SwipeDeck;
 import me.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
 import me.rishabhkhanna.peopleword.Network.API;
 import me.rishabhkhanna.peopleword.Network.interfaces.rateNews;
+import me.rishabhkhanna.peopleword.R;
 import me.rishabhkhanna.peopleword.model.AuthDetails;
 import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.Constants;
@@ -38,6 +40,7 @@ public class RateNewFragment extends Fragment {
     ArrayList<NewsJson> newsArrayList = new ArrayList<>();
     CallbackManager callbackManager;
     SharedPreferences sharedPreferences;
+    ProgressBar rateProgress;
     public static final String TAG = "RateNewsActivity";
 
     AuthDetails authDetails;
@@ -50,6 +53,7 @@ public class RateNewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         if (AccessToken.getCurrentAccessToken() != null) {
             authDetails = new AuthDetails(AccessToken.getCurrentAccessToken().getToken(), AccessToken.getCurrentAccessToken().getUserId());
@@ -60,10 +64,12 @@ public class RateNewFragment extends Fragment {
             callbackManager = CallbackManager.Factory.create();
         }
 
-        View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_rate_new, container, false);
-        swipeDeck = (SwipeDeck) root.findViewById(me.rishabhkhanna.peopleword.R.id.swipe_deck);
-        likeBtn = (Button) root.findViewById(me.rishabhkhanna.peopleword.R.id.like_btn);
-        dislikeBtn = (Button) root.findViewById(me.rishabhkhanna.peopleword.R.id.dislike_btn);
+        View root = inflater.inflate(R.layout.fragment_rate_new, container, false);
+        swipeDeck = (SwipeDeck) root.findViewById(R.id.swipe_deck);
+        likeBtn = (Button) root.findViewById(R.id.like_btn);
+        dislikeBtn = (Button) root.findViewById(R.id.dislike_btn);
+        rateProgress = (ProgressBar) root.findViewById(R.id.progress_bar_rate);
+        rateProgress.setVisibility(View.VISIBLE);
 
         swipeCardAdapter = RateNewsAdapter.getSwipeCardAdapter(newsArrayList, getContext());
         swipeDeck.setAdapter(swipeCardAdapter);
@@ -162,6 +168,8 @@ public class RateNewFragment extends Fragment {
                             newsArrayList.addAll(news.get(i));
                         }
                         swipeCardAdapter.notifyDataSetChanged();
+                        rateProgress.setVisibility(View.GONE);
+
                     }
 
                     @Override
