@@ -97,6 +97,7 @@ public class AllNewsPageFragment extends Fragment {
     public void onAttach(Context context) {
         this.context = context;
         super.onAttach(context);
+
     }
 
     @Override
