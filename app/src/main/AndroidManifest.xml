@@ -11,14 +11,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="me.rishabhkhanna.peopleword.views.Activities.BaseActivity"
+            android:name=".views.Activities.BaseActivity"
             android:finishOnTaskLaunch="true"
             android:label="@string/title_activity_nav_drawer"
             android:launchMode="singleTop"
@@ -30,24 +29,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity"
+            android:name=".views.Activities.DetailNewsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="me.rishabhkhanna.peopleword.views.Activities.FullStoryActivity"
+            android:name=".views.Activities.FullStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="me.rishabhkhanna.peopleword.views.Activities.PhotoStoryActivity"
+            android:name=".views.Activities.PhotoStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name="me.rishabhkhanna.peopleword.services.FirebaseTokenService"
+            android:name=".services.FirebaseTokenService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="me.rishabhkhanna.peopleword.services.FirebaseMessageService">
+        <service android:name=".services.FirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -65,14 +64,15 @@
             android:resource="@color/colorAccent" />
 
         <activity
-            android:name="me.rishabhkhanna.peopleword.views.Activities.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:name=".views.Activities.ChatActivity"
             android:configChanges="screenLayout|screenSize"
-             />
-        <activity android:name="me.rishabhkhanna.peopleword.views.Activities.SettingsActivity"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".views.Activities.SettingsActivity" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="658284e411bf6dd78736577db09381b9352bc92c" />
+
     </application>
 
 </manifest>
