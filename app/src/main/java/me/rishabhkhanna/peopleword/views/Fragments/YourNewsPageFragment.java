@@ -10,9 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import me.rishabhkhanna.peopleword.Network.NewsAPI;
+import me.rishabhkhanna.peopleword.R;
 import me.rishabhkhanna.peopleword.model.AuthDetails;
 import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.model.Topic;
@@ -37,6 +42,7 @@ public class YourNewsPageFragment extends Fragment {
     EndlessRecyclerViewScrollListener scrollListener;
     public static final String TAG = "YourNewsPageFragment";
     SwipeRefreshLayout swipeRefreshLayout;
+    ProgressBar progressBar;
     ArrayList<NewsJson> newsJsonArrayList =
             new ArrayList<>();
     RecyclerView recyclerView;
@@ -83,12 +89,14 @@ public class YourNewsPageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().setTitle("Your News");
-        View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_page_all_news, container, false);
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.srlAllNews);
+        View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
+        progressBar = (ProgressBar) root.findViewById(R.id.all_news_progress);
         Log.d(TAG, "onCreateView: In OnCreate");
-        recyclerView = (RecyclerView) root.findViewById(me.rishabhkhanna.peopleword.R.id.rvPageAllNews);
+        recyclerView = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter pageRecyclerAdapter = new AllNewsPageRecyclerAdapter(newsJsonArrayList,getContext());
         if(counter == 0 && fetchedFirstApi){
+            progressBar.setVisibility(View.VISIBLE);
             setupCall(position,counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                 @Override
                 public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
@@ -96,11 +104,22 @@ public class YourNewsPageFragment extends Fragment {
                     newsJsonArrayList.addAll(response.body());
                     pageRecyclerAdapter.notifyDataSetChanged();
                     Log.d(TAG, "onResponse: " + call.request());
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
                     Log.d(TAG, "onFailure: " + call.request());
+                    Log.d(TAG, "onError: " + t.getMessage());
+                    Log.d(TAG, "onResponse: " + call.request());
+                    Toast.makeText(getActivity().getApplicationContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
+                    String db_name = position + "_news_backup.realm";
+                    RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                    final Realm realm = Realm.getInstance(config);
+                    newsJsonArrayList.addAll(realm.where(NewsJson.class).findAll());
+                    pageRecyclerAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsJsonArrayList.size());
+                    progressBar.setVisibility(View.GONE);
 
                 }
             });
