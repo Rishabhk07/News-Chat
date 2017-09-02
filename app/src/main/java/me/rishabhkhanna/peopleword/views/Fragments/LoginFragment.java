@@ -32,6 +32,8 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Arrays;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +43,7 @@ public class LoginFragment extends Fragment {
     public String intro = "Login to view your personalised news";
     int fragmentPage = 0;
     AccessTokenTracker accessTokenTracker;
+    ProfileTracker profileTracker;
     public static final String TAG = "LoginFragment";
     CallbackManager callbackManager;
     ProgressBar progressBar;
@@ -80,7 +83,7 @@ public class LoginFragment extends Fragment {
 
         loginButton = (LoginButton) view.findViewById(me.rishabhkhanna.peopleword.R.id.login_button);
         TextView textView = (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.tvLogin);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
         loginButton.setFragment(this);
         textView.setText(intro);
 
@@ -119,7 +122,7 @@ public class LoginFragment extends Fragment {
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, final AccessToken currentAccessToken) {
                 if (currentAccessToken != null) {
                     AccessToken.setCurrentAccessToken(currentAccessToken);
                     API.getInstance().retrofit
@@ -128,8 +131,8 @@ public class LoginFragment extends Fragment {
                             .enqueue(new Callback<AuthResponse>() {
                                 @Override
                                 public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                                    Log.d(TAG, "onResponse: " + response.body());
-                                    Log.d(TAG, "onResponse: " + response.body().getUser().getName());
+
+
                                 }
 
                                 @Override
@@ -138,17 +141,22 @@ public class LoginFragment extends Fragment {
                                 }
                             });
                 }
-                if (Profile.getCurrentProfile() == null) {
-                    ProfileTracker profileTracker = new ProfileTracker() {
-                        @Override
-                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                            Profile.setCurrentProfile(currentProfile);
-                            this.stopTracking();
-                        }
-                    };
-                }
+
             }
         };
+
+        Log.d(TAG, "onCurrentAccessTokenChanged: Profile Token");
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                if (currentProfile != null) {
+                    Log.d(TAG, "onCurrentProfileChanged: ");
+                    Profile.setCurrentProfile(currentProfile);
+                }
+            }
+        } ;
+        profileTracker.startTracking();
 
 
 
@@ -167,6 +175,9 @@ public class LoginFragment extends Fragment {
     public void onDestroy() {
         if (accessTokenTracker != null) {
             accessTokenTracker.stopTracking();
+        }
+        if(profileTracker != null){
+            profileTracker.stopTracking();
         }
         super.onDestroy();
     }
