@@ -131,6 +131,32 @@ public class YourNewsPageFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(pageRecyclerAdapter);
 
+//         Scroll Listener implementation here
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                counter++;
+                Log.d(TAG, "onLoadMore: page: " + page + "Total Item Count : " + totalItemsCount);
+                setupCall(position,counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        progressBar.setVisibility(View.GONE);
+                        newsJsonArrayList.addAll(response.body());
+                        pageRecyclerAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        };
+
+        recyclerView.addOnScrollListener(scrollListener);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -158,7 +184,7 @@ public class YourNewsPageFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(getContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
                 }
-//                scrollListener.resetState();
+                scrollListener.resetState();
             }
         });
 
