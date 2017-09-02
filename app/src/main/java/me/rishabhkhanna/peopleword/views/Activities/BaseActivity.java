@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 
@@ -42,6 +43,7 @@ import me.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
 import com.facebook.AccessToken;
 
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
@@ -269,9 +271,26 @@ public class BaseActivity extends AppCompatActivity
         headerImageView = (ImageView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.headerImageView);
         tvHeaderName = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderName);
         tvHeaderMail = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderMail);
+        Log.d(TAG, "setProfilePicture: " + Profile.getCurrentProfile());
         if (AccessToken.getCurrentAccessToken() != null) {
-            Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(headerImageView);
-            tvHeaderName.setText(Profile.getCurrentProfile().getName());
+            if (Profile.getCurrentProfile() == null) {
+                Profile.fetchProfileForCurrentAccessToken();
+                ProfileTracker profileTracker = new ProfileTracker() {
+                    @Override
+                    protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                        Log.d(TAG, "onCurrentProfileChanged: " + currentProfile);
+                        Profile.setCurrentProfile(currentProfile);
+                        Picasso.with(BaseActivity.this).load(currentProfile.getProfilePictureUri(100, 100)).into(headerImageView);
+                        tvHeaderName.setText(currentProfile.getName());
+                        this.stopTracking();
+                    }
+                };
+                profileTracker.startTracking();
+            }else{
+                Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(headerImageView);
+                tvHeaderName.setText(Profile.getCurrentProfile().getName());
+            }
+
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, MODE_PRIVATE);
             String email = sharedPreferences.getString(Constants.AUTH_EMAIL, "");
             tvHeaderMail.setVisibility(View.VISIBLE);
