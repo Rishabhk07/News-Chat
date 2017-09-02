@@ -27,6 +27,7 @@ import com.facebook.AccessToken;
 
 import java.util.ArrayList;
 
+import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -129,6 +130,37 @@ public class YourNewsPageFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(pageRecyclerAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                counter = 0;
+                if(UtilMethods.isNetConnected(getContext())){
+                    setupCall(position,counter).enqueue(new Callback<ArrayList<NewsJson>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                            Log.d(TAG, "onResponse: " + response.body());
+                            if(response.body() != null) {
+                                newsJsonArrayList.clear();
+                                newsJsonArrayList.addAll(response.body());
+                                pageRecyclerAdapter.notifyDataSetChanged();
+                            }
+                            swipeRefreshLayout.setRefreshing(false);
+                            Log.d(TAG, "onResponse: " + call.request());
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
+                            Log.d(TAG, "onResponse: " + call.request());
+                        }
+                    });
+                }else{
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
+                }
+//                scrollListener.resetState();
+            }
+        });
 
         return root;
     }
