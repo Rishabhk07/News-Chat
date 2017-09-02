@@ -92,21 +92,15 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         }
         realm.copyToRealmOrUpdate(topicArrayList);
         realm.commitTransaction();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TOPIC_POS_DB,Context.MODE_PRIVATE);
         notifyItemMoved(fromPosition,toPosition);
-
-
         return true;
 
     }
 
     @Override
     public void onMoved(int fromPos, int toPosition) {
-        Log.d(TAG, "onMoved: " + toPosition);
 
-
-//        realm.commitTransaction();
-        Log.d(TAG, "onMoved: " + topicArrayList.get(toPosition));
+        topicArrayList.get(toPosition);
 
     }
 
