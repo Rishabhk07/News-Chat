@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Select your News Topic, see only selected news in your news section, get Notified for your selected news topic only"
+        android:text="Select your News Topic, see only selected news topics in Your News section, change the order by Long press on any topic"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_margin="20dp"
-        android:textColor="@color/bel_lightgrey_text"
-        android:id="@+id/textView3" />
+        android:layout_margin="16dp"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/textView3"
+
+        />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -23,114 +25,4 @@
         android:layout_gravity="center"
         android:overScrollMode="never"
         ></android.support.v7.widget.RecyclerView>
-
-    <!--<GridLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:columnCount="3"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:foregroundGravity="center"-->
-        <!--&gt;-->
-    <!--<ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="Briefs"-->
-        <!--android:textOff="Briefs"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnBriefs"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="Top News"-->
-        <!--android:textOff="Top News"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnTop"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="India"-->
-        <!--android:textOff="India"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnIndia"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="World"-->
-        <!--android:textOff="World"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnWorld"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="Sports"-->
-        <!--android:textOff="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnSports"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="Cricket"-->
-        <!--android:textOff="Cricket"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnCricket"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:textOn="Business"-->
-        <!--android:textOff="Business"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnBusiness"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnEducation"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnEnvironment"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnEntertainment"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnTV"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Sports"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/btnAutomotive"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/> <ToggleButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="btnEvents"-->
-        <!--android:background="@drawable/select_button"-->
-        <!--android:id="@+id/toggleButton"-->
-        <!--android:textColor="@drawable/select_button_color"-->
-        <!--/>-->
-    <!--</GridLayout>-->
-
 </LinearLayout>
