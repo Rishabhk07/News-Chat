@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="me.rishabhkhanna.peopleword.views.Activities.ChatActivity"
     >
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,23 +22,6 @@
                 android:src="@drawable/ic_clear_black_18dp"
                 android:padding="4dp"
                 android:id="@+id/ivClear"/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="#323232"-->
-            <!--android:fontFamily="sans-serif"-->
-            <!--android:id="@+id/ivNews_clear"-->
-            <!--android:text="some news , Dementization caused many problems but in the end it was good for all something like that"-->
-            <!--android:layout_marginTop="19dp"-->
-            <!--android:paddingLeft="15dp"-->
-            <!--android:paddingRight="15dp"-->
-            <!--android:textSize="16sp"-->
-            <!--android:transitionName="transHeading"-->
-            <!--android:lineSpacingMultiplier="1.2"-->
-            <!--android:minHeight="?android:attr/listPreferredItemHeightSmall"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--/>-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,12 +92,12 @@
             app:elevation="0dp"
             />
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/sendLayout"
         android:orientation="vertical"
         android:id="@+id/rvChat"
-        android:layout_below="@id/cvNews"
-        ></android.support.v7.widget.RecyclerView>
+        android:layout_below="@id/cvNews" />
 </RelativeLayout>
