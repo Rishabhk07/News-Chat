@@ -187,7 +187,7 @@ public class AllNewsPageFragment extends Fragment {
         rvPage.setLayoutManager(linearLayoutManager);
         rvPage.setAdapter(allNewsAdapter);
 
-
+        
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
