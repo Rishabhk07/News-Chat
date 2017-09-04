@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.rishabhkhanna.peopleword.Adapters.YourNewsViewPagerAdapter;
+import me.rishabhkhanna.peopleword.R;
 import me.rishabhkhanna.peopleword.model.Topic;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,22 +34,27 @@ public class YourNewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_all_news_fragment, container, false);
-        viewPager = (ViewPager) root.findViewById(me.rishabhkhanna.peopleword.R.id.vpAllNews);
-        tabLayout  = (TabLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.tabLayoutAllNews);
-
         ArrayList<Topic> selectedTopicList = UtilMethods.getUserTopics(getContext());
+        if(selectedTopicList.size() != 0) {
+            View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_all_news_fragment, container, false);
+            viewPager = (ViewPager) root.findViewById(me.rishabhkhanna.peopleword.R.id.vpAllNews);
+            tabLayout = (TabLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.tabLayoutAllNews);
 
-        if(selectedTopicList.size() < 5){
-            tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        }else {
-            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+            if (selectedTopicList.size() < 5) {
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            } else {
+                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            }
+            viewPagerAdapter = new YourNewsViewPagerAdapter(getChildFragmentManager(), selectedTopicList, getContext());
+            viewPager.setAdapter(viewPagerAdapter);
+            tabLayout.setupWithViewPager(viewPager);
+
+            return root;
+        }else{
+            View root = inflater.inflate(R.layout.your_news_page_intro,container,false);
+            return root;
         }
-        viewPagerAdapter = new YourNewsViewPagerAdapter(getChildFragmentManager(),selectedTopicList ,getContext());
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        return root;
     }
 
 }
