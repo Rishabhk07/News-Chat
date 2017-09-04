@@ -3,6 +3,7 @@ package me.rishabhkhanna.peopleword.views.Activities;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import me.rishabhkhanna.peopleword.Adapters.ChatAdapter;
 import me.rishabhkhanna.peopleword.Network.ChatAPI;
 import me.rishabhkhanna.peopleword.Network.interfaces.getChats;
+import me.rishabhkhanna.peopleword.R;
 import me.rishabhkhanna.peopleword.model.Chat;
 import me.rishabhkhanna.peopleword.model.ChatRoom;
 import me.rishabhkhanna.peopleword.model.NewsJson;
@@ -68,7 +71,10 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(me.rishabhkhanna.peopleword.R.layout.activity_chat);
         socket = ChatAPI.getSocket();
-
+        setTitle("");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         etChat = (EditText) findViewById(me.rishabhkhanna.peopleword.R.id.etChat);
         btnSend = (FloatingActionButton) findViewById(me.rishabhkhanna.peopleword.R.id.btnSend);
@@ -87,6 +93,7 @@ public class ChatActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter(chatsList, this);
         recyclerView.setAdapter(chatAdapter);
         Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(userImageView);
+
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,6 +218,18 @@ public class ChatActivity extends AppCompatActivity {
                 recyclerView.scrollToPosition(chatsList.size() - 1);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
