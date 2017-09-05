@@ -1,6 +1,7 @@
 package me.rishabhkhanna.peopleword.views.Activities;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -32,6 +33,8 @@ import me.rishabhkhanna.peopleword.utils.Constants;
 
 import com.facebook.AccessToken;
 import com.facebook.Profile;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -93,6 +96,19 @@ public class ChatActivity extends AppCompatActivity {
         chatAdapter = new ChatAdapter(chatsList, this);
         recyclerView.setAdapter(chatAdapter);
         Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(userImageView);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.first_user_DB,MODE_PRIVATE);
+        Boolean firstUser = sharedPreferences.getBoolean(Constants.firstUserKey,true);
+        if(firstUser) {
+            new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .setTarget(new ViewTarget(userImageView))
+                    .setContentTitle("Share your Views anonymously")
+                    .setContentText("select anonymous user from here")
+                    .hideOnTouchOutside()
+                    .setStyle(R.style.CustomShowcaseTheme2)
+                    .build();
+            sharedPreferences.edit().putBoolean(Constants.firstUserKey,false).apply();
+        }
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
