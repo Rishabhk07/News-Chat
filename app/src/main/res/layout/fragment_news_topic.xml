@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rishabhkhanna.peopleword.me.rishabhkhanna.peopleword.views.Fragments.NewsTopic"
+    tools:context="me.rishabhkhanna.peopleword.views.Fragments.NewsTopic"
     android:orientation="vertical"
     >
 
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Select your News Topic, see only selected news topics in Your News section, change the order by Long press on any topic"
+        android:text="@string/news_topics"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_margin="16dp"
         android:fontFamily="sans-serif-light"
