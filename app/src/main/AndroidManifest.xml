@@ -66,7 +66,8 @@
         <activity
             android:name=".views.Activities.ChatActivity"
             android:configChanges="screenLayout|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            />
         <activity android:name=".views.Activities.SettingsActivity" />
 
         <meta-data
