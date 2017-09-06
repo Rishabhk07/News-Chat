@@ -24,6 +24,9 @@ import me.rishabhkhanna.peopleword.utils.Constants;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 import com.facebook.AccessToken;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -82,12 +85,10 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
         holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
         holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
         holder.tvChats.setText(String.valueOf(thisJsonData.getChats()));
-
         if (AccessToken.getCurrentAccessToken() != null) {
             holder.ivLike.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    Log.d(TAG, "onTouch: touch kiya re");
                     Log.d(TAG, "onTouch: " + ratingCallRunning);
                     if(!ratingCallRunning){
                         like(thisJsonData, position);
