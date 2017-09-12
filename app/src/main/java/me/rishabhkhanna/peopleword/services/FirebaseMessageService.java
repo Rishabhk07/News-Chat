@@ -5,15 +5,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.preference.CheckBoxPreference;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import me.rishabhkhanna.peopleword.R;
+import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Activities.BaseActivity;
+import me.rishabhkhanna.peopleword.views.Activities.ChatActivity;
+import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -69,8 +75,11 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 
 
             Intent intent = new Intent(this, BaseActivity.class);
-            Log.d(TAG, "onMessageReceived: " + remoteMessage.getData().get("news_id"));
-            intent.putExtra("notification_key", remoteMessage.getData().get("news_id"));
+            Log.d(TAG, "onMessageReceived: " + remoteMessage.getData().get("table_key"));
+            intent.putExtra("table_key", remoteMessage.getData().get("table_key"));
+            intent.putExtra("fromNotification",true);
+            intent.putExtra("fromNotification",true);
+            intent.putExtra("news_id",remoteMessage.getData().get("news_id"));
             PendingIntent pendingIntent = PendingIntent.getActivity(this, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
