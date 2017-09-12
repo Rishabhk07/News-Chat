@@ -62,12 +62,22 @@ public class BaseActivity extends AppCompatActivity
     TextView tvHeaderMail;
     NavigationView navigationView;
     int loginRecreate = 0;
+    boolean fromNotification = false;
 
 
     @Override
     protected void onNewIntent(Intent intent) {
         thisTab = intent.getStringExtra("notification_key");
         loginRecreate = intent.getIntExtra(Constants.loginFragmentIntent, 0);
+        fromNotification = intent.getBooleanExtra("fromNotification",false);
+        if(fromNotification){
+            Intent i = new Intent(this,DetailNewsActivity.class);
+            i.putExtra("fromNotification",intent.getBooleanExtra("fromNotification",fromNotification));
+            i.putExtra("table_key", intent.getStringExtra("table_key"));
+            i.putExtra("news_id",intent.getStringExtra("news_id"));
+            startActivity(i);
+        }
+
 
 //
 //        Log.d(TAG, "onNewIntent: " + thisTab);
@@ -91,6 +101,14 @@ public class BaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         ontop = true;
+        fromNotification = getIntent().getBooleanExtra("fromNotification",false);
+        if(fromNotification){
+            Intent i = new Intent(this,DetailNewsActivity.class);
+            i.putExtra("fromNotification",getIntent().getBooleanExtra("fromNotification",fromNotification));
+            i.putExtra("table_key", getIntent().getStringExtra("table_key"));
+            i.putExtra("news_id",getIntent().getStringExtra("news_id"));
+            startActivity(i);
+        }
         setContentView(me.rishabhkhanna.peopleword.R.layout.activity_nav_drawer);
         Log.d(TAG, "onCreate: ");
         Toolbar toolbar = (Toolbar) findViewById(me.rishabhkhanna.peopleword.R.id.toolbar);
