@@ -3,6 +3,7 @@ package me.rishabhkhanna.peopleword.views.Activities;
 import android.Manifest;
 import android.animation.Animator;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -36,6 +37,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import me.rishabhkhanna.peopleword.Network.API;
+import me.rishabhkhanna.peopleword.Network.interfaces.getNotificationNews;
 import me.rishabhkhanna.peopleword.R;
 
 import me.rishabhkhanna.peopleword.model.NewsJson;
@@ -44,6 +47,9 @@ import me.rishabhkhanna.peopleword.utils.Constants;
 
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
+import retrofit2.Call;
+import retrofit2.Response;
+
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
@@ -67,38 +73,71 @@ public class DetailNewsActivity extends AppCompatActivity {
     boolean shareProgress = false;
     boolean chatLogin = false;
     int PERM_REQ  = 1234;
+    Boolean fromNotification = false;
+    NewsJson thisNews;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_news);
-        linearLayout = (LinearLayout) findViewById(R.id.llDetailNews);
-        headTv = (TextView) findViewById(R.id.news_headline_full);
-        detailTV = (TextView) findViewById(R.id.news_deatil_full);
-        imageViewNews = (ImageView) findViewById(R.id.detail_image);
-        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        tvSource = (TextView) findViewById(R.id.tvSource);
-        relativeLayout = (RelativeLayout) findViewById(R.id.detail_news_relative);
-        frameLayoutreplace = (FrameLayout) findViewById(R.id.framelayoutReplace);
-        Intent i = getIntent();
-        final Gson gson = new Gson();
-        final NewsJson thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        fromNotification = intent.getBooleanExtra("fromNotification",false);
+        if (fromNotification){
+            Log.d(TAG, "onNewIntent: INSIDE NOTIFICATION INTENT");
+            String msid = intent.getStringExtra("table_key");
+            String news_id = intent.getStringExtra("news_id");
+
+            getThisNews(msid,news_id);
+        }
+    }
+
+    private void getThisNews(String msid,String news_id) {
+        API.getInstance()
+                .retrofit
+                .create(getNotificationNews.class)
+                .getThisNews(msid,news_id)
+                .enqueue(new retrofit2.Callback<NewsJson>() {
+                    @Override
+                    public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
+                        thisNews = response.body();
+                        Log.d(TAG, "onResponse: " + call.request());
+                        setData();
+                    }
+
+                    @Override
+                    public void onFailure(Call<NewsJson> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + call.request());
+                    }
+                });
+    }
+
+
+    public void setData(){
         headTv.setText(thisNews.getHl());
         detailTV.setText(thisNews.getSyn());
+        final Gson gson = new Gson();
+        Log.d(TAG, "setData: " + thisNews.getImageid());
         Picasso.with(DetailNewsActivity.this)
                 .load(UtilMethods.getImageurl(thisNews.getImageid(),"1400","960"))
-                .noFade()
                 .fit()
+                .centerCrop()
+                .noFade()
                 .into(imageViewNews, new Callback() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onSuccess() {
                         try {
+                            imageViewNews.setVisibility(View.VISIBLE);
+                            headTv.setVisibility(View.VISIBLE);
+                            detailTV.setVisibility(View.VISIBLE);
+                            tvSource.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                            Log.d(TAG, "onSuccess: " + imageViewNews.getWidth() / 2);
+                            Log.d(TAG, "onSuccess: " + imageViewNews.getHeight() / 2);
+
                             int cx = imageViewNews.getWidth() / 2;
                             int cy = imageViewNews.getHeight() / 2;
                             int finalRadius = imageViewNews.getHeight();
-                            Animator anim = ViewAnimationUtils.createCircularReveal(imageViewNews, cx, cy, 0, finalRadius);
+                            Animator anim = null;
+                            anim = ViewAnimationUtils.createCircularReveal(imageViewNews, cx, cy, 0, finalRadius);
                             anim.setDuration(500);
                             anim.start();
                             Log.d(TAG, "onSuccess: ");
@@ -171,7 +210,47 @@ public class DetailNewsActivity extends AppCompatActivity {
                 customTabsIntent.launchUrl(DetailNewsActivity.this, Uri.parse(thisNews.getSu()));
             }
         });
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail_news);
+        Log.d(TAG, "onCreate: ONCREATE CALL HO GYA");
+        linearLayout = (LinearLayout) findViewById(R.id.llDetailNews);
+        headTv = (TextView) findViewById(R.id.news_headline_full);
+        detailTV = (TextView) findViewById(R.id.news_deatil_full);
+        imageViewNews = (ImageView) findViewById(R.id.detail_image);
+
+        navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        tvSource = (TextView) findViewById(R.id.tvSource);
+        relativeLayout = (RelativeLayout) findViewById(R.id.detail_news_relative);
+        frameLayoutreplace = (FrameLayout) findViewById(R.id.framelayoutReplace);
+        Intent i = getIntent();
+        final Gson gson = new Gson();
+
+        thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
+        Log.d(TAG, "onCreate: " + thisNews);
+        fromNotification = getIntent().getBooleanExtra("fromNotification",false);
+        if(fromNotification){
+            Log.d(TAG, "onNewIntent: INSIDE NOTIFICATION INTENT");
+            if(thisNews == null){
+                String msid = getIntent().getStringExtra("table_key");
+                String news_id = getIntent().getStringExtra("news_id");
+                getThisNews(msid,news_id);
+            }
+        }
+        if(thisNews != null) {
+            setData();
+        }else{
+            imageViewNews.setVisibility(View.INVISIBLE);
+            headTv.setVisibility(View.INVISIBLE);
+            detailTV.setVisibility(View.INVISIBLE);
+            tvSource.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     private Boolean isPermissionGranted() {
@@ -248,4 +327,6 @@ public class DetailNewsActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 }
