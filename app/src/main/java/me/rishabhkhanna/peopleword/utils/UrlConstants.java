@@ -20,4 +20,7 @@ public class UrlConstants {
     public static final String AUTOMOTIVE_URL = "test/fetch/automotive/";
     public static final String LIFESTYLE_URL = "test/fetch/life_style/";
     public static final String GOODGOV_URL = "test/fetch/good_governance/";
+
+//    url for notification
+    public static final String NOTIFY = "test/fetch";
 }
