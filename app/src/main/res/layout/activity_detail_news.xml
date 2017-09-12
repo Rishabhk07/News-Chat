@@ -21,22 +21,20 @@
 
     <LinearLayout
         android:id="@+id/llDetailNews"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:orientation="vertical"
-        android:weightSum="7">
+        android:weightSum="7"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/detail_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@mipmap/ic_launcher"
             android:transitionName="shared"
             android:layout_weight="3"
             />
@@ -60,7 +58,6 @@
                     android:fontFamily="sans-serif"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
                     android:textColor="#323232"
                     android:textSize="19sp"
                     android:textStyle="bold"
@@ -77,7 +74,6 @@
                     android:minHeight="?android:attr/listPreferredItemHeightSmall"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="some news , Dementization caused many problems but in the end it was good for all something like that"
                     android:textColor="#323232"
                     android:textSize="16sp"
                     android:textStyle="italic"
