@@ -94,7 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -107,6 +108,13 @@
         android:background="@android:color/white"
         >
     </FrameLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/progressBarNotificaiton"
+        android:visibility="gone"
+        />
 </RelativeLayout>
 
 
