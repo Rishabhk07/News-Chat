@@ -89,7 +89,9 @@ public class DetailNewsActivity extends AppCompatActivity {
                         progressBarNotification.setVisibility(View.GONE);
                         thisNews = response.body();
                         Log.d(TAG, "onResponse: " + call.request());
-                        setData();
+                        if(thisNews!=null) {
+                            setData();
+                        }
                     }
 
                     @Override
