@@ -70,6 +70,7 @@ public class BaseActivity extends AppCompatActivity
         thisTab = intent.getStringExtra("notification_key");
         loginRecreate = intent.getIntExtra(Constants.loginFragmentIntent, 0);
         fromNotification = intent.getBooleanExtra("fromNotification",false);
+        Log.d(TAG, "onNewIntent: ON NEW INTENT IN BASE");
         if(fromNotification){
             Intent i = new Intent(this,DetailNewsActivity.class);
             i.putExtra("fromNotification",intent.getBooleanExtra("fromNotification",fromNotification));
@@ -100,6 +101,7 @@ public class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        Log.d(TAG, "onNewIntent: ON CREATE IN BASE");
         ontop = true;
         fromNotification = getIntent().getBooleanExtra("fromNotification",false);
         if(fromNotification){
