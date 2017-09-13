@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import me.rishabhkhanna.peopleword.Network.API;
@@ -91,12 +92,23 @@ public class DetailNewsActivity extends AppCompatActivity {
                         Log.d(TAG, "onResponse: " + call.request());
                         if(thisNews!=null) {
                             setData();
+                        }else{
+                            if(UtilMethods.isNetConnected(DetailNewsActivity.this)) {
+                                call.clone().enqueue(this);
+                            }else {
+                                Toast.makeText(DetailNewsActivity.this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<NewsJson> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + call.request());
+                        if(UtilMethods.isNetConnected(DetailNewsActivity.this)) {
+                            call.clone().enqueue(this);
+                        }else {
+                            Toast.makeText(DetailNewsActivity.this, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
