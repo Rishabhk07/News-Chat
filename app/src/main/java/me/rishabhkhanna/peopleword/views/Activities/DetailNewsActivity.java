@@ -75,19 +75,8 @@ public class DetailNewsActivity extends AppCompatActivity {
     int PERM_REQ  = 1234;
     Boolean fromNotification = false;
     NewsJson thisNews;
+    ProgressBar progressBarNotification;
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        fromNotification = intent.getBooleanExtra("fromNotification",false);
-        if (fromNotification){
-            Log.d(TAG, "onNewIntent: INSIDE NOTIFICATION INTENT");
-            String msid = intent.getStringExtra("table_key");
-            String news_id = intent.getStringExtra("news_id");
-
-            getThisNews(msid,news_id);
-        }
-    }
 
     private void getThisNews(String msid,String news_id) {
         API.getInstance()
@@ -97,6 +86,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                 .enqueue(new retrofit2.Callback<NewsJson>() {
                     @Override
                     public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
+                        progressBarNotification.setVisibility(View.GONE);
                         thisNews = response.body();
                         Log.d(TAG, "onResponse: " + call.request());
                         setData();
@@ -222,7 +212,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         headTv = (TextView) findViewById(R.id.news_headline_full);
         detailTV = (TextView) findViewById(R.id.news_deatil_full);
         imageViewNews = (ImageView) findViewById(R.id.detail_image);
-
+        progressBarNotification = (ProgressBar) findViewById(R.id.progressBarNotificaiton);
         navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         tvSource = (TextView) findViewById(R.id.tvSource);
@@ -235,7 +225,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + thisNews);
         fromNotification = getIntent().getBooleanExtra("fromNotification",false);
         if(fromNotification){
-            Log.d(TAG, "onNewIntent: INSIDE NOTIFICATION INTENT");
+            Log.d(TAG, "onCreate: YAHAN KA INTENT CALL HO RHA HAI");
             if(thisNews == null){
                 String msid = getIntent().getStringExtra("table_key");
                 String news_id = getIntent().getStringExtra("news_id");
@@ -245,11 +235,11 @@ public class DetailNewsActivity extends AppCompatActivity {
         if(thisNews != null) {
             setData();
         }else{
+            progressBarNotification.setVisibility(View.VISIBLE);
             imageViewNews.setVisibility(View.INVISIBLE);
             headTv.setVisibility(View.INVISIBLE);
             detailTV.setVisibility(View.INVISIBLE);
             tvSource.setVisibility(View.INVISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
