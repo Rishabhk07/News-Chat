@@ -80,6 +80,8 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             intent.putExtra("fromNotification",true);
             intent.putExtra("fromNotification",true);
             intent.putExtra("news_id",remoteMessage.getData().get("news_id"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
             PendingIntent pendingIntent = PendingIntent.getActivity(this, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
