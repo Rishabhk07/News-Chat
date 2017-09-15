@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 
@@ -92,6 +92,7 @@ public class BaseActivity extends AppCompatActivity
 //        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
 
         Log.d(TAG, "onNewIntent: Recreate" + loginRecreate);
+        Log.d(TAG, "onNewIntent: " + thisTab);
         setFragment(thisTab);
         setProfilePicture();
         super.onNewIntent(intent);
