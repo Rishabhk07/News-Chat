@@ -14,6 +14,7 @@
         android:id="@+id/tvLogin"
         android:fontFamily="sans-serif-light"
         android:lineSpacingMultiplier="1.1"
+        android:gravity="center"
         />
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
