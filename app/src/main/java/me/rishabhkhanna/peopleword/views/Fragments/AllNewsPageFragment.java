@@ -19,6 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import io.realm.DynamicRealm;
+import io.realm.RealmMigration;
 import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
 import me.rishabhkhanna.peopleword.Network.NewsAPI;
 import me.rishabhkhanna.peopleword.model.AuthDetails;
@@ -59,6 +61,7 @@ public class AllNewsPageFragment extends Fragment {
     AuthDetails authDetails;
     FrameLayout frameLayout;
     Context context;
+    boolean loadingFlag = false;
 
     public AllNewsPageFragment() {
         // Required empty public constructor
@@ -133,7 +136,15 @@ public class AllNewsPageFragment extends Fragment {
                             Log.d(TAG, "onResponse: " + call.request());
                             String db_name = position + "_news_backup.realm";
 
-                            RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
+                            RealmConfiguration config = new RealmConfiguration.Builder()
+                                    .schemaVersion(2)
+                                    .migration(new RealmMigration() {
+                                        @Override
+                                        public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
+
+                                        }
+                                    })
+                                    .name(db_name).build();
                             final Realm realm = Realm.getInstance(config);
                             realm.executeTransactionAsync(new Realm.Transaction() {
                                 @Override
@@ -191,14 +202,21 @@ public class AllNewsPageFragment extends Fragment {
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                if(!loadingFlag) {
+                    newsArrayList.add(new NewsJson(-100));
+                    allNewsAdapter.notifyDataSetChanged();
+                    loadingFlag = true;
+                }
                 counter++;
                 Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count " + totalItemsCount + "counter: " + counter);
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
+                        newsArrayList.remove(newsArrayList.size()-1);
                         progressBar.setVisibility(View.GONE);
                         newsArrayList.addAll(response.body());
                         allNewsAdapter.notifyDataSetChanged();
+                        loadingFlag = false;
                     }
 
                     @Override
