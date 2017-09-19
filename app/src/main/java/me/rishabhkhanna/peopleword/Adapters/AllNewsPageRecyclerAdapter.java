@@ -23,6 +23,7 @@ import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.Constants;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+
 import com.facebook.AccessToken;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
@@ -53,7 +54,10 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 
     @Override
     public int getItemViewType(int position) {
-        if (newsArrayList.size() > 0) {
+        if (newsArrayList.get(position).getChats() == -100) {
+            Log.d(TAG, "getItemViewType: " + position);
+            return 3;
+        } else if (newsArrayList.size() > 0) {
             if (newsArrayList.get(position).getmUser() != null && !newsArrayList.get(position).getmUser().isEmpty()) {
                 if (newsArrayList.get(position).getmUser().get(0).getmUserTable().getRating() == 1) {
                     return 1;
@@ -73,6 +77,8 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
             layout = R.layout.news_list_green;
         } else if (viewType == 0) {
             layout = R.layout.news_list_red;
+        } else if (viewType == 3) {
+            layout = R.layout.layout_recyclerview_progress;
         }
         View itemView = li.inflate(layout, parent, false);
         return new AllnewsViewholder(itemView);
@@ -81,82 +87,84 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
     @Override
     public void onBindViewHolder(final AllnewsViewholder holder, final int position) {
         final NewsJson thisJsonData = newsArrayList.get(position);
-        holder.tvNewsHeading.setText(thisJsonData.getHl());
-        holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
-        holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
-        holder.tvChats.setText(String.valueOf(thisJsonData.getChats()));
-        if (AccessToken.getCurrentAccessToken() != null) {
-            holder.ivLike.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    Log.d(TAG, "onTouch: " + ratingCallRunning);
-                    if(!ratingCallRunning){
-                        like(thisJsonData, position);
-                        ratingCallRunning = true;
+        if (newsArrayList.get(position).getChats() != -100) {
+            holder.tvNewsHeading.setText(thisJsonData.getHl());
+            holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
+            holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
+            holder.tvChats.setText(String.valueOf(thisJsonData.getChats()));
+            if (AccessToken.getCurrentAccessToken() != null) {
+                holder.ivLike.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d(TAG, "onTouch: " + ratingCallRunning);
+                        if (!ratingCallRunning) {
+                            like(thisJsonData, position);
+                            ratingCallRunning = true;
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
 
-            holder.ivDislike.setOnTouchListener(new View.OnTouchListener() {
+                holder.ivDislike.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d(TAG, "onTouch: " + ratingCallRunning);
+                        if (!ratingCallRunning) {
+                            dislike(thisJsonData, position);
+                            ratingCallRunning = true;
+                        }
+
+                        return true;
+                    }
+                });
+                holder.tvLikes.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d(TAG, "onTouch: " + ratingCallRunning);
+                        if (!ratingCallRunning) {
+                            like(thisJsonData, position);
+                            ratingCallRunning = true;
+                        }
+                        return true;
+                    }
+                });
+                holder.tvDislikes.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Log.d(TAG, "onTouch: " + ratingCallRunning);
+                        if (!ratingCallRunning) {
+                            dislike(thisJsonData, position);
+                            ratingCallRunning = true;
+                        }
+                        return true;
+                    }
+                });
+            }
+
+            Picasso.with(context).load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500"))
+                    .noFade()
+                    .fit()
+                    .into(holder.ivNewsImage);
+
+            holder.cvNewsList.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    Log.d(TAG, "onTouch: " + ratingCallRunning);
-                    if(!ratingCallRunning){
-                        dislike(thisJsonData, position);
-                        ratingCallRunning = true;
+                public void onClick(View v) {
+                    Gson gson = new Gson();
+
+                    Intent i = new Intent(context, DetailNewsActivity.class);
+                    i.putExtra(Constants.DETAIL_NEWS_KEY, gson.toJson(thisJsonData, NewsJson.class));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
+                            , Pair.create((View) holder.ivNewsImage, "shared"),
+                            Pair.create((View) holder.tvNewsHeading, "transHeading"));
+                    if (UtilMethods.isNetConnected(context)) {
+                        context.startActivity(i, options.toBundle());
+                    } else {
+                        Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                     }
 
-                    return true;
-                }
-            });
-            holder.tvLikes.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    Log.d(TAG, "onTouch: " + ratingCallRunning);
-                    if(!ratingCallRunning) {
-                        like(thisJsonData, position);
-                        ratingCallRunning = true;
-                    }
-                    return true;
-                }
-            });
-            holder.tvDislikes.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    Log.d(TAG, "onTouch: " + ratingCallRunning);
-                    if(!ratingCallRunning) {
-                        dislike(thisJsonData, position);
-                        ratingCallRunning = true;
-                    }
-                    return true;
                 }
             });
         }
-
-        Picasso.with(context).load(UtilMethods.getImageurl(thisJsonData.getImageid(),"600","500"))
-                .noFade()
-                .fit()
-                .into(holder.ivNewsImage);
-
-        holder.cvNewsList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Gson gson = new Gson();
-
-                Intent i = new Intent(context, DetailNewsActivity.class);
-                i.putExtra(Constants.DETAIL_NEWS_KEY, gson.toJson(thisJsonData, NewsJson.class));
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context
-                        , Pair.create((View) holder.ivNewsImage, "shared"),
-                        Pair.create((View) holder.tvNewsHeading, "transHeading"));
-                if(UtilMethods.isNetConnected(context)){
-                    context.startActivity(i, options.toBundle());
-                }else{
-                    Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
     }
 
     @Override
