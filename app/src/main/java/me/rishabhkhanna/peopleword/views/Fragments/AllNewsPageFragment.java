@@ -137,13 +137,6 @@ public class AllNewsPageFragment extends Fragment {
                             String db_name = position + "_news_backup.realm";
 
                             RealmConfiguration config = new RealmConfiguration.Builder()
-                                    .schemaVersion(2)
-                                    .migration(new RealmMigration() {
-                                        @Override
-                                        public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
-
-                                        }
-                                    })
                                     .name(db_name).build();
                             final Realm realm = Realm.getInstance(config);
                             realm.executeTransactionAsync(new Realm.Transaction() {
@@ -198,13 +191,13 @@ public class AllNewsPageFragment extends Fragment {
         rvPage.setLayoutManager(linearLayoutManager);
         rvPage.setAdapter(allNewsAdapter);
 
-        
+
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(!loadingFlag) {
+                if (!loadingFlag) {
                     newsArrayList.add(new NewsJson(-100));
-                    allNewsAdapter.notifyDataSetChanged();
+                    allNewsAdapter.notifyItemInserted(newsArrayList.size() - 1);
                     loadingFlag = true;
                 }
                 counter++;
@@ -212,7 +205,7 @@ public class AllNewsPageFragment extends Fragment {
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                        newsArrayList.remove(newsArrayList.size()-1);
+                        newsArrayList.remove(newsArrayList.size() - 1);
                         progressBar.setVisibility(View.GONE);
                         newsArrayList.addAll(response.body());
                         allNewsAdapter.notifyDataSetChanged();
@@ -295,24 +288,26 @@ public class AllNewsPageFragment extends Fragment {
                 currentPage = "sports";
                 break;
             case 6:
-                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
-                currentPage = "cricket";
-                break;
-            case 7:
+
                 call = NewsAPI.getInstance().getNews.getBusinessNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "business";
                 break;
-            case 8:
-                call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
-                currentPage = "education";
-                break;
-            case 9:
+            case 7:
                 call = NewsAPI.getInstance().getNews.getTVNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "tv";
                 break;
-            case 10:
+            case 8:
                 call = NewsAPI.getInstance().getNews.getAuomotiveNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "automotive";
+                break;
+            case 9:
+                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
+                currentPage = "cricket";
+                break;
+
+            case 10:
+                call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
+                currentPage = "education";
                 break;
             case 11:
                 call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
