@@ -53,15 +53,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 5:
                 return "sports";
             case 6:
-                return "cricket";
-            case 7:
                 return "business";
-            case 8:
-                return "education";
-            case 9:
+            case 7:
                 return "TV";
+            case 8:
+                return "automotive";
+            case 9:
+                return "cricket";
             case 10:
-                return "Automotive";
+                return "education";
             case 11:
                 return "LifeStyle";
             case 12:
