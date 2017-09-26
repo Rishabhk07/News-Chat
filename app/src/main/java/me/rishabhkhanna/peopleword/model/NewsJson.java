@@ -46,13 +46,22 @@ public class NewsJson extends RealmObject{
     private String mUpdatedAt;
 
 
+
     @SerializedName("likes")
     private int likes;
     @SerializedName("dislikes")
     private int dislikes;
 
+    public NewsJson(int chats) {
+        this.chats = chats;
+    }
+
     @SerializedName("chats")
     private int chats;
+
+
+    public NewsJson() {
+    }
 
     public int getChats() {
         return chats;
