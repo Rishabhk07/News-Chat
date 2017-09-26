@@ -87,7 +87,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
     @Override
     public void onBindViewHolder(final AllnewsViewholder holder, final int position) {
         final NewsJson thisJsonData = newsArrayList.get(position);
-        if (newsArrayList.get(position).getChats() != -100) {
+        if (getItemViewType(position) != 3) {
             holder.tvNewsHeading.setText(thisJsonData.getHl());
             holder.tvLikes.setText(String.valueOf(thisJsonData.getLikes()));
             holder.tvDislikes.setText(String.valueOf(thisJsonData.getDislikes()));
