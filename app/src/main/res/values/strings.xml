@@ -19,7 +19,7 @@
     <string name="rate_news">See and Rate news you have not rated till now, swipe right to Like and left to Dislike, News that are rated by you will not be shown here.</string>
     <string name="your_news">See your personalised news, select topics and its order from News Topic section and see only those news, in that order</string>
     <string name="news_topics">select favourite news topic and see news from only those topics in Your news section, you can also change the order of the news by long pressing and shifting topics</string>
-    <string name="profile">View your profile information, see what you have liked and disliked in Breifs</string>
+    <string name="profile">View your profile information, see what you have liked and disliked in Briefs</string>
     <string name="chat">Chat with people about current news, and share your views</string>
 
 </resources>
