@@ -301,17 +301,16 @@ public class AllNewsPageFragment extends Fragment {
                 currentPage = "automotive";
                 break;
             case 9:
-                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
-                currentPage = "cricket";
+                call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
+                currentPage = "life_style";
                 break;
-
             case 10:
                 call = NewsAPI.getInstance().getNews.getEducatoinNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
                 currentPage = "education";
                 break;
             case 11:
-                call = NewsAPI.getInstance().getNews.getLifestyleNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
-                currentPage = "life_style";
+                call = NewsAPI.getInstance().getNews.getCricketNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
+                currentPage = "cricket";
                 break;
             case 12:
                 call = NewsAPI.getInstance().getNews.getEnvironmentNews(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
