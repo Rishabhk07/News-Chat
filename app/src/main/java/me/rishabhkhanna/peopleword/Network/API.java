@@ -1,5 +1,6 @@
 package me.rishabhkhanna.peopleword.Network;
 
+import me.rishabhkhanna.peopleword.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,7 +14,7 @@ public class API {
 
     private API() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.39:9090/")
+                .baseUrl(Constants.server_url)
                 .addConverterFactory(
                         GsonConverterFactory.create()
                 )

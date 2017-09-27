@@ -1,5 +1,12 @@
 package me.rishabhkhanna.peopleword.Network;
 
+import android.util.Log;
+
+import java.net.URISyntaxException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import me.rishabhkhanna.peopleword.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,7 +20,7 @@ public class ChatAPI {
 
     public ChatAPI() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.39:9090/")
+                .baseUrl(Constants.server_url)
                 .addConverterFactory(
                         GsonConverterFactory.create()
                 ).build();
@@ -24,5 +31,13 @@ public class ChatAPI {
             chatAPI = new ChatAPI();
         }
         return chatAPI;
+    }
+    public static Socket getSocket(){
+        try {
+            return IO.socket(Constants.server_url);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
