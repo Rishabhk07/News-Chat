@@ -43,4 +43,7 @@ public class Constants {
     public static final String firstUserKey = "user_key";
     public static final String first_user_DB = "general_db";
 
+//    server url
+    public static final String server_url = "server_adress_goes_here";
+
 }
