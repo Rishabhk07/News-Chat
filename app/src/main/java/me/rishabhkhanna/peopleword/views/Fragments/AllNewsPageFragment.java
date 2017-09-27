@@ -178,6 +178,7 @@ public class AllNewsPageFragment extends Fragment {
                 RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
                 final Realm realm = Realm.getInstance(config);
                 newsArrayList.addAll(realm.where(NewsJson.class).findAll());
+                Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                 allNewsAdapter.notifyDataSetChanged();
                 Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
                 progressBar.setVisibility(View.GONE);
