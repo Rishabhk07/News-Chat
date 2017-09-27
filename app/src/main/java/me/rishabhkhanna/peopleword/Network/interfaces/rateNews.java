@@ -53,7 +53,8 @@ public interface rateNews {
     @FormUrlEncoded
     @POST("rate/getNews")
     Call<ArrayList<ArrayList<NewsJson>>> getNews(
-            @Field("user_id") String userId
+            @Field("user_id") String userId,
+            @Query("offset") int offset
     );
 
 }
