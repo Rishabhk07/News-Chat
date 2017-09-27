@@ -33,6 +33,8 @@ import me.rishabhkhanna.peopleword.utils.Constants;
 
 import com.facebook.AccessToken;
 import com.facebook.Profile;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.gson.Gson;
@@ -99,14 +101,7 @@ public class ChatActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.first_user_DB,MODE_PRIVATE);
         Boolean firstUser = sharedPreferences.getBoolean(Constants.firstUserKey,true);
         if(firstUser) {
-            new ShowcaseView.Builder(this)
-                    .withMaterialShowcase()
-                    .setTarget(new ViewTarget(userImageView))
-                    .setContentTitle("Share your Views anonymously")
-                    .setContentText("select anonymous user from here")
-                    .hideOnTouchOutside()
-                    .setStyle(R.style.CustomShowcaseTheme2)
-                    .build();
+            TapTargetView.showFor(this, TapTarget.forView(userImageView,"Share your Views anonymously","select anonymous user from here"));
             sharedPreferences.edit().putBoolean(Constants.firstUserKey,false).apply();
         }
 
