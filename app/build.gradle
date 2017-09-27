@@ -67,7 +67,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'at.blogc:expandabletextview:1.0.3'
     compile 'com.android.support:customtabs:25.3.1'
-    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
     testCompile 'junit:junit:4.12'
 }
 
