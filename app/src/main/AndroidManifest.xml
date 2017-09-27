@@ -19,7 +19,6 @@
         <activity
             android:name=".views.Activities.BaseActivity"
             android:finishOnTaskLaunch="true"
-            android:label="@string/title_activity_nav_drawer"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true">
