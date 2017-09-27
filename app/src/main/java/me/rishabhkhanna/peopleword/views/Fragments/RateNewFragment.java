@@ -41,6 +41,7 @@ public class RateNewFragment extends Fragment {
     CallbackManager callbackManager;
     SharedPreferences sharedPreferences;
     ProgressBar rateProgress;
+    int offset = -1;
     public static final String TAG = "RateNewsActivity";
 
     AuthDetails authDetails;
@@ -69,7 +70,7 @@ public class RateNewFragment extends Fragment {
         likeBtn = (Button) root.findViewById(R.id.like_btn);
         dislikeBtn = (Button) root.findViewById(R.id.dislike_btn);
         rateProgress = (ProgressBar) root.findViewById(R.id.progress_bar_rate);
-        rateProgress.setVisibility(View.VISIBLE);
+
 
         swipeCardAdapter = RateNewsAdapter.getSwipeCardAdapter(newsArrayList, getContext());
         swipeDeck.setAdapter(swipeCardAdapter);
@@ -138,6 +139,9 @@ public class RateNewFragment extends Fragment {
             @Override
             public void cardsDepleted() {
 
+//                if all cards are depleted then again call to get further news
+                getNewsToBeRated();
+
             }
 
             @Override
@@ -150,33 +154,8 @@ public class RateNewFragment extends Fragment {
 
             }
         });
-
-        ArrayList<String> arrayList = new ArrayList();
-        final ArrayList<ArrayList<NewsJson>> news = new ArrayList<>();
-        arrayList.add("briefs");
-        arrayList.add("entertainment");
-        API.getInstance()
-                .retrofit
-                .create(rateNews.class)
-                .getNews(AccessToken.getCurrentAccessToken().getUserId())
-                .enqueue(new Callback<ArrayList<ArrayList<NewsJson>>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<ArrayList<NewsJson>>> call, Response<ArrayList<ArrayList<NewsJson>>> response) {
-                        Log.d(TAG, "onResponse: " + response.body());
-                        news.addAll(response.body());
-                        for(int i = 0 ;i < news.size(); i++){
-                            newsArrayList.addAll(news.get(i));
-                        }
-                        swipeCardAdapter.notifyDataSetChanged();
-                        rateProgress.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<ArrayList<NewsJson>>> call, Throwable t) {
-
-                    }
-                });
+        //get initial news for rating
+        getNewsToBeRated();
 
         //button click listner
         likeBtn.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +179,42 @@ public class RateNewFragment extends Fragment {
 
 
         return root;
+    }
+
+    public void getNewsToBeRated(){
+        offset++;
+        final ArrayList<ArrayList<NewsJson>> news = new ArrayList<>();
+        rateProgress.setVisibility(View.VISIBLE);
+        API.getInstance()
+                .retrofit
+                .create(rateNews.class)
+                .getNews(AccessToken.getCurrentAccessToken().getUserId(),offset)
+                .enqueue(new Callback<ArrayList<ArrayList<NewsJson>>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<ArrayList<NewsJson>>> call, Response<ArrayList<ArrayList<NewsJson>>> response) {
+                        Log.d(TAG, "onResponse: " + response.body());
+                        Log.d(TAG, "onResponse: initial" + newsArrayList.size());
+
+                        if(response.body().size() == 0){
+                            Log.d(TAG, "onResponse: response is KHALI" + call.request());
+                            getNewsToBeRated();
+                        }else {
+                            Log.d(TAG, "onResponse: FULL" + call.request());
+                            news.addAll(response.body());
+                            for (int i = 0; i < news.size(); i++) {
+                                if (!response.body().get(i).isEmpty())
+                                    newsArrayList.addAll(news.get(i));
+                            }
+                            swipeCardAdapter.notifyDataSetChanged();
+                            rateProgress.setVisibility(View.GONE);
+                            Log.d(TAG, "onResponse: initial" + newsArrayList.size());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ArrayList<ArrayList<NewsJson>>> call, Throwable t) {
+
+                    }
+                });
     }
 
 }
