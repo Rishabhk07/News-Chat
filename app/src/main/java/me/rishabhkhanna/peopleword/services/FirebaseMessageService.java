@@ -62,7 +62,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             builder = new NotificationCompat.Builder(this)
                     .setPriority(Notification.PRIORITY_HIGH)
                     .setDefaults(Notification.DEFAULT_VIBRATE)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.news_logo_small)
                     .setContentTitle(remoteMessage.getData().get("title"))
                     .setCustomContentView(remoteView)
                     .setCustomBigContentView(remoteBigView);
