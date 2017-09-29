@@ -192,14 +192,9 @@ public class RateNewFragment extends Fragment {
                 .enqueue(new Callback<ArrayList<ArrayList<NewsJson>>>() {
                     @Override
                     public void onResponse(Call<ArrayList<ArrayList<NewsJson>>> call, Response<ArrayList<ArrayList<NewsJson>>> response) {
-                        Log.d(TAG, "onResponse: " + response.body());
-                        Log.d(TAG, "onResponse: initial" + newsArrayList.size());
-
                         if(response.body().size() == 0){
-                            Log.d(TAG, "onResponse: response is KHALI" + call.request());
                             getNewsToBeRated();
                         }else {
-                            Log.d(TAG, "onResponse: FULL" + call.request());
                             news.addAll(response.body());
                             for (int i = 0; i < news.size(); i++) {
                                 if (!response.body().get(i).isEmpty())
@@ -207,7 +202,6 @@ public class RateNewFragment extends Fragment {
                             }
                             swipeCardAdapter.notifyDataSetChanged();
                             rateProgress.setVisibility(View.GONE);
-                            Log.d(TAG, "onResponse: initial" + newsArrayList.size());
                         }
                     }
                     @Override
