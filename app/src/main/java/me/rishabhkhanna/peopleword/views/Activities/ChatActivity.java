@@ -35,8 +35,6 @@ import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
