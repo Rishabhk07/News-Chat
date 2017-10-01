@@ -79,7 +79,7 @@ public class AllNewsPageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: Create Here");
+
         if (getArguments() != null) {
 //            url = getArguments().getString(Constants.fragment_key);
 
@@ -261,7 +261,7 @@ public class AllNewsPageFragment extends Fragment {
 
 
     private Call<ArrayList<NewsJson>> setupCall(int position, int counter) {
-        Log.d(TAG, "setupCall: " + counter);
+//        Log.d(TAG, "setupCall: " + counter);
         switch (position) {
             case 0:
                 call = NewsAPI.getInstance().getNews.getBriefs(String.valueOf(counter), authDetails.getAuthToken(), authDetails.getUserId());
