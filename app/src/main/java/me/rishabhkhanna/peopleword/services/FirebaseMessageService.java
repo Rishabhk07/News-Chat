@@ -56,7 +56,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
             String currentTime = simpleDateFormat.format(Calendar.getInstance().getTime());
             remoteBigView.setTextViewText(R.id.tvExNotificationTime, currentTime);
-            Log.d(TAG, "onMessageReceived: Current Time" + currentTime);
+
             remoteView.setTextViewText(R.id.tvNotificationTime, currentTime);
             NotificationCompat.Builder builder;
             builder = new NotificationCompat.Builder(this)
@@ -67,15 +67,9 @@ public class FirebaseMessageService extends FirebaseMessagingService {
                     .setCustomContentView(remoteView)
                     .setCustomBigContentView(remoteBigView);
 
-//                builder = new NotificationCompat.Builder(this)
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .setContentTitle(remoteMessage.getData().get("title"))
-//                        .setCustomContentView(remoteView)
-//                        .setCustomBigContentView(remoteBigView);
-
 
             Intent intent = new Intent(this, BaseActivity.class);
-            Log.d(TAG, "onMessageReceived: " + remoteMessage.getData().get("table_key"));
+//            Log.d(TAG, "onMessageReceived: " + remoteMessage.getData().get("table_key"));
             intent.putExtra("table_key", remoteMessage.getData().get("table_key"));
             intent.putExtra("fromNotification",true);
             intent.putExtra("fromNotification",true);

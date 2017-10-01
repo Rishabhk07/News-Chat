@@ -71,9 +71,7 @@ public class RateNewsAdapter {
             View view = convertView;
 
             if(view == null){
-                Log.d(TAG, "getView: ");
                 LayoutInflater inflater = LayoutInflater.from(context);
-                Log.d(TAG, "getView: 2222");
                 view = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.news_card , parent , false);
 
             }
@@ -85,7 +83,7 @@ public class RateNewsAdapter {
                 newsHeadlineTV.setText(newsList.get(position).getHl());
                 newsDetailTV.setText(newsList.get(position).getSyn());
                 String imageUrl = "";
-                Log.d(TAG, "getView: data attached");
+//                Log.d(TAG, "getView: data attached");
                 Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                         newsList.get(position).getImageid() + "&width=600&height=500&resizemode=1")
                         .noFade()

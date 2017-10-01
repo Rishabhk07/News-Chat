@@ -75,11 +75,11 @@ public class ProfileNewsFragment extends Fragment {
                     userNews.clear();
                     userNews.addAll(response.body().getBriefs());
                     adapter.notifyDataSetChanged();
-                    Log.d(TAG, "onResponse: " + call.request());
+//                    Log.d(TAG, "onResponse: " + call.request());
                 }
                 @Override
                 public void onFailure(Call<RatedNewsPojo> call, Throwable t) {
-                    Log.d(TAG, "onFailure: ");
+//                    Log.d(TAG, "onFailure: ");
                 }
             });
         }else {

@@ -44,12 +44,7 @@ public class UtilMethods {
 
         RealmQuery<Topic> realmQuery = realm.where(Topic.class);
         RealmResults<Topic> results = realmQuery.findAllSorted("position", Sort.ASCENDING);
-        results.addChangeListener(new OrderedRealmCollectionChangeListener<RealmResults<Topic>>() {
-            @Override
-            public void onChange(RealmResults<Topic> topics, OrderedCollectionChangeSet changeSet) {
-                Log.d(TAG, "onChange: " + topics.get(0).getName());
-            }
-        });
+
 
         if (results.isEmpty()) {
             realm.beginTransaction();
@@ -82,7 +77,6 @@ public class UtilMethods {
         } else {
             selectedTopic.clear();
             selectedTopic.addAll(results);
-            Log.d(TAG, "getTopics: is not null");
             return selectedTopic;
 
         }

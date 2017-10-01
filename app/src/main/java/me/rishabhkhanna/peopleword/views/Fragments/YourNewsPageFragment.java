@@ -58,7 +58,7 @@ public class YourNewsPageFragment extends Fragment {
 
     public static YourNewsPageFragment newInstance(ArrayList<Topic> userTopics, int position) {
         YourNewsPageFragment fragment = new YourNewsPageFragment();
-        Log.d(TAG, "newInstance: YourNewsPageFragment");
+
         Bundle args = new Bundle();
 //        args.putString(Constants.USER_TOPICS_LIST,new Gson().toJson(userTopics,Topic.class));
         topics = userTopics;
@@ -70,19 +70,19 @@ public class YourNewsPageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: Before Arguments");
+
         if (getArguments() != null) {
 //            this.userTopics = new Gson().fromJson(getArguments().getString(Constants.USER_TOPICS_LIST),Topic[].class);
             position = getArguments().getInt(Constants.USER_TOPIC_POS);
-            Log.d(TAG, "onCreate: after arguments");
+//            Log.d(TAG, "onCreate: after arguments");
         }
         if (AccessToken.getCurrentAccessToken() != null) {
             authDetails = new AuthDetails(AccessToken.getCurrentAccessToken().getToken(), AccessToken.getCurrentAccessToken().getUserId());
         } else {
-            Log.d(TAG, "onCreate: in null Auth Details");
+//            Log.d(TAG, "onCreate: in null Auth Details");
             authDetails = new AuthDetails("null", "null");
         }
-        Log.d(TAG, "onCreate: after null Auth Details");
+//        Log.d(TAG, "onCreate: after null Auth Details");
         counter = 0;
     }
 
@@ -95,7 +95,6 @@ public class YourNewsPageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_page_all_news, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.srlAllNews);
         progressBar = (ProgressBar) root.findViewById(R.id.all_news_progress);
-        Log.d(TAG, "onCreateView: In OnCreate");
         recyclerView = (RecyclerView) root.findViewById(R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter pageRecyclerAdapter = new AllNewsPageRecyclerAdapter(newsJsonArrayList, getContext());
         if (counter == 0 && fetchedFirstApi) {
@@ -106,22 +105,22 @@ public class YourNewsPageFragment extends Fragment {
                     newsJsonArrayList.clear();
                     newsJsonArrayList.addAll(response.body());
                     pageRecyclerAdapter.notifyDataSetChanged();
-                    Log.d(TAG, "onResponse: " + call.request());
+//                    Log.d(TAG, "onResponse: " + call.request());
                     progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                    Log.d(TAG, "onFailure: " + call.request());
-                    Log.d(TAG, "onError: " + t.getMessage());
-                    Log.d(TAG, "onResponse: " + call.request());
+//                    Log.d(TAG, "onFailure: " + call.request());
+//                    Log.d(TAG, "onError: " + t.getMessage());
+//                    Log.d(TAG, "onResponse: " + call.request());
                     Toast.makeText(getActivity().getApplicationContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
                     String db_name = position + "_news_backup.realm";
                     RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
                     final Realm realm = Realm.getInstance(config);
                     newsJsonArrayList.addAll(realm.where(NewsJson.class).findAll());
                     pageRecyclerAdapter.notifyDataSetChanged();
-                    Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsJsonArrayList.size());
+//                    Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsJsonArrayList.size());
                     progressBar.setVisibility(View.GONE);
 
                 }
@@ -140,7 +139,7 @@ public class YourNewsPageFragment extends Fragment {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 counter++;
-                Log.d(TAG, "onLoadMore: page: " + page + "Total Item Count : " + totalItemsCount);
+//                Log.d(TAG, "onLoadMore: page: " + page + "Total Item Count : " + totalItemsCount);
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
@@ -175,12 +174,10 @@ public class YourNewsPageFragment extends Fragment {
                                 pageRecyclerAdapter.notifyDataSetChanged();
                             }
                             swipeRefreshLayout.setRefreshing(false);
-                            Log.d(TAG, "onResponse: " + call.request());
                         }
 
                         @Override
                         public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                            Log.d(TAG, "onResponse: " + call.request());
                         }
                     });
                 } else {

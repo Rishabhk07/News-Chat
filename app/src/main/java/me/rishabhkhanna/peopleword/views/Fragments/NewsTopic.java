@@ -76,7 +76,7 @@ public class NewsTopic extends Fragment {
                             , topics.get(i).getKey(),sharedPreferences.getBoolean(topics.get(i).getKey(), false)));
 
         }
-        Log.d(TAG, "onPause: Topics Fragment Pause");
+//        Log.d(TAG, "onPause: Topics Fragment Pause");
         String topics = new Gson().toJson(selectedTopics);
         if(AccessToken.getCurrentAccessToken() != null){
             API.getInstance()
@@ -86,12 +86,12 @@ public class NewsTopic extends Fragment {
                     .enqueue(new Callback<AuthResponse>() {
                         @Override
                         public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                            Log.d(TAG, "onResponse: " + response.body());
+//                            Log.d(TAG, "onResponse: " + response.body());
                         }
 
                         @Override
                         public void onFailure(Call<AuthResponse> call, Throwable t) {
-                            Log.d(TAG, "onFailure: " + call.request());
+//                            Log.d(TAG, "onFailure: " + call.request());
                         }
                     });
         }

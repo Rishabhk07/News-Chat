@@ -119,7 +119,6 @@ public class AllNewsPageFragment extends Fragment {
 
         //get Toi data
         if (counter == 0 && fetchFristApi) {
-//            FetchNews.getUrlNews(getContext(), onJsonRecieved, urlFirstPage);
             if (UtilMethods.isNetConnected(getContext())) {
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
@@ -131,9 +130,9 @@ public class AllNewsPageFragment extends Fragment {
                         allNewsAdapter.notifyDataSetChanged();
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                         Boolean backup = sharedPreferences.getBoolean("backup", true);
-                        Log.d(TAG, "onResponse: backup: " + backup);
+//                        Log.d(TAG, "onResponse: backup: " + backup);
                         if (backup) {
-                            Log.d(TAG, "onResponse: " + call.request());
+//                            Log.d(TAG, "onResponse: " + call.request());
                             String db_name = position + "_news_backup.realm";
 
                             RealmConfiguration config = new RealmConfiguration.Builder()
@@ -151,7 +150,7 @@ public class AllNewsPageFragment extends Fragment {
                             }, new Realm.Transaction.OnSuccess() {
                                 @Override
                                 public void onSuccess() {
-                                    Log.d(TAG, "onSuccess: News saved to Realm");
+//                                    Log.d(TAG, "onSuccess: News saved to Realm");
                                 }
                             });
                         }
@@ -160,8 +159,8 @@ public class AllNewsPageFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                        Log.d(TAG, "onError: " + t.getMessage());
-                        Log.d(TAG, "onResponse: " + call.request());
+//                        Log.d(TAG, "onError: " + t.getMessage());
+//                        Log.d(TAG, "onResponse: " + call.request());
                         Toast.makeText(context, "cannot fetch news", Toast.LENGTH_SHORT).show();
                         String db_name = position + "_news_backup.realm";
                         RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
@@ -180,7 +179,7 @@ public class AllNewsPageFragment extends Fragment {
                 newsArrayList.addAll(realm.where(NewsJson.class).findAll());
                 Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                 allNewsAdapter.notifyDataSetChanged();
-                Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
+//                Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
                 progressBar.setVisibility(View.GONE);
                 if (newsArrayList.size() == 0) {
                     root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_network_not_connected, container, false);
@@ -202,7 +201,7 @@ public class AllNewsPageFragment extends Fragment {
                     loadingFlag = true;
                 }
                 counter++;
-                Log.d(TAG, "onLoadMore: page: " + page + "Total Items Count " + totalItemsCount + "counter: " + counter);
+
                 setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                     @Override
                     public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
@@ -231,21 +230,21 @@ public class AllNewsPageFragment extends Fragment {
                     setupCall(position, counter).enqueue(new Callback<ArrayList<NewsJson>>() {
                         @Override
                         public void onResponse(Call<ArrayList<NewsJson>> call, Response<ArrayList<NewsJson>> response) {
-                            Log.d(TAG, "onResponse: " + response.body());
+//                            Log.d(TAG, "onResponse: " + response.body());
                             if (response.body() != null) {
                                 newsArrayList.clear();
                                 newsArrayList.addAll(response.body());
                                 allNewsAdapter.notifyDataSetChanged();
                             }
                             swipeRefreshLayout.setRefreshing(false);
-                            Log.d(TAG, "onResponse: " + call.request());
-                            Log.d(TAG, "onResponse: " + newsArrayList.size());
+//                            Log.d(TAG, "onResponse: " + call.request());
+//                            Log.d(TAG, "onResponse: " + newsArrayList.size());
                         }
 
                         @Override
                         public void onFailure(Call<ArrayList<NewsJson>> call, Throwable t) {
-                            Log.d(TAG, "onError: " + t.getMessage());
-                            Log.d(TAG, "onResponse: " + call.request());
+//                            Log.d(TAG, "onError: " + t.getMessage());
+//                            Log.d(TAG, "onResponse: " + call.request());
                         }
                     });
                 } else {

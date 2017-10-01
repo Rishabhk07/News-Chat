@@ -114,7 +114,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     public void swapPosition(RealmList<Topic> arraylist,int i ,int j){
-        Log.d(TAG, "swapPosition: shifted from " + i + " "+ j);
+//        Log.d(TAG, "swapPosition: shifted from " + i + " "+ j);
         int iPos = arraylist.get(i).getPosition();
         arraylist.get(i).setPosition(arraylist.get(j).getPosition());
         arraylist.get(j).setPosition(iPos);

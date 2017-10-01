@@ -25,7 +25,6 @@ import android.widget.Toast;
 import me.rishabhkhanna.peopleword.Adapters.ChatAdapter;
 import me.rishabhkhanna.peopleword.Network.ChatAPI;
 import me.rishabhkhanna.peopleword.Network.interfaces.getChats;
-import me.rishabhkhanna.peopleword.R;
 import me.rishabhkhanna.peopleword.model.Chat;
 import me.rishabhkhanna.peopleword.model.ChatRoom;
 import me.rishabhkhanna.peopleword.model.NewsJson;
@@ -126,7 +125,6 @@ public class ChatActivity extends AppCompatActivity {
                                         .load(me.rishabhkhanna.peopleword.R.drawable.person_placeholder)
                                         .into(userImageView);
                                 anonym_user = true;
-                                Log.d(TAG, "onMenuItemClick: on Anonymous user view");
                                 break;
                         }
                         return false;
@@ -143,7 +141,6 @@ public class ChatActivity extends AppCompatActivity {
                     if (AccessToken.getCurrentAccessToken() != null) {
                         AccessToken.getCurrentAccessToken().getUserId();
                         String chatMsg = etChat.getText().toString();
-                        Log.d(TAG, "onClick: " + chatMsg);
                         if (chatMsg.isEmpty()) {
                             Toast.makeText(ChatActivity.this, "Message is Empty", Toast.LENGTH_SHORT).show();
                         } else {
@@ -183,7 +180,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void call(Object... args) {
                 JSONObject data = (JSONObject) args[0];
-                Log.d(TAG, "call: " + data);
                 Chat chat = new Gson().fromJson(String.valueOf(data), Chat.class);
 
                 chatsList.add(chat);
@@ -210,12 +206,12 @@ public class ChatActivity extends AppCompatActivity {
         socket.on("ping", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.d(TAG, "call: ping recieved");
+
             }
         });
 
         if (socket != null) {
-            Log.d(TAG, "onCreate: " + socket.connect());
+
             if (AccessToken.getCurrentAccessToken() != null)
                 socket.emit("join_room", new Gson().toJson(new ChatRoom(thisJson.getMsid(), AccessToken.getCurrentAccessToken().getUserId(), thisJson.getId())));
 
@@ -260,8 +256,8 @@ public class ChatActivity extends AppCompatActivity {
                 .enqueue(new Callback<ArrayList<Chat>>() {
                     @Override
                     public void onResponse(Call<ArrayList<Chat>> call, Response<ArrayList<Chat>> response) {
-                        Log.d(TAG, "onResponse: chat message request : " + call.request());
-                        Log.d(TAG, "onResponse: Chat Response : " + response.body());
+//                        Log.d(TAG, "onResponse: chat message request : " + call.request());
+//                        Log.d(TAG, "onResponse: Chat Response : " + response.body());
                         if (response.body() != null) {
                             chatsList.clear();
                             chatsList.addAll(response.body());
@@ -272,8 +268,8 @@ public class ChatActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ArrayList<Chat>> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                        Log.d(TAG, "onFailure: " + call.request());
+//                        Log.d(TAG, "onFailure: " + t.getMessage());
+//                        Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
     }

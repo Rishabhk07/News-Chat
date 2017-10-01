@@ -52,7 +52,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Log.d(TAG, "onCreateViewHolder: ");
         int layout = me.rishabhkhanna.peopleword.R.layout.chat_message_right;
         if(viewType == 1){
             layout = me.rishabhkhanna.peopleword.R.layout.chat_message_left;
@@ -87,8 +86,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                     .enqueue(new Callback<FBProfilePicture>() {
                         @Override
                         public void onResponse(Call<FBProfilePicture> call, Response<FBProfilePicture> response) {
-                            Log.d(TAG, "onResponse: " + call.request());
-                            Log.d(TAG, "onResponse: " + response.body());
+//                            Log.d(TAG, "onResponse: " + call.request());
+//                            Log.d(TAG, "onResponse: " + response.body());
                             Picasso.with(context)
                                     .load(response.body().getData().getUrl())
                                     .placeholder(me.rishabhkhanna.peopleword.R.drawable.person_placeholder)
@@ -96,7 +95,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                         }
                         @Override
                         public void onFailure(Call<FBProfilePicture> call, Throwable t) {
-                            Log.d(TAG, "onFailure: " + call.request());
+//                            Log.d(TAG, "onFailure: " + call.request());
                         }
                     });
         }

@@ -101,7 +101,7 @@ public class LoginFragment extends Fragment {
                         }
                     };
                 } else {
-                    Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
+//                    Log.d(TAG, "onSuccess: FirstName" + Profile.getCurrentProfile().getFirstName());
                 }
 
                 saveLoginInfo(loginResult);
@@ -114,7 +114,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "onError: " + error.getMessage());
+//                Log.d(TAG, "onError: " + error.getMessage());
             }
         });
 //
@@ -145,7 +145,7 @@ public class LoginFragment extends Fragment {
             }
         };
 
-        Log.d(TAG, "onCurrentAccessTokenChanged: Profile Token");
+//        Log.d(TAG, "onCurrentAccessTokenChanged: Profile Token");
 
         profileTracker = new ProfileTracker() {
             @Override
@@ -166,8 +166,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: request code" + requestCode);
-        Log.d(TAG, "onActivityResult: result code" + resultCode);
+//        Log.d(TAG, "onActivityResult: request code" + requestCode);
+//        Log.d(TAG, "onActivityResult: result code" + resultCode);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -196,9 +196,9 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<AuthResponse> call, Response<AuthResponse> response) {
 
-                Log.d(TAG, "onResponse: " + response);
-                Log.d(TAG, "onResponse: " + response.body().getUser().getName());
-                Log.d(TAG, "onResponse: " + response.body().getUser().getEmail());
+//                Log.d(TAG, "onResponse: " + response);
+//                Log.d(TAG, "onResponse: " + response.body().getUser().getName());
+//                Log.d(TAG, "onResponse: " + response.body().getUser().getEmail());
 
                 Log.d(TAG, "onResponse: " + call.request());
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
@@ -224,8 +224,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Log.d(TAG, "onFailure: " + call.request());
-                Log.d(TAG, "onFailure: " + t.getMessage());
+//                Log.d(TAG, "onFailure: " + call.request());
+//                Log.d(TAG, "onFailure: " + t.getMessage());
                 loginButton.setVisibility(View.VISIBLE);
                 LoginManager.getInstance().logOut();
                 Toast.makeText(getActivity(), "Cannot Login Right Now", Toast.LENGTH_SHORT).show();

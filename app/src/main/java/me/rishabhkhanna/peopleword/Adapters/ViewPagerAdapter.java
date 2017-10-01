@@ -27,7 +27,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         //get Item is called to instantite the fragment for the given page
         // write login for which fragment to return
-        Log.d(TAG, "getItem: new fragment is initialised");
+//        Log.d(TAG, "getItem: new fragment is initialised");
         return AllNewsPageFragment.newInstance(position);
 
     }

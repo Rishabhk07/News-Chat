@@ -95,20 +95,20 @@ public class RateNewFragment extends Fragment {
                         ).enqueue(new Callback<NewsJson>() {
                     @Override
                     public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
-                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
-                        Log.d(TAG, "onResponse: " + call.request());
+//                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
+//                        Log.d(TAG, "onResponse: " + call.request());
                     }
 
                     @Override
                     public void onFailure(Call<NewsJson> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + call.request());
+//                        Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
             }
 
             @Override
             public void cardSwipedRight(int position) {
-                Log.d(TAG, "cardSwipedRight: ");
+
                 NewsJson swipedNews = newsArrayList.get(position);
                 String token = AccessToken.getCurrentAccessToken().getToken();
                 String userID = AccessToken.getCurrentAccessToken().getUserId();
@@ -124,13 +124,13 @@ public class RateNewFragment extends Fragment {
                         ).enqueue(new Callback<NewsJson>() {
                     @Override
                     public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
-                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
-                        Log.d(TAG, "onResponse: " + call.request());
+//                        Log.d(TAG, "onResponse: Cool Your Rating has been recorded");
+//                        Log.d(TAG, "onResponse: " + call.request());
                     }
 
                     @Override
                     public void onFailure(Call<NewsJson> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + call.request());
+//                        Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
 

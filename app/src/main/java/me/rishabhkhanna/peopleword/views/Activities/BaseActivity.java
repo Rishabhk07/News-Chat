@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
 import io.realm.internal.Util;
 import me.rishabhkhanna.peopleword.utils.Constants;
@@ -40,6 +41,7 @@ import me.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
 import me.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
 import me.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
 import me.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
+
 import com.facebook.AccessToken;
 
 import com.facebook.Profile;
@@ -69,13 +71,13 @@ public class BaseActivity extends AppCompatActivity
     protected void onNewIntent(Intent intent) {
         thisTab = intent.getStringExtra("notification_key");
         loginRecreate = intent.getIntExtra(Constants.loginFragmentIntent, 0);
-        fromNotification = intent.getBooleanExtra("fromNotification",false);
+        fromNotification = intent.getBooleanExtra("fromNotification", false);
         Log.d(TAG, "onNewIntent: ON NEW INTENT IN BASE");
-        if(fromNotification){
-            Intent i = new Intent(this,DetailNewsActivity.class);
-            i.putExtra("fromNotification",intent.getBooleanExtra("fromNotification",fromNotification));
+        if (fromNotification) {
+            Intent i = new Intent(this, DetailNewsActivity.class);
+            i.putExtra("fromNotification", intent.getBooleanExtra("fromNotification", fromNotification));
             i.putExtra("table_key", intent.getStringExtra("table_key"));
-            i.putExtra("news_id",intent.getStringExtra("news_id"));
+            i.putExtra("news_id", intent.getStringExtra("news_id"));
             startActivity(i);
         }
 
@@ -91,8 +93,8 @@ public class BaseActivity extends AppCompatActivity
 //        }
 //        fragmentTransaction.replace(R.id.flActivity_main, fragment).commitAllowingStateLoss();
 
-        Log.d(TAG, "onNewIntent: Recreate" + loginRecreate);
-        Log.d(TAG, "onNewIntent: " + thisTab);
+//        Log.d(TAG, "onNewIntent: Recreate" + loginRecreate);
+//        Log.d(TAG, "onNewIntent: " + thisTab);
         setFragment(thisTab);
         setProfilePicture();
         super.onNewIntent(intent);
@@ -102,23 +104,23 @@ public class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        Log.d(TAG, "onNewIntent: ON CREATE IN BASE");
+
         ontop = true;
-        fromNotification = getIntent().getBooleanExtra("fromNotification",false);
-        if(fromNotification){
-            Intent i = new Intent(this,DetailNewsActivity.class);
-            i.putExtra("fromNotification",getIntent().getBooleanExtra("fromNotification",fromNotification));
+        fromNotification = getIntent().getBooleanExtra("fromNotification", false);
+        if (fromNotification) {
+            Intent i = new Intent(this, DetailNewsActivity.class);
+            i.putExtra("fromNotification", getIntent().getBooleanExtra("fromNotification", fromNotification));
             i.putExtra("table_key", getIntent().getStringExtra("table_key"));
-            i.putExtra("news_id",getIntent().getStringExtra("news_id"));
+            i.putExtra("news_id", getIntent().getStringExtra("news_id"));
             startActivity(i);
         }
         setContentView(me.rishabhkhanna.peopleword.R.layout.activity_nav_drawer);
-        Log.d(TAG, "onCreate: ");
+
         Toolbar toolbar = (Toolbar) findViewById(me.rishabhkhanna.peopleword.R.id.toolbar);
         setSupportActionBar(toolbar);
         thisTab = getIntent().getStringExtra("notification_key");
 //        loginRecreate = getIntent().getIntExtra(Constants.loginFragmentIntent,0);
-        Log.d(TAG, "onCreate: loginrEcreate: " + loginRecreate);
+//        Log.d(TAG, "onCreate: loginrEcreate: " + loginRecreate);
         DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.peopleword.R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, me.rishabhkhanna.peopleword.R.string.navigation_drawer_open, me.rishabhkhanna.peopleword.R.string.navigation_drawer_close);
@@ -127,7 +129,7 @@ public class BaseActivity extends AppCompatActivity
         Realm.init(this);
         navigationView = (NavigationView) findViewById(me.rishabhkhanna.peopleword.R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Log.d(TAG, "onCreate: " + thisTab);
+
         setFragment(thisTab);
         setProfilePicture();
     }
@@ -153,17 +155,17 @@ public class BaseActivity extends AppCompatActivity
         String token = sharedPreferences.getString(Constants.LOGIN_TOKEN, "null");
         int loginPage = 0;
         if (id == me.rishabhkhanna.peopleword.R.id.nav_rate_news) {
-            if(UtilMethods.isNetConnected(BaseActivity.this)){
+            if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 1;
 
-                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.rate_news),loginPage);
+                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.rate_news), loginPage);
                     setTitle("Login");
                 } else {
                     fragment = new RateNewFragment();
                     setTitle("Rate News");
                 }
-            }else{
+            } else {
                 fragment = new NetworkNotConnectedFragment();
             }
 
@@ -172,7 +174,7 @@ public class BaseActivity extends AppCompatActivity
             fragment = new AllNewsFragment();
             setTitle("All News");
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_Topic) {
-            if(UtilMethods.isNetConnected(BaseActivity.this)) {
+            if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 3;
                     getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.news_topics), loginPage);
@@ -181,11 +183,11 @@ public class BaseActivity extends AppCompatActivity
                     fragment = new NewsTopic();
                     setTitle("Topics");
                 }
-            }else{
+            } else {
                 fragment = new NetworkNotConnectedFragment();
             }
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_your_news) {
-            if(UtilMethods.isNetConnected(BaseActivity.this)) {
+            if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 2;
                     getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.your_news), loginPage);
@@ -194,7 +196,7 @@ public class BaseActivity extends AppCompatActivity
                     fragment = new YourNewsFragment();
                     setTitle("Your News");
                 }
-            }else{
+            } else {
                 fragment = new NetworkNotConnectedFragment();
             }
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_signout) {
@@ -208,8 +210,8 @@ public class BaseActivity extends AppCompatActivity
             setFragment(null);
             setProfilePicture();
         } else if (id == me.rishabhkhanna.peopleword.R.id.nav_profile) {
-            if(UtilMethods.isNetConnected(BaseActivity.this)) {
-                Log.d(TAG, "onNavigationItemSelected: " + id);
+            if (UtilMethods.isNetConnected(BaseActivity.this)) {
+//                Log.d(TAG, "onNavigationItemSelected: " + id);
                 navigationView.getMenu().findItem(id).setChecked(true);
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 4;
@@ -219,7 +221,7 @@ public class BaseActivity extends AppCompatActivity
                     fragment = new ProfileFragment();
                     setTitle("Profile");
                 }
-            }else{
+            } else {
                 fragment = new NetworkNotConnectedFragment();
             }
         }
@@ -231,7 +233,6 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     protected void onStop() {
-        Log.d(TAG, "onStop: ");
         ontop = false;
         super.onStop();
     }
@@ -240,13 +241,11 @@ public class BaseActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
         ontop = true;
-        Log.d(TAG, "onRestart: ");
     }
 
     @Override
     protected void onStart() {
         ontop = true;
-        Log.d(TAG, "onResume: " + ontop);
         super.onStart();
     }
 
@@ -292,14 +291,12 @@ public class BaseActivity extends AppCompatActivity
         headerImageView = (ImageView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.headerImageView);
         tvHeaderName = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderName);
         tvHeaderMail = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderMail);
-        Log.d(TAG, "setProfilePicture: " + Profile.getCurrentProfile());
         if (AccessToken.getCurrentAccessToken() != null) {
             if (Profile.getCurrentProfile() == null) {
                 Profile.fetchProfileForCurrentAccessToken();
                 ProfileTracker profileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                        Log.d(TAG, "onCurrentProfileChanged: " + currentProfile);
                         Profile.setCurrentProfile(currentProfile);
                         Picasso.with(BaseActivity.this).load(currentProfile.getProfilePictureUri(100, 100)).into(headerImageView);
                         tvHeaderName.setText(currentProfile.getName());
@@ -307,7 +304,7 @@ public class BaseActivity extends AppCompatActivity
                     }
                 };
                 profileTracker.startTracking();
-            }else{
+            } else {
                 Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(100, 100)).into(headerImageView);
                 tvHeaderName.setText(Profile.getCurrentProfile().getName());
             }

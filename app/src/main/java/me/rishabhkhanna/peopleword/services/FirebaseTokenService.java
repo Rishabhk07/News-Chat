@@ -21,7 +21,6 @@ public class FirebaseTokenService extends FirebaseInstanceIdService{
         super.onTokenRefresh();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         String userId = null;
-        Log.d(TAG, "onTokenRefresh: FCM" + refreshedToken);
         if(AccessToken.getCurrentAccessToken() != null){
             userId = AccessToken.getCurrentAccessToken().getUserId();
             API.getInstance()
@@ -31,12 +30,12 @@ public class FirebaseTokenService extends FirebaseInstanceIdService{
                     .enqueue(new Callback<AuthResponse>() {
                         @Override
                         public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                            Log.d(TAG, "onResponse: " + call.request());
+//                            Log.d(TAG, "onResponse: " + call.request());
 
                         }
                         @Override
                         public void onFailure(Call<AuthResponse> call, Throwable t) {
-                            Log.d(TAG, "onFailure: " + call.request());
+//                            Log.d(TAG, "onFailure: " + call.request());
                         }
                     });
         }

@@ -51,9 +51,6 @@ public class FullStoryActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-//        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
-//        collapsingToolbarLayout.home
         Gson gson = new Gson();
         NewsJson thisNews = gson.fromJson(getIntent().getStringExtra(Constants.FULL_STORY_KEY), NewsJson.class);
         Picasso.with(this)

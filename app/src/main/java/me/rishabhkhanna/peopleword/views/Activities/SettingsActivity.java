@@ -64,7 +64,7 @@ public class SettingsActivity extends PreferenceActivity{
     }
 
     public void setSettingsToServer(final Boolean notification){
-        Log.d(TAG, "setSettingsToServer: ");
+//        Log.d(TAG, "setSettingsToServer: ");
         if(AccessToken.getCurrentAccessToken() != null){
             API.getInstance().retrofit.create(getAuth.class).updateNotification(
                     AccessToken.getCurrentAccessToken().getUserId(),

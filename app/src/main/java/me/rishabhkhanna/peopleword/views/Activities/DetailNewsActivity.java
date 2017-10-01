@@ -89,7 +89,6 @@ public class DetailNewsActivity extends AppCompatActivity {
                     public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
                         progressBarNotification.setVisibility(View.GONE);
                         thisNews = response.body();
-                        Log.d(TAG, "onResponse: " + call.request());
                         if(thisNews!=null) {
                             setData();
                         }else{
@@ -134,8 +133,8 @@ public class DetailNewsActivity extends AppCompatActivity {
                             detailTV.setVisibility(View.VISIBLE);
                             tvSource.setVisibility(View.VISIBLE);
                             progressBar.setVisibility(View.GONE);
-                            Log.d(TAG, "onSuccess: " + imageViewNews.getWidth() / 2);
-                            Log.d(TAG, "onSuccess: " + imageViewNews.getHeight() / 2);
+//                            Log.d(TAG, "onSuccess: " + imageViewNews.getWidth() / 2);
+//                            Log.d(TAG, "onSuccess: " + imageViewNews.getHeight() / 2);
 
                             int cx = imageViewNews.getWidth() / 2;
                             int cy = imageViewNews.getHeight() / 2;
@@ -144,9 +143,9 @@ public class DetailNewsActivity extends AppCompatActivity {
                             anim = ViewAnimationUtils.createCircularReveal(imageViewNews, cx, cy, 0, finalRadius);
                             anim.setDuration(500);
                             anim.start();
-                            Log.d(TAG, "onSuccess: ");
+//                            Log.d(TAG, "onSuccess: ");
                         } catch (IllegalStateException e) {
-                            Log.d(TAG, "onSuccess:  " + e.getMessage());
+//                            Log.d(TAG, "onSuccess:  " + e.getMessage());
 
                         }
                     }
@@ -236,10 +235,10 @@ public class DetailNewsActivity extends AppCompatActivity {
         final Gson gson = new Gson();
 
         thisNews = gson.fromJson(i.getStringExtra(Constants.DETAIL_NEWS_KEY), NewsJson.class);
-        Log.d(TAG, "onCreate: " + thisNews);
+
         fromNotification = getIntent().getBooleanExtra("fromNotification",false);
         if(fromNotification){
-            Log.d(TAG, "onCreate: YAHAN KA INTENT CALL HO RHA HAI");
+
             if(thisNews == null){
                 String msid = getIntent().getStringExtra("table_key");
                 String news_id = getIntent().getStringExtra("news_id");
@@ -277,7 +276,7 @@ public class DetailNewsActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult: " + requestCode);
+
         if(requestCode == PERM_REQ){
          if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
              shareScreen();
