@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
@@ -30,7 +32,7 @@ public class UtilMethods {
 
     //get image url from imageId
     public static String getImageurl(String urlId, String width,String height) {
-        return "http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
+        return "https://timesofindia.indiatimes.com/thumb.cms?photoid=" +
                 urlId + "&width="+width+"&height="+height+"&resizemode=1";
     }
 
@@ -164,6 +166,17 @@ public class UtilMethods {
     public static void showSnackBar(String message, int id, Activity activity){
         Snackbar snackbar = Snackbar.make(activity.findViewById(id), message,Snackbar.LENGTH_SHORT);
         snackbar.show();
+    }
+
+
+    public static boolean isAirplaneModeOn(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+        } else {
+            return Settings.Global.getInt(context.getContentResolver(),
+                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+        }
     }
 
 
