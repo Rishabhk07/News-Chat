@@ -29,6 +29,7 @@ import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -140,9 +141,11 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                     }
                 });
             }
-
+//
             Picasso.with(context)
                     .load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500"))
+                    .noFade()
+                    .fit()
                     .into(holder.ivNewsImage);
 
 ////            Picasso with Log
@@ -155,7 +158,7 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
 //            exception.printStackTrace();
 //        }
 //    });
-//    builder.build().load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500")).into(holder.ivNewsImage);
+//    builder.downloader(new OkHttpDownloader(context)).build().load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500")).into(holder.ivNewsImage);
 //}else{
 //    Log.d(TAG, "onBindViewHolder: Airplane mode else" );
 //}
