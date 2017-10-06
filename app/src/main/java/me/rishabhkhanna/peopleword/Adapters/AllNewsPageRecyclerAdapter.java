@@ -3,6 +3,7 @@ package me.rishabhkhanna.peopleword.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.realm.internal.Util;
 import me.rishabhkhanna.peopleword.Network.API;
 import me.rishabhkhanna.peopleword.Network.interfaces.rateNews;
 import me.rishabhkhanna.peopleword.R;
@@ -24,6 +26,7 @@ import me.rishabhkhanna.peopleword.utils.Constants;
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -138,10 +141,24 @@ public class AllNewsPageRecyclerAdapter extends RecyclerView.Adapter<AllNewsPage
                 });
             }
 
-            Picasso.with(context).load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500"))
-                    .noFade()
-                    .fit()
+            Picasso.with(context)
+                    .load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500"))
                     .into(holder.ivNewsImage);
+
+////            Picasso with Log
+//if (!UtilMethods.isAirplaneModeOn(context)) {
+//    Picasso.Builder builder
+//            = new Picasso.Builder(context);
+//    builder.listener(new Picasso.Listener() {
+//        @Override
+//        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+//            exception.printStackTrace();
+//        }
+//    });
+//    builder.build().load(UtilMethods.getImageurl(thisJsonData.getImageid(), "600", "500")).into(holder.ivNewsImage);
+//}else{
+//    Log.d(TAG, "onBindViewHolder: Airplane mode else" );
+//}
 
             holder.cvNewsList.setOnClickListener(new View.OnClickListener() {
                 @Override
