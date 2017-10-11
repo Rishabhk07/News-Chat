@@ -79,7 +79,7 @@ public class RateNewFragment extends Fragment {
         swipeDeck.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
-                Log.d(TAG, "cardSwipedLeft: ");
+//                Log.d(TAG, "cardSwipedLeft: ");
                 NewsJson swipedNews = newsArrayList.get(position);
                 String token = AccessToken.getCurrentAccessToken().getToken();
                 String userID = AccessToken.getCurrentAccessToken().getUserId();
@@ -108,7 +108,6 @@ public class RateNewFragment extends Fragment {
 
             @Override
             public void cardSwipedRight(int position) {
-
                 NewsJson swipedNews = newsArrayList.get(position);
                 String token = AccessToken.getCurrentAccessToken().getToken();
                 String userID = AccessToken.getCurrentAccessToken().getUserId();
@@ -133,7 +132,6 @@ public class RateNewFragment extends Fragment {
 //                        Log.d(TAG, "onFailure: " + call.request());
                     }
                 });
-
             }
 
             @Override
