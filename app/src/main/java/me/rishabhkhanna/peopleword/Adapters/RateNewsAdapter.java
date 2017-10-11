@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import me.rishabhkhanna.peopleword.model.NewsJson;
 import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.peopleword.utils.UtilMethods;
 import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -84,8 +85,7 @@ public class RateNewsAdapter {
                 newsDetailTV.setText(newsList.get(position).getSyn());
                 String imageUrl = "";
 //                Log.d(TAG, "getView: data attached");
-                Picasso.with(context).load("http://timesofindia.indiatimes.com/thumb.cms?photoid=" +
-                        newsList.get(position).getImageid() + "&width=600&height=500&resizemode=1")
+                Picasso.with(context).load(UtilMethods.getImageurl(newsList.get(position).getImageid(),"600","500"))
                         .noFade()
                         .fit()
                         .into(newsImageView);
