@@ -147,8 +147,8 @@ public class BaseActivity extends AppCompatActivity
             ).enqueue(new Callback<FcmKey>() {
                 @Override
                 public void onResponse(Call<FcmKey> call, Response<FcmKey> response) {
-                    Log.d(TAG, "onResponse: " + response.body().getFcmKey());
-                    Log.d(TAG, "onResponse: registered"  );
+//                    Log.d(TAG, "onResponse: " + response.body().getFcmKey());
+//                    Log.d(TAG, "onResponse: registered"  );
                 }
 
                 @Override
