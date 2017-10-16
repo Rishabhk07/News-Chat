@@ -5,4 +5,17 @@ package me.rishabhkhanna.peopleword.model;
  */
 
 public class FcmKey {
+    String fcmKey;
+
+    public FcmKey(String fcmKey) {
+        this.fcmKey = fcmKey;
+    }
+
+    public String getFcmKey() {
+        return fcmKey;
+    }
+
+    public void setFcmKey(String fcmKey) {
+        this.fcmKey = fcmKey;
+    }
 }
