@@ -80,7 +80,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
 
-            notificationId = new Random().nextInt();
+            notificationId = Integer.parseInt(remoteMessage.getData().get("news_id"));
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             Log.d(TAG, "onMessageReceived: " + notificationId);
             notificationManager.notify(notificationId, builder.build());
