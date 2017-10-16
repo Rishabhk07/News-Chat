@@ -2,6 +2,7 @@ package me.rishabhkhanna.peopleword.Network.interfaces;
 
 import me.rishabhkhanna.peopleword.model.AuthResponse;
 
+import me.rishabhkhanna.peopleword.model.FcmKey;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -45,6 +46,12 @@ public interface getAuth {
     Call<AuthResponse> updateNotification(
             @Field("user_id") String user_id,
             @Field("notification") Boolean notification
+    );
+
+    @FormUrlEncoded
+    @POST("auth/saveFcm")
+    Call<FcmKey> saveFcm(
+            @Field("fcmToken") String fcmToken
     );
 
 }
