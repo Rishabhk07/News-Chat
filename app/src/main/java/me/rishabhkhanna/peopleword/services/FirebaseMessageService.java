@@ -75,12 +75,12 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             intent.putExtra("fromNotification",true);
             intent.putExtra("news_id",remoteMessage.getData().get("news_id"));
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
+            notificationId = Integer.parseInt(remoteMessage.getData().get("news_id"));
             PendingIntent pendingIntent = PendingIntent.getActivity(this, notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
             builder.setAutoCancel(true);
 
-            notificationId = Integer.parseInt(remoteMessage.getData().get("news_id"));
+
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             Log.d(TAG, "onMessageReceived: " + notificationId);
             notificationManager.notify(notificationId, builder.build());
