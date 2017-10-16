@@ -31,6 +31,9 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.internal.Util;
+import me.rishabhkhanna.peopleword.Network.API;
+import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
+import me.rishabhkhanna.peopleword.model.FcmKey;
 import me.rishabhkhanna.peopleword.utils.Constants;
 
 import me.rishabhkhanna.peopleword.utils.UtilMethods;
@@ -47,10 +50,14 @@ import com.facebook.AccessToken;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -132,6 +139,24 @@ public class BaseActivity extends AppCompatActivity
 
         setFragment(thisTab);
         setProfilePicture();
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.first_user_DB,MODE_PRIVATE);
+        Boolean firstUser = sharedPreferences.getBoolean(Constants.firstUserKey,true);
+        if(firstUser){
+            API.getInstance().retrofit.create(getAuth.class).saveFcm(
+                    FirebaseInstanceId.getInstance().getToken()
+            ).enqueue(new Callback<FcmKey>() {
+                @Override
+                public void onResponse(Call<FcmKey> call, Response<FcmKey> response) {
+                    Log.d(TAG, "onResponse: " + response.body().getFcmKey());
+                    Log.d(TAG, "onResponse: registered"  );
+                }
+
+                @Override
+                public void onFailure(Call<FcmKey> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     @Override
