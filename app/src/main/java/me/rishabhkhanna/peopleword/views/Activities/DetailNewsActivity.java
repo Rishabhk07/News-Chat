@@ -306,7 +306,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/jpeg");
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
-                intent.putExtra(Intent.EXTRA_TEXT, "Download the Social News app now");
+                intent.putExtra(Intent.EXTRA_TEXT, "Download the News Chat app now https://play.google.com/store/apps/details?id=me.rishabhkhanna.peopleword&hl=en");
                 linearLayout.setDrawingCacheEnabled(false);
 
                 startActivity(Intent.createChooser(intent, "share using .."));
