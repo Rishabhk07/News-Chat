@@ -18,8 +18,8 @@ android {
         applicationId "me.rishabhkhanna.peopleword"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,6 +32,8 @@ android {
 repositories {
     maven { url "https://jitpack.io" }
     maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
+    maven { url 'https://maven.google.com' }
 }
 
 dependencies {
@@ -51,9 +53,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.daprlabs.aaron:cardstack:0.3.1-beta0'
-    compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -64,7 +64,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.google.android:flexbox:0.3.0'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'at.blogc:expandabletextview:1.0.3'
     compile 'com.android.support:customtabs:25.3.1'
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
