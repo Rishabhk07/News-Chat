@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.utils;
+package me.rishabhkhanna.newschat.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,13 +10,11 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
-import me.rishabhkhanna.peopleword.model.AuthDetails;
-import me.rishabhkhanna.peopleword.model.Topic;
+import me.rishabhkhanna.newschat.model.AuthDetails;
+import me.rishabhkhanna.newschat.model.Topic;
 
 import java.util.ArrayList;
 
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmQuery;

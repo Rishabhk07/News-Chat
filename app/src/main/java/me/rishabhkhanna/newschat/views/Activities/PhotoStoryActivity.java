@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import me.rishabhkhanna.peopleword.Adapters.PhotoStoryAdapter;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.PhotoStory;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Adapters.PhotoStoryAdapter;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.PhotoStory;
+import me.rishabhkhanna.newschat.utils.Constants;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package me.rishabhkhanna.peopleword.Network.interfaces;
+package me.rishabhkhanna.newschat.Network.interfaces;
 
-import me.rishabhkhanna.peopleword.model.Chat;
+import me.rishabhkhanna.newschat.model.Chat;
 
 import java.util.ArrayList;
 

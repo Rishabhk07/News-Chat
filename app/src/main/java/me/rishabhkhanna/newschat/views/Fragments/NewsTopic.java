@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.content.Context;
@@ -7,19 +7,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.rishabhkhanna.peopleword.Adapters.TopicAdapter;
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import me.rishabhkhanna.peopleword.model.AuthResponse;
-import me.rishabhkhanna.peopleword.model.Topic;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.TouchHelper;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.Adapters.TopicAdapter;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.model.AuthResponse;
+import me.rishabhkhanna.newschat.model.Topic;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.TouchHelper;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 import com.facebook.AccessToken;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -50,8 +49,8 @@ public class NewsTopic extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_news_topic, container, false);
-        recyclerViewTopic = (RecyclerView) root.findViewById(me.rishabhkhanna.peopleword.R.id.rvTopic);
+        View root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_news_topic, container, false);
+        recyclerViewTopic = (RecyclerView) root.findViewById(me.rishabhkhanna.newschat.R.id.rvTopic);
         topics = UtilMethods.getTopics(getContext());
         TopicAdapter topicAdapter = new TopicAdapter(getContext(), topics);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getContext());

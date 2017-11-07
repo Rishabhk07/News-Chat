@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.PhotoStory;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.PhotoStory;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 
 import com.squareup.picasso.Picasso;
 

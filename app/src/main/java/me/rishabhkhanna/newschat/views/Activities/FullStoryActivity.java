@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -33,12 +33,12 @@ public class FullStoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(me.rishabhkhanna.peopleword.R.layout.full_story_layout);
-        appBarLayout = (AppBarLayout) findViewById(me.rishabhkhanna.peopleword.R.id.app_bar);
-        ivFullStory = (ImageView) findViewById(me.rishabhkhanna.peopleword.R.id.ivFullStory);
-        tvFullStory = (TextView) findViewById(me.rishabhkhanna.peopleword.R.id.tvFullStory);
-        toolbar = (Toolbar) findViewById(me.rishabhkhanna.peopleword.R.id.toolbar);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(me.rishabhkhanna.peopleword.R.id.ctFullStory);
+        setContentView(me.rishabhkhanna.newschat.R.layout.full_story_layout);
+        appBarLayout = (AppBarLayout) findViewById(me.rishabhkhanna.newschat.R.id.app_bar);
+        ivFullStory = (ImageView) findViewById(me.rishabhkhanna.newschat.R.id.ivFullStory);
+        tvFullStory = (TextView) findViewById(me.rishabhkhanna.newschat.R.id.tvFullStory);
+        toolbar = (Toolbar) findViewById(me.rishabhkhanna.newschat.R.id.toolbar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(me.rishabhkhanna.newschat.R.id.ctFullStory);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

@@ -1,5 +1,5 @@
 
-package me.rishabhkhanna.peopleword.model;
+package me.rishabhkhanna.newschat.model;
 
 import java.util.List;
 

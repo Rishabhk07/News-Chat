@@ -1,10 +1,9 @@
-package me.rishabhkhanna.peopleword.utils;
+package me.rishabhkhanna.newschat.utils;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 
 /**
  * Created by rishabhkhanna on 08/07/17.

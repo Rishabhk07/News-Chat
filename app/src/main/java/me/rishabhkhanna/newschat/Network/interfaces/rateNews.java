@@ -1,7 +1,7 @@
-package me.rishabhkhanna.peopleword.Network.interfaces;
+package me.rishabhkhanna.newschat.Network.interfaces;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.model.RatedNewsPojo;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.model.RatedNewsPojo;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.content.Context;
@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.rishabhkhanna.peopleword.Adapters.ProfileViewPagerAdapter;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.views.Activities.SettingsActivity;
+import me.rishabhkhanna.newschat.Adapters.ProfileViewPagerAdapter;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.views.Activities.SettingsActivity;
 
 import com.facebook.Profile;
 import com.squareup.picasso.Picasso;
@@ -40,11 +40,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.profile_layout, container, false);
-        imProfileImage = (ImageView) view.findViewById(me.rishabhkhanna.peopleword.R.id.imProfile);
-        tvName = (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.tvProfileName);
-        tvEmail = (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.tvProfileEmail);
-        settingImageView = (ImageView) view.findViewById(me.rishabhkhanna.peopleword.R.id.imageViewSetting);
+        View view = inflater.inflate(me.rishabhkhanna.newschat.R.layout.profile_layout, container, false);
+        imProfileImage = (ImageView) view.findViewById(me.rishabhkhanna.newschat.R.id.imProfile);
+        tvName = (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.tvProfileName);
+        tvEmail = (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.tvProfileEmail);
+        settingImageView = (ImageView) view.findViewById(me.rishabhkhanna.newschat.R.id.imageViewSetting);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         if(Profile.getCurrentProfile() != null){
             Picasso.with(getContext()).load(Profile.getCurrentProfile().getProfilePictureUri(300,300)).into(imProfileImage);
@@ -52,8 +52,8 @@ public class ProfileFragment extends Fragment {
 
             tvEmail.setText(sharedPreferences.getString(Constants.AUTH_EMAIL,""));
         }
-        viewPager = (ViewPager) view.findViewById(me.rishabhkhanna.peopleword.R.id.profileViewpager);
-        tabLayout = (TabLayout) view.findViewById(me.rishabhkhanna.peopleword.R.id.profileTablayout);
+        viewPager = (ViewPager) view.findViewById(me.rishabhkhanna.newschat.R.id.profileViewpager);
+        tabLayout = (TabLayout) view.findViewById(me.rishabhkhanna.newschat.R.id.profileTablayout);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         ProfileViewPagerAdapter profileViewPagerAdapter = new ProfileViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(profileViewPagerAdapter);

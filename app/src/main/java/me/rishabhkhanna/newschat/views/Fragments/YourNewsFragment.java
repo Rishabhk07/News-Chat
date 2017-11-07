@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.os.Bundle;
@@ -9,13 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.rishabhkhanna.peopleword.Adapters.YourNewsViewPagerAdapter;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.Topic;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.Adapters.YourNewsViewPagerAdapter;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.Topic;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,9 +35,9 @@ public class YourNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         ArrayList<Topic> selectedTopicList = UtilMethods.getUserTopics(getContext());
         if(selectedTopicList.size() != 0) {
-            View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_all_news_fragment, container, false);
-            viewPager = (ViewPager) root.findViewById(me.rishabhkhanna.peopleword.R.id.vpAllNews);
-            tabLayout = (TabLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.tabLayoutAllNews);
+            View root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_all_news_fragment, container, false);
+            viewPager = (ViewPager) root.findViewById(me.rishabhkhanna.newschat.R.id.vpAllNews);
+            tabLayout = (TabLayout) root.findViewById(me.rishabhkhanna.newschat.R.id.tabLayoutAllNews);
 
 
             if (selectedTopicList.size() < 5) {

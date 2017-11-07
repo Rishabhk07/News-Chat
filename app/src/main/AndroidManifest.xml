@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.rishabhkhanna.peopleword">
+    package="me.rishabhkhanna.newschat">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,7 +17,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".views.Activities.BaseActivity"
+            android:name="me.rishabhkhanna.newschat.views.Activities.BaseActivity"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
@@ -29,25 +29,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.Activities.DetailNewsActivity"
+            android:name="me.rishabhkhanna.newschat.views.Activities.DetailNewsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity
-            android:name=".views.Activities.FullStoryActivity"
+            android:name="me.rishabhkhanna.newschat.views.Activities.FullStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".views.Activities.PhotoStoryActivity"
+            android:name="me.rishabhkhanna.newschat.views.Activities.PhotoStoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".services.FirebaseTokenService"
+            android:name="me.rishabhkhanna.newschat.services.FirebaseTokenService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".services.FirebaseMessageService">
+        <service android:name="me.rishabhkhanna.newschat.services.FirebaseMessageService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -65,11 +65,11 @@
             android:resource="@color/colorAccent" />
 
         <activity
-            android:name=".views.Activities.ChatActivity"
+            android:name="me.rishabhkhanna.newschat.views.Activities.ChatActivity"
             android:configChanges="screenLayout|screenSize"
             android:windowSoftInputMode="adjustResize|stateHidden"
             />
-        <activity android:name=".views.Activities.SettingsActivity" />
+        <activity android:name="me.rishabhkhanna.newschat.views.Activities.SettingsActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

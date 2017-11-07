@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import me.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.Topic;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Interfaces.ItemTouchHelperAdapter;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.Topic;
+import me.rishabhkhanna.newschat.utils.Constants;
 
 import java.util.Collections;
 

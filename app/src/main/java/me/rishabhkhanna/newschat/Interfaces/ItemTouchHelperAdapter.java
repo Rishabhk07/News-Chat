@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Interfaces;
+package me.rishabhkhanna.newschat.Interfaces;
 
 /**
  * Created by rishabhkhanna on 27/07/17.

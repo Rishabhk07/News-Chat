@@ -1,7 +1,7 @@
-package me.rishabhkhanna.peopleword.Network.interfaces;
+package me.rishabhkhanna.newschat.Network.interfaces;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.UrlConstants;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.UrlConstants;
 
 import java.util.ArrayList;
 

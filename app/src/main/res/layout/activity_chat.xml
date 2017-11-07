@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.rishabhkhanna.peopleword.views.Activities.ChatActivity"
+    tools:context="me.rishabhkhanna.newschat.views.Activities.ChatActivity"
     >
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

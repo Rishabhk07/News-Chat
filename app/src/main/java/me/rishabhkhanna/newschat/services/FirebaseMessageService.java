@@ -1,31 +1,25 @@
-package me.rishabhkhanna.peopleword.services;
+package me.rishabhkhanna.newschat.services;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.preference.CheckBoxPreference;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
-import me.rishabhkhanna.peopleword.views.Activities.BaseActivity;
-import me.rishabhkhanna.peopleword.views.Activities.ChatActivity;
-import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
+import me.rishabhkhanna.newschat.views.Activities.BaseActivity;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Random;
 
 /**
  * Created by rishabhkhanna on 02/08/17.

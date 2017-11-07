@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.os.Bundle;
@@ -7,18 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.rateNews;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.model.RatedNewsPojo;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Adapters.AllNewsPageRecyclerAdapter;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.rateNews;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.model.RatedNewsPojo;
+import me.rishabhkhanna.newschat.utils.Constants;
 import com.facebook.AccessToken;
 
 import java.util.ArrayList;
@@ -60,8 +59,8 @@ public class ProfileNewsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.profile_rating,container,false);
-        recyclerView = (RecyclerView) view.findViewById(me.rishabhkhanna.peopleword.R.id.rvProfileRate);
+        View view = inflater.inflate(me.rishabhkhanna.newschat.R.layout.profile_rating,container,false);
+        recyclerView = (RecyclerView) view.findViewById(me.rishabhkhanna.newschat.R.id.rvProfileRate);
 //        final ProfilePageAdapter adapter = new ProfilePageAdapter(userNews,getActivity(),userNewsinfo);
         final AllNewsPageRecyclerAdapter adapter = new AllNewsPageRecyclerAdapter(userNews,getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

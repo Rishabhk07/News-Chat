@@ -1,7 +1,6 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,15 +18,13 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import io.realm.DynamicRealm;
-import io.realm.RealmMigration;
-import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
-import me.rishabhkhanna.peopleword.Network.NewsAPI;
-import me.rishabhkhanna.peopleword.model.AuthDetails;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.Adapters.AllNewsPageRecyclerAdapter;
+import me.rishabhkhanna.newschat.Network.NewsAPI;
+import me.rishabhkhanna.newschat.model.AuthDetails;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.EndlessRecyclerViewScrollListener;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 
 import com.facebook.AccessToken;
 
@@ -107,14 +104,14 @@ public class AllNewsPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity().setTitle("All News");
-        View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_page_all_news, container, false);
+        View root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_page_all_news, container, false);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.srlAllNews);
-        progressBar = (ProgressBar) root.findViewById(me.rishabhkhanna.peopleword.R.id.all_news_progress);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(me.rishabhkhanna.newschat.R.id.srlAllNews);
+        progressBar = (ProgressBar) root.findViewById(me.rishabhkhanna.newschat.R.id.all_news_progress);
         if (counter == 0 && fetchFristApi) {
             progressBar.setVisibility(View.VISIBLE);
         }
-        rvPage = (RecyclerView) root.findViewById(me.rishabhkhanna.peopleword.R.id.rvPageAllNews);
+        rvPage = (RecyclerView) root.findViewById(me.rishabhkhanna.newschat.R.id.rvPageAllNews);
         final AllNewsPageRecyclerAdapter allNewsAdapter = new AllNewsPageRecyclerAdapter(newsArrayList, getContext());
 
         //get Toi data
@@ -182,7 +179,7 @@ public class AllNewsPageFragment extends Fragment {
 //                Log.d(TAG, "onCreateView: news from Realm, since not online, size: " + newsArrayList.size());
                 progressBar.setVisibility(View.GONE);
                 if (newsArrayList.size() == 0) {
-                    root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_network_not_connected, container, false);
+                    root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_network_not_connected, container, false);
                 }
                 fetchFristApi = false;
             }

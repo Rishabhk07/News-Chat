@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import me.rishabhkhanna.peopleword.model.AuthResponse;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.views.Activities.BaseActivity;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.model.AuthResponse;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.views.Activities.BaseActivity;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -73,16 +73,16 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view  = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.signup_login_layout, container, false);
+        View view  = inflater.inflate(me.rishabhkhanna.newschat.R.layout.signup_login_layout, container, false);
 
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getContext());
 
 
-        progressBar = (ProgressBar) view.findViewById(me.rishabhkhanna.peopleword.R.id.marker_progress);
+        progressBar = (ProgressBar) view.findViewById(me.rishabhkhanna.newschat.R.id.marker_progress);
 
-        loginButton = (LoginButton) view.findViewById(me.rishabhkhanna.peopleword.R.id.login_button);
-        TextView textView = (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.tvLogin);
+        loginButton = (LoginButton) view.findViewById(me.rishabhkhanna.newschat.R.id.login_button);
+        TextView textView = (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.tvLogin);
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
         loginButton.setFragment(this);
         textView.setText(intro);

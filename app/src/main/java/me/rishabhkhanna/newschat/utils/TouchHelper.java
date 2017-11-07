@@ -1,9 +1,9 @@
-package me.rishabhkhanna.peopleword.utils;
+package me.rishabhkhanna.newschat.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import me.rishabhkhanna.peopleword.Interfaces.ItemTouchHelperAdapter;
+import me.rishabhkhanna.newschat.Interfaces.ItemTouchHelperAdapter;
 
 /**
  * Created by rishabhkhanna on 27/07/17.

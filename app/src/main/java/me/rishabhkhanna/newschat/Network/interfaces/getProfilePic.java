@@ -1,6 +1,6 @@
-package me.rishabhkhanna.peopleword.Network.interfaces;
+package me.rishabhkhanna.newschat.Network.interfaces;
 
-import me.rishabhkhanna.peopleword.model.FBProfilePicture;
+import me.rishabhkhanna.newschat.model.FBProfilePicture;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

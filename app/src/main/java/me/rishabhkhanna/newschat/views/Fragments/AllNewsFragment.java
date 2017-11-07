@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.rishabhkhanna.peopleword.Adapters.ViewPagerAdapter;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.Adapters.ViewPagerAdapter;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,10 +49,10 @@ public class AllNewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.fragment_all_news_fragment, container, false);
+        View root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_all_news_fragment, container, false);
 
-        allNewsViewPager = (ViewPager) root.findViewById(me.rishabhkhanna.peopleword.R.id.vpAllNews);
-        tabLayoutAllNews = (TabLayout) root.findViewById(me.rishabhkhanna.peopleword.R.id.tabLayoutAllNews);
+        allNewsViewPager = (ViewPager) root.findViewById(me.rishabhkhanna.newschat.R.id.vpAllNews);
+        tabLayoutAllNews = (TabLayout) root.findViewById(me.rishabhkhanna.newschat.R.id.tabLayoutAllNews);
         tabLayoutAllNews.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         allNewsViewPager.setAdapter(viewPagerAdapter);

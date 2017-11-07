@@ -1,16 +1,15 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import me.rishabhkhanna.peopleword.model.AuthResponse;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.model.AuthResponse;
 import com.facebook.AccessToken;
 
 import retrofit2.Call;
@@ -24,7 +23,7 @@ public class SettingsActivity extends PreferenceActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(me.rishabhkhanna.peopleword.R.xml.prefrences);
+        addPreferencesFromResource(me.rishabhkhanna.newschat.R.xml.prefrences);
         setTitle("Settings");
 
         briefNotification = (CheckBoxPreference) findPreference("notification");

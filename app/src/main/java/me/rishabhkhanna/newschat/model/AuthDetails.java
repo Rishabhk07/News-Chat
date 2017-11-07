@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.model;
+package me.rishabhkhanna.newschat.model;
 
 /**
  * Created by rishabhkhanna on 26/07/17.

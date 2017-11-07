@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.rishabhkhanna.peopleword.Network.GetProfilePicture;
-import me.rishabhkhanna.peopleword.Network.interfaces.getProfilePic;
-import me.rishabhkhanna.peopleword.model.Chat;
-import me.rishabhkhanna.peopleword.model.FBProfilePicture;
+import me.rishabhkhanna.newschat.Network.GetProfilePicture;
+import me.rishabhkhanna.newschat.Network.interfaces.getProfilePic;
+import me.rishabhkhanna.newschat.model.Chat;
+import me.rishabhkhanna.newschat.model.FBProfilePicture;
 
 import com.facebook.AccessToken;
 import com.squareup.picasso.Picasso;
@@ -52,9 +52,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     @Override
     public ChatViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        int layout = me.rishabhkhanna.peopleword.R.layout.chat_message_right;
+        int layout = me.rishabhkhanna.newschat.R.layout.chat_message_right;
         if(viewType == 1){
-            layout = me.rishabhkhanna.peopleword.R.layout.chat_message_left;
+            layout = me.rishabhkhanna.newschat.R.layout.chat_message_left;
         }
         View view = li.inflate(layout,parent,false);
         return new ChatViewHolder(view);
@@ -78,7 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }.execute();
         if(chatList.get(position).getAnonym_user()){
             Picasso.with(context)
-                    .load(me.rishabhkhanna.peopleword.R.drawable.person_placeholder)
+                    .load(me.rishabhkhanna.newschat.R.drawable.person_placeholder)
                     .into(holder.imChatHead);
         }else{
             GetProfilePicture.getInstance().retrofit.create(getProfilePic.class)
@@ -90,7 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 //                            Log.d(TAG, "onResponse: " + response.body());
                             Picasso.with(context)
                                     .load(response.body().getData().getUrl())
-                                    .placeholder(me.rishabhkhanna.peopleword.R.drawable.person_placeholder)
+                                    .placeholder(me.rishabhkhanna.newschat.R.drawable.person_placeholder)
                                     .into(holder.imChatHead);
                         }
                         @Override
@@ -114,8 +114,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
         public ChatViewHolder(View itemView) {
             super(itemView);
-            tvChatMessage = (TextView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.tvChatMessage);
-            imChatHead = (CircleImageView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.imChatHead);
+            tvChatMessage = (TextView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.tvChatMessage);
+            imChatHead = (CircleImageView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.imChatHead);
         }
     }
 }

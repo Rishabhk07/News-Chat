@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 
 import android.content.Context;
@@ -30,20 +30,19 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
-import io.realm.internal.Util;
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import me.rishabhkhanna.peopleword.model.FcmKey;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.model.FcmKey;
+import me.rishabhkhanna.newschat.utils.Constants;
 
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
-import me.rishabhkhanna.peopleword.views.Fragments.AllNewsFragment;
-import me.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
-import me.rishabhkhanna.peopleword.views.Fragments.NetworkNotConnectedFragment;
-import me.rishabhkhanna.peopleword.views.Fragments.NewsTopic;
-import me.rishabhkhanna.peopleword.views.Fragments.ProfileFragment;
-import me.rishabhkhanna.peopleword.views.Fragments.RateNewFragment;
-import me.rishabhkhanna.peopleword.views.Fragments.YourNewsFragment;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
+import me.rishabhkhanna.newschat.views.Fragments.AllNewsFragment;
+import me.rishabhkhanna.newschat.views.Fragments.LoginFragment;
+import me.rishabhkhanna.newschat.views.Fragments.NetworkNotConnectedFragment;
+import me.rishabhkhanna.newschat.views.Fragments.NewsTopic;
+import me.rishabhkhanna.newschat.views.Fragments.ProfileFragment;
+import me.rishabhkhanna.newschat.views.Fragments.RateNewFragment;
+import me.rishabhkhanna.newschat.views.Fragments.YourNewsFragment;
 
 import com.facebook.AccessToken;
 
@@ -121,20 +120,20 @@ public class BaseActivity extends AppCompatActivity
             i.putExtra("news_id", getIntent().getStringExtra("news_id"));
             startActivity(i);
         }
-        setContentView(me.rishabhkhanna.peopleword.R.layout.activity_nav_drawer);
+        setContentView(me.rishabhkhanna.newschat.R.layout.activity_nav_drawer);
 
-        Toolbar toolbar = (Toolbar) findViewById(me.rishabhkhanna.peopleword.R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(me.rishabhkhanna.newschat.R.id.toolbar);
         setSupportActionBar(toolbar);
         thisTab = getIntent().getStringExtra("notification_key");
 //        loginRecreate = getIntent().getIntExtra(Constants.loginFragmentIntent,0);
 //        Log.d(TAG, "onCreate: loginrEcreate: " + loginRecreate);
-        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.peopleword.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.newschat.R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, me.rishabhkhanna.peopleword.R.string.navigation_drawer_open, me.rishabhkhanna.peopleword.R.string.navigation_drawer_close);
+                this, drawer, toolbar, me.rishabhkhanna.newschat.R.string.navigation_drawer_open, me.rishabhkhanna.newschat.R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         Realm.init(this);
-        navigationView = (NavigationView) findViewById(me.rishabhkhanna.peopleword.R.id.nav_view);
+        navigationView = (NavigationView) findViewById(me.rishabhkhanna.newschat.R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         setFragment(thisTab);
@@ -161,7 +160,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.peopleword.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.newschat.R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -179,12 +178,12 @@ public class BaseActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.AUTH_DETAILS, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(Constants.LOGIN_TOKEN, "null");
         int loginPage = 0;
-        if (id == me.rishabhkhanna.peopleword.R.id.nav_rate_news) {
+        if (id == me.rishabhkhanna.newschat.R.id.nav_rate_news) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 1;
 
-                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.rate_news), loginPage);
+                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.rate_news), loginPage);
                     setTitle("Login");
                 } else {
                     fragment = new RateNewFragment();
@@ -195,14 +194,14 @@ public class BaseActivity extends AppCompatActivity
             }
 
 
-        } else if (id == me.rishabhkhanna.peopleword.R.id.allNews) {
+        } else if (id == me.rishabhkhanna.newschat.R.id.allNews) {
             fragment = new AllNewsFragment();
             setTitle("All News");
-        } else if (id == me.rishabhkhanna.peopleword.R.id.nav_Topic) {
+        } else if (id == me.rishabhkhanna.newschat.R.id.nav_Topic) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 3;
-                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.news_topics), loginPage);
+                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.news_topics), loginPage);
                     setTitle("Login");
                 } else {
                     fragment = new NewsTopic();
@@ -211,11 +210,11 @@ public class BaseActivity extends AppCompatActivity
             } else {
                 fragment = new NetworkNotConnectedFragment();
             }
-        } else if (id == me.rishabhkhanna.peopleword.R.id.nav_your_news) {
+        } else if (id == me.rishabhkhanna.newschat.R.id.nav_your_news) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 2;
-                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.your_news), loginPage);
+                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.your_news), loginPage);
                     setTitle("Login");
                 } else {
                     fragment = new YourNewsFragment();
@@ -224,7 +223,7 @@ public class BaseActivity extends AppCompatActivity
             } else {
                 fragment = new NetworkNotConnectedFragment();
             }
-        } else if (id == me.rishabhkhanna.peopleword.R.id.nav_signout) {
+        } else if (id == me.rishabhkhanna.newschat.R.id.nav_signout) {
             LoginManager.getInstance().logOut();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -234,13 +233,13 @@ public class BaseActivity extends AppCompatActivity
             loginRecreate = 0;
             setFragment(null);
             setProfilePicture();
-        } else if (id == me.rishabhkhanna.peopleword.R.id.nav_profile) {
+        } else if (id == me.rishabhkhanna.newschat.R.id.nav_profile) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
 //                Log.d(TAG, "onNavigationItemSelected: " + id);
                 navigationView.getMenu().findItem(id).setChecked(true);
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 4;
-                    getLoginPage(getResources().getString(me.rishabhkhanna.peopleword.R.string.profile), loginPage);
+                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.profile), loginPage);
                     setTitle("Login");
                 } else {
                     fragment = new ProfileFragment();
@@ -250,8 +249,8 @@ public class BaseActivity extends AppCompatActivity
                 fragment = new NetworkNotConnectedFragment();
             }
         }
-        fragmentTransaction.replace(me.rishabhkhanna.peopleword.R.id.flActivity_main, fragment).commit();
-        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.peopleword.R.id.drawer_layout);
+        fragmentTransaction.replace(me.rishabhkhanna.newschat.R.id.flActivity_main, fragment).commit();
+        DrawerLayout drawer = (DrawerLayout) findViewById(me.rishabhkhanna.newschat.R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -307,15 +306,15 @@ public class BaseActivity extends AppCompatActivity
                 setTitle("Profile");
                 break;
         }
-        fragmentTransaction.replace(me.rishabhkhanna.peopleword.R.id.flActivity_main, fragment).commitAllowingStateLoss();
+        fragmentTransaction.replace(me.rishabhkhanna.newschat.R.id.flActivity_main, fragment).commitAllowingStateLoss();
 
     }
 
     public void setProfilePicture() {
         View headerView = navigationView.getHeaderView(0);
-        headerImageView = (ImageView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.headerImageView);
-        tvHeaderName = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderName);
-        tvHeaderMail = (TextView) headerView.findViewById(me.rishabhkhanna.peopleword.R.id.tvHeaderMail);
+        headerImageView = (ImageView) headerView.findViewById(me.rishabhkhanna.newschat.R.id.headerImageView);
+        tvHeaderName = (TextView) headerView.findViewById(me.rishabhkhanna.newschat.R.id.tvHeaderName);
+        tvHeaderMail = (TextView) headerView.findViewById(me.rishabhkhanna.newschat.R.id.tvHeaderMail);
         if (AccessToken.getCurrentAccessToken() != null) {
             if (Profile.getCurrentProfile() == null) {
                 Profile.fetchProfileForCurrentAccessToken();
@@ -338,13 +337,13 @@ public class BaseActivity extends AppCompatActivity
             String email = sharedPreferences.getString(Constants.AUTH_EMAIL, "");
             tvHeaderMail.setVisibility(View.VISIBLE);
             tvHeaderMail.setText(email);
-            navigationView.getMenu().findItem(me.rishabhkhanna.peopleword.R.id.nav_signout).setVisible(true);
+            navigationView.getMenu().findItem(me.rishabhkhanna.newschat.R.id.nav_signout).setVisible(true);
 
         } else {
-            Picasso.with(this).load(me.rishabhkhanna.peopleword.R.drawable.person_placeholder).into(headerImageView);
+            Picasso.with(this).load(me.rishabhkhanna.newschat.R.drawable.person_placeholder).into(headerImageView);
             tvHeaderName.setText("Guest");
             tvHeaderMail.setVisibility(View.GONE);
-            navigationView.getMenu().findItem(me.rishabhkhanna.peopleword.R.id.nav_signout).setVisible(false);
+            navigationView.getMenu().findItem(me.rishabhkhanna.newschat.R.id.nav_signout).setVisible(false);
         }
 
     }

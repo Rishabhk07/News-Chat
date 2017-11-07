@@ -1,8 +1,7 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -12,8 +11,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import me.rishabhkhanna.peopleword.Adapters.ChatAdapter;
-import me.rishabhkhanna.peopleword.Network.ChatAPI;
-import me.rishabhkhanna.peopleword.Network.interfaces.getChats;
-import me.rishabhkhanna.peopleword.model.Chat;
-import me.rishabhkhanna.peopleword.model.ChatRoom;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Adapters.ChatAdapter;
+import me.rishabhkhanna.newschat.Network.ChatAPI;
+import me.rishabhkhanna.newschat.Network.interfaces.getChats;
+import me.rishabhkhanna.newschat.model.Chat;
+import me.rishabhkhanna.newschat.model.ChatRoom;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
 
 import com.facebook.AccessToken;
 import com.facebook.Profile;
@@ -39,11 +36,9 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
-import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import retrofit2.Call;
@@ -71,21 +66,21 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         thisJson = new Gson().fromJson(getIntent().getStringExtra(Constants.CHAT_KEY), NewsJson.class);
         super.onCreate(savedInstanceState);
-        setContentView(me.rishabhkhanna.peopleword.R.layout.activity_chat);
+        setContentView(me.rishabhkhanna.newschat.R.layout.activity_chat);
         socket = ChatAPI.getSocket();
         setTitle("");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        etChat = (EditText) findViewById(me.rishabhkhanna.peopleword.R.id.etChat);
-        btnSend = (FloatingActionButton) findViewById(me.rishabhkhanna.peopleword.R.id.btnSend);
-        recyclerView = (RecyclerView) findViewById(me.rishabhkhanna.peopleword.R.id.rvChat);
-        userImageView = (ImageView) findViewById(me.rishabhkhanna.peopleword.R.id.imSelectUser);
-        tvHeading = (TextView) findViewById(me.rishabhkhanna.peopleword.R.id.tvHeading);
-        tvDetail = (TextView) findViewById(me.rishabhkhanna.peopleword.R.id.tvDetail);
-        cardViewNews = (CardView) findViewById(me.rishabhkhanna.peopleword.R.id.cvNews);
-        ivClear = (ImageView) findViewById(me.rishabhkhanna.peopleword.R.id.ivClear);
+        etChat = (EditText) findViewById(me.rishabhkhanna.newschat.R.id.etChat);
+        btnSend = (FloatingActionButton) findViewById(me.rishabhkhanna.newschat.R.id.btnSend);
+        recyclerView = (RecyclerView) findViewById(me.rishabhkhanna.newschat.R.id.rvChat);
+        userImageView = (ImageView) findViewById(me.rishabhkhanna.newschat.R.id.imSelectUser);
+        tvHeading = (TextView) findViewById(me.rishabhkhanna.newschat.R.id.tvHeading);
+        tvDetail = (TextView) findViewById(me.rishabhkhanna.newschat.R.id.tvDetail);
+        cardViewNews = (CardView) findViewById(me.rishabhkhanna.newschat.R.id.cvNews);
+        ivClear = (ImageView) findViewById(me.rishabhkhanna.newschat.R.id.ivClear);
 
         tvHeading.setText(thisJson.getHl());
         tvDetail.setText(thisJson.getSyn());
@@ -122,7 +117,7 @@ public class ChatActivity extends AppCompatActivity {
                                 break;
                             case 2:
                                 Picasso.with(ChatActivity.this)
-                                        .load(me.rishabhkhanna.peopleword.R.drawable.person_placeholder)
+                                        .load(me.rishabhkhanna.newschat.R.drawable.person_placeholder)
                                         .into(userImageView);
                                 anonym_user = true;
                                 break;

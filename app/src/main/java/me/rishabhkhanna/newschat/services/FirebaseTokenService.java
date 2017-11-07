@@ -1,11 +1,9 @@
-package me.rishabhkhanna.peopleword.services;
+package me.rishabhkhanna.newschat.services;
 
 
-import android.util.Log;
-
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getAuth;
-import me.rishabhkhanna.peopleword.model.AuthResponse;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.model.AuthResponse;
 import com.facebook.AccessToken;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;

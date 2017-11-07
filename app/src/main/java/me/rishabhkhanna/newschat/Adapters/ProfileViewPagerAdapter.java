@@ -1,10 +1,10 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import me.rishabhkhanna.peopleword.views.Fragments.ProfileNewsFragment;
+import me.rishabhkhanna.newschat.views.Fragments.ProfileNewsFragment;
 
 /**
  * Created by rishabhkhanna on 13/08/17.

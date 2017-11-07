@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.utils;
+package me.rishabhkhanna.newschat.utils;
 
 /**
  * Created by rishabhkhanna on 22/06/17.
@@ -44,6 +44,6 @@ public class Constants {
     public static final String first_user_DB = "general_db";
 
 //    server url
-    public static final String server_url = "http://news-chat.in/";
+    public static final String server_url = "Backend url here";
 
 }

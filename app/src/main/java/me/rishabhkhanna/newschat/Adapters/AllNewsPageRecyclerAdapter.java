@@ -1,14 +1,12 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,18 +15,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import io.realm.internal.Util;
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.rateNews;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
-import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.rateNews;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
+import me.rishabhkhanna.newschat.views.Activities.DetailNewsActivity;
 
 import com.facebook.AccessToken;
 import com.google.gson.Gson;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

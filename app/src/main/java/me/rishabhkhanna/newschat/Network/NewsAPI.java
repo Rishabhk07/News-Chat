@@ -1,8 +1,8 @@
-package me.rishabhkhanna.peopleword.Network;
+package me.rishabhkhanna.newschat.Network;
 
-import me.rishabhkhanna.peopleword.Network.interfaces.getNews;
+import me.rishabhkhanna.newschat.Network.interfaces.getNews;
 
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsAPI {
     private static NewsAPI api = null;
-    public me.rishabhkhanna.peopleword.Network.interfaces.getNews getNews;
+    public me.rishabhkhanna.newschat.Network.interfaces.getNews getNews;
 
     private NewsAPI() {
         getNews = new Retrofit.Builder()

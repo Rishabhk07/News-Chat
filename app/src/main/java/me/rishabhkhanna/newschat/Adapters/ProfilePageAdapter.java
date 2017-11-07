@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
+import me.rishabhkhanna.newschat.model.NewsJson;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
     @Override
     public ProfileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        int layout = me.rishabhkhanna.peopleword.R.layout.news_list_view;
+        int layout = me.rishabhkhanna.newschat.R.layout.news_list_view;
         return new ProfileViewHolder(li.inflate(layout, parent, false));
     }
 
@@ -59,14 +59,14 @@ public class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.
 
         public ProfileViewHolder(View itemView) {
             super(itemView);
-            tvNewsHeading = (TextView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.tvPageNews);
-            tvLikes = (TextView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.tvLike);
-            tvDislikes = (TextView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.tvDislike);
-            ivNewsImage = (ImageView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.ivPageNews);
-            tvChats = (TextView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.tvChats);
-            cvNewsList = (CardView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.news_list_cv);
-            ivLike = (ImageView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.ivLike);
-            ivDislike = (ImageView) itemView.findViewById(me.rishabhkhanna.peopleword.R.id.ivDislike);
+            tvNewsHeading = (TextView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.tvPageNews);
+            tvLikes = (TextView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.tvLike);
+            tvDislikes = (TextView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.tvDislike);
+            ivNewsImage = (ImageView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.ivPageNews);
+            tvChats = (TextView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.tvChats);
+            cvNewsList = (CardView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.news_list_cv);
+            ivLike = (ImageView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.ivLike);
+            ivDislike = (ImageView) itemView.findViewById(me.rishabhkhanna.newschat.R.id.ivDislike);
         }
     }
 

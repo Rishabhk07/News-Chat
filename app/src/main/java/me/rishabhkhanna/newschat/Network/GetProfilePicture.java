@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Network;
+package me.rishabhkhanna.newschat.Network;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

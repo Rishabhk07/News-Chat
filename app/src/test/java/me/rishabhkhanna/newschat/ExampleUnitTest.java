@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword;
+package me.rishabhkhanna.newschat;
 
 import org.junit.Test;
 

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:440569704948:android:8f08a7d4555f2390",
         "android_client_info": {
-          "package_name": "me.rishabhkhanna.peopleword"
+          "package_name": "me.rishabhkhanna.newschat"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "440569704948-7d2mm012g1m837rgamvajp6lju6ru17e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "me.rishabhkhanna.peopleword",
+            "package_name": "me.rishabhkhanna.newschat",
             "certificate_hash": "70e82c90606966bbc6f336fc1fbe1e5c2c3d7ebb"
           }
         },

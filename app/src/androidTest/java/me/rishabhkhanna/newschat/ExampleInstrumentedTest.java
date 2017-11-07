@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword;
+package me.rishabhkhanna.newschat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

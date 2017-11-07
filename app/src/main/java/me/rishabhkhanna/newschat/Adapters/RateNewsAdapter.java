@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.Adapters;
+package me.rishabhkhanna.newschat.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
-import me.rishabhkhanna.peopleword.views.Activities.DetailNewsActivity;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
+import me.rishabhkhanna.newschat.views.Activities.DetailNewsActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -73,13 +72,13 @@ public class RateNewsAdapter {
 
             if(view == null){
                 LayoutInflater inflater = LayoutInflater.from(context);
-                view = inflater.inflate(me.rishabhkhanna.peopleword.R.layout.news_card , parent , false);
+                view = inflater.inflate(me.rishabhkhanna.newschat.R.layout.news_card , parent , false);
 
             }
             if(!newsList.isEmpty()) {
-                final ImageView newsImageView = (ImageView) view.findViewById(me.rishabhkhanna.peopleword.R.id.news_image);
-                final TextView newsHeadlineTV =  (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.news_headline);
-                final TextView newsDetailTV = (TextView) view.findViewById(me.rishabhkhanna.peopleword.R.id.news_full);
+                final ImageView newsImageView = (ImageView) view.findViewById(me.rishabhkhanna.newschat.R.id.news_image);
+                final TextView newsHeadlineTV =  (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.news_headline);
+                final TextView newsDetailTV = (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.news_full);
 
                 newsHeadlineTV.setText(newsList.get(position).getHl());
                 newsDetailTV.setText(newsList.get(position).getSyn());

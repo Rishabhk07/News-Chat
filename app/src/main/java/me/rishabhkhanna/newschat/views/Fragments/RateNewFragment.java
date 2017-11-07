@@ -1,11 +1,10 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,13 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.daprlabs.cardstack.SwipeDeck;
-import me.rishabhkhanna.peopleword.Adapters.RateNewsAdapter;
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.rateNews;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.AuthDetails;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.Adapters.RateNewsAdapter;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.rateNews;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.AuthDetails;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.utils.Constants;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 
@@ -172,8 +171,8 @@ public class RateNewFragment extends Fragment {
 
 
         // set images on of like and dislike on swipe
-        swipeDeck.setLeftImage(me.rishabhkhanna.peopleword.R.id.nope_card_image);
-        swipeDeck.setRightImage(me.rishabhkhanna.peopleword.R.id.like_card_image);
+        swipeDeck.setLeftImage(me.rishabhkhanna.newschat.R.id.nope_card_image);
+        swipeDeck.setRightImage(me.rishabhkhanna.newschat.R.id.like_card_image);
 
 
         return root;

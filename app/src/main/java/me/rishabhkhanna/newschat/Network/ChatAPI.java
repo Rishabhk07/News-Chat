@@ -1,12 +1,10 @@
-package me.rishabhkhanna.peopleword.Network;
-
-import android.util.Log;
+package me.rishabhkhanna.newschat.Network;
 
 import java.net.URISyntaxException;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Activities;
+package me.rishabhkhanna.newschat.views.Activities;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -38,16 +38,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import me.rishabhkhanna.peopleword.Network.API;
-import me.rishabhkhanna.peopleword.Network.interfaces.getNotificationNews;
-import me.rishabhkhanna.peopleword.R;
+import me.rishabhkhanna.newschat.Network.API;
+import me.rishabhkhanna.newschat.Network.interfaces.getNotificationNews;
+import me.rishabhkhanna.newschat.R;
 
-import me.rishabhkhanna.peopleword.model.NewsJson;
+import me.rishabhkhanna.newschat.model.NewsJson;
 
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.utils.Constants;
 
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
-import me.rishabhkhanna.peopleword.views.Fragments.LoginFragment;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
+import me.rishabhkhanna.newschat.views.Fragments.LoginFragment;
 import retrofit2.Call;
 import retrofit2.Response;
 

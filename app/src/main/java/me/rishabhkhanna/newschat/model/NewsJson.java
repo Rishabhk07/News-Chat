@@ -1,11 +1,8 @@
 
-package me.rishabhkhanna.peopleword.model;
+package me.rishabhkhanna.newschat.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 

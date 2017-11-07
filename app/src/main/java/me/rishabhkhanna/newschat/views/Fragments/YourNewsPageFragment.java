@@ -1,4 +1,4 @@
-package me.rishabhkhanna.peopleword.views.Fragments;
+package me.rishabhkhanna.newschat.views.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,25 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import me.rishabhkhanna.peopleword.Adapters.AllNewsPageRecyclerAdapter;
-import me.rishabhkhanna.peopleword.Network.NewsAPI;
-import me.rishabhkhanna.peopleword.R;
-import me.rishabhkhanna.peopleword.model.AuthDetails;
-import me.rishabhkhanna.peopleword.model.NewsJson;
-import me.rishabhkhanna.peopleword.model.Topic;
-import me.rishabhkhanna.peopleword.utils.Constants;
-import me.rishabhkhanna.peopleword.utils.EndlessRecyclerViewScrollListener;
+import me.rishabhkhanna.newschat.Adapters.AllNewsPageRecyclerAdapter;
+import me.rishabhkhanna.newschat.Network.NewsAPI;
+import me.rishabhkhanna.newschat.R;
+import me.rishabhkhanna.newschat.model.AuthDetails;
+import me.rishabhkhanna.newschat.model.NewsJson;
+import me.rishabhkhanna.newschat.model.Topic;
+import me.rishabhkhanna.newschat.utils.Constants;
+import me.rishabhkhanna.newschat.utils.EndlessRecyclerViewScrollListener;
 
 import com.facebook.AccessToken;
 
 import java.util.ArrayList;
 
-import me.rishabhkhanna.peopleword.utils.UtilMethods;
+import me.rishabhkhanna.newschat.utils.UtilMethods;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

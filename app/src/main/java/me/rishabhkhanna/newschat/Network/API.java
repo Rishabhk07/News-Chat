@@ -1,6 +1,6 @@
-package me.rishabhkhanna.peopleword.Network;
+package me.rishabhkhanna.newschat.Network;
 
-import me.rishabhkhanna.peopleword.utils.Constants;
+import me.rishabhkhanna.newschat.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

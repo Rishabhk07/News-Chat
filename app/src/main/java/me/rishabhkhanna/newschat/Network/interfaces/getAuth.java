@@ -1,8 +1,8 @@
-package me.rishabhkhanna.peopleword.Network.interfaces;
+package me.rishabhkhanna.newschat.Network.interfaces;
 
-import me.rishabhkhanna.peopleword.model.AuthResponse;
+import me.rishabhkhanna.newschat.model.AuthResponse;
 
-import me.rishabhkhanna.peopleword.model.FcmKey;
+import me.rishabhkhanna.newschat.model.FcmKey;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
