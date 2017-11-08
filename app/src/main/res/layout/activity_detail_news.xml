@@ -59,7 +59,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textColor="#323232"
-                    android:textSize="19sp"
+                    android:textSize="19dp"
                     android:textStyle="bold"
                     android:transitionName="transHeading" />
 
@@ -75,8 +75,9 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:textColor="#323232"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textStyle="italic"
+                    android:text="In the written message addressed to the people of Gujarat, Modi urged them to remember what the state was before the BJP assumed power in 1995, and appealed to them to vote for his party to carry forward the  that began 22 years back."
                     android:transitionName="transContent" />
 
                 <TextView
@@ -87,6 +88,7 @@
                     android:paddingTop="8dp"
                     android:text="source: Times of India"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="14dp"
                     android:textColor="#9E9E9E" />
 
                 <ProgressBar
