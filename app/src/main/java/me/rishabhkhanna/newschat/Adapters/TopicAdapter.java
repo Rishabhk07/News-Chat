@@ -76,9 +76,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         Log.d(TAG, "onItemMove: FROM " + fromPosition  + "TO "  + toPosition);
-
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
         if(fromPosition < toPosition){
             for (int i = fromPosition; i < toPosition ;i++){
                 Collections.swap(topicArrayList,i,i+1);
@@ -90,11 +87,8 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                 swapPosition(topicArrayList,i,i-1);
             }
         }
-        realm.copyToRealmOrUpdate(topicArrayList);
-        realm.commitTransaction();
         notifyItemMoved(fromPosition,toPosition);
         return true;
-
     }
 
     @Override
