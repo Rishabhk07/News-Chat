@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.realm.Realm;
 import me.rishabhkhanna.newschat.Adapters.TopicAdapter;
 import me.rishabhkhanna.newschat.Network.API;
 import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
@@ -40,6 +41,7 @@ public class NewsTopic extends Fragment {
 
     RecyclerView recyclerViewTopic;
     RealmList<Topic> topics = new RealmList<>();
+    Realm realm;
     public static final String TAG = "NewsTopic";
     public NewsTopic() {
         // Required empty public constructor
@@ -58,6 +60,9 @@ public class NewsTopic extends Fragment {
         flexboxLayoutManager.setJustifyContent(JustifyContent.CENTER);
         recyclerViewTopic.setLayoutManager(flexboxLayoutManager);
         recyclerViewTopic.setAdapter(topicAdapter);
+
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         ItemTouchHelper.Callback callback = new TouchHelper(topicAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(recyclerViewTopic);
@@ -75,6 +80,11 @@ public class NewsTopic extends Fragment {
                             , topics.get(i).getKey(),sharedPreferences.getBoolean(topics.get(i).getKey(), false)));
 
         }
+
+        realm.copyToRealmOrUpdate(topics);
+        realm.commitTransaction();
+
+//        Topics variable is changed after this point
 //        Log.d(TAG, "onPause: Topics Fragment Pause");
         String topics = new Gson().toJson(selectedTopics);
         if(AccessToken.getCurrentAccessToken() != null){
@@ -94,7 +104,6 @@ public class NewsTopic extends Fragment {
                         }
                     });
         }
-
         super.onPause();
     }
 }
