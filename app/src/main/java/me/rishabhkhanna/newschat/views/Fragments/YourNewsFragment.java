@@ -49,7 +49,7 @@ public class YourNewsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onActivityCreated: ");
-        getActivity().invalidateOptionsMenu();
+        getActivity().supportInvalidateOptionsMenu();
         super.onActivityCreated(savedInstanceState);
     }
 
