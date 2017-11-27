@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -138,9 +139,9 @@ public class BaseActivity extends AppCompatActivity
 
         setFragment(thisTab);
         setProfilePicture();
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.first_user_DB,MODE_PRIVATE);
-        Boolean firstUser = sharedPreferences.getBoolean(Constants.firstUserKey,true);
-        if(firstUser){
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.first_user_DB, MODE_PRIVATE);
+        Boolean firstUser = sharedPreferences.getBoolean(Constants.firstUserKey, true);
+        if (firstUser) {
             API.getInstance().retrofit.create(getAuth.class).saveFcm(
                     FirebaseInstanceId.getInstance().getToken()
             ).enqueue(new Callback<FcmKey>() {
@@ -192,8 +193,6 @@ public class BaseActivity extends AppCompatActivity
             } else {
                 fragment = new NetworkNotConnectedFragment();
             }
-
-
         } else if (id == me.rishabhkhanna.newschat.R.id.allNews) {
             fragment = new AllNewsFragment();
             setTitle("All News");
@@ -348,3 +347,4 @@ public class BaseActivity extends AppCompatActivity
 
     }
 }
+
