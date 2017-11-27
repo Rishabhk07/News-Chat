@@ -196,20 +196,22 @@ public class BaseActivity extends AppCompatActivity
         } else if (id == me.rishabhkhanna.newschat.R.id.allNews) {
             fragment = new AllNewsFragment();
             setTitle("All News");
-        } else if (id == me.rishabhkhanna.newschat.R.id.nav_Topic) {
-            if (UtilMethods.isNetConnected(BaseActivity.this)) {
-                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                    loginPage = 3;
-                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.news_topics), loginPage);
-                    setTitle("Login");
-                } else {
-                    fragment = new NewsTopic();
-                    setTitle("Topics");
-                }
-            } else {
-                fragment = new NetworkNotConnectedFragment();
-            }
-        } else if (id == me.rishabhkhanna.newschat.R.id.nav_your_news) {
+        }
+//        else if (id == me.rishabhkhanna.newschat.R.id.nav_Topic) {
+//            if (UtilMethods.isNetConnected(BaseActivity.this)) {
+//                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+//                    loginPage = 3;
+//                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.news_topics), loginPage);
+//                    setTitle("Login");
+//                } else {
+//                    fragment = new NewsTopic();
+//                    setTitle("Topics");
+//                }
+//            } else {
+//                fragment = new NetworkNotConnectedFragment();
+//            }
+//        }
+        else if (id == me.rishabhkhanna.newschat.R.id.nav_your_news) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
                 if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
                     loginPage = 2;
@@ -217,7 +219,6 @@ public class BaseActivity extends AppCompatActivity
                     setTitle("Login");
                 } else {
                     fragment = new YourNewsFragment();
-                    setTitle("Your News");
                 }
             } else {
                 fragment = new NetworkNotConnectedFragment();
@@ -294,7 +295,7 @@ public class BaseActivity extends AppCompatActivity
                 break;
             case 2:
                 fragment = new YourNewsFragment();
-                setTitle("Your News");
+//                setTitle("Your News");
                 break;
             case 3:
                 fragment = new NewsTopic();
