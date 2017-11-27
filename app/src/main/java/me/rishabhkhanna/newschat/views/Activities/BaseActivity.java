@@ -347,5 +347,10 @@ public class BaseActivity extends AppCompatActivity
         }
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
 }
 
