@@ -118,6 +118,11 @@ public class YourNewsFragment extends Fragment {
             selectedTopicList.addAll(UtilMethods.getUserTopics(getContext()));
             Log.d(TAG, "onActivityResult: " + selectedTopicList.size());
             viewPagerAdapter.notifyDataSetChanged();
+            if (selectedTopicList.size() < 5) {
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            } else {
+                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            }
         }
     }
 }
