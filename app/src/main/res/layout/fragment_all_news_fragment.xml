@@ -16,6 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/vpAllNews"
-        android:paddingTop="2dp" />
+        android:paddingTop="2dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@string/your_news"
+        android:gravity="center"
+        android:layout_margin="12dp"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/tvPageIntro"
+        android:lineSpacingMultiplier="1.1"
+        android:layout_gravity="center"
+        android:paddingBottom="30dp"
+        />
 
 </LinearLayout>
