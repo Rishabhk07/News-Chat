@@ -50,7 +50,7 @@ public class AllNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(me.rishabhkhanna.newschat.R.layout.fragment_all_news_fragment, container, false);
-
+        setHasOptionsMenu(true);
         allNewsViewPager = (ViewPager) root.findViewById(me.rishabhkhanna.newschat.R.id.vpAllNews);
         tabLayoutAllNews = (TabLayout) root.findViewById(me.rishabhkhanna.newschat.R.id.tabLayoutAllNews);
         tabLayoutAllNews.setTabMode(TabLayout.MODE_SCROLLABLE);

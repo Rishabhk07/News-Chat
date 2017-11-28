@@ -40,6 +40,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View view = inflater.inflate(me.rishabhkhanna.newschat.R.layout.profile_layout, container, false);
         imProfileImage = (ImageView) view.findViewById(me.rishabhkhanna.newschat.R.id.imProfile);
         tvName = (TextView) view.findViewById(me.rishabhkhanna.newschat.R.id.tvProfileName);
