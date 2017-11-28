@@ -112,7 +112,7 @@ public class YourNewsPageFragment extends Fragment {
 //                    Log.d(TAG, "onFailure: " + call.request());
 //                    Log.d(TAG, "onError: " + t.getMessage());
 //                    Log.d(TAG, "onResponse: " + call.request());
-                    Toast.makeText(getActivity().getApplicationContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "cannot fetch news", Toast.LENGTH_SHORT).show();
                     String db_name = position + "_news_backup.realm";
                     RealmConfiguration config = new RealmConfiguration.Builder().name(db_name).build();
                     final Realm realm = Realm.getInstance(config);
