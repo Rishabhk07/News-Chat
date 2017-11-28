@@ -20,7 +20,9 @@ import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
 
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -33,6 +35,7 @@ import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import me.rishabhkhanna.newschat.Network.API;
 import me.rishabhkhanna.newschat.Network.interfaces.getAuth;
+import me.rishabhkhanna.newschat.R;
 import me.rishabhkhanna.newschat.model.FcmKey;
 import me.rishabhkhanna.newschat.utils.Constants;
 
@@ -122,7 +125,6 @@ public class BaseActivity extends AppCompatActivity
             startActivity(i);
         }
         setContentView(me.rishabhkhanna.newschat.R.layout.activity_nav_drawer);
-
         Toolbar toolbar = (Toolbar) findViewById(me.rishabhkhanna.newschat.R.id.toolbar);
         setSupportActionBar(toolbar);
         thisTab = getIntent().getStringExtra("notification_key");
@@ -297,10 +299,10 @@ public class BaseActivity extends AppCompatActivity
                 fragment = new YourNewsFragment();
 //                setTitle("Your News");
                 break;
-            case 3:
-                fragment = new NewsTopic();
-                setTitle("Topics");
-                break;
+//            case 3:
+//                fragment = new NewsTopic();
+//                setTitle("Topics");
+//                break;
             case 4:
                 fragment = new ProfileFragment();
                 setTitle("Profile");
@@ -350,7 +352,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 }
 
