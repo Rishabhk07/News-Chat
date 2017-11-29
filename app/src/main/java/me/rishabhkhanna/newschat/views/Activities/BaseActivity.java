@@ -215,13 +215,13 @@ public class BaseActivity extends AppCompatActivity
 //        }
         else if (id == me.rishabhkhanna.newschat.R.id.nav_your_news) {
             if (UtilMethods.isNetConnected(BaseActivity.this)) {
-                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
-                    loginPage = 2;
-                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.your_news), loginPage);
-                    setTitle("Login");
-                } else {
+//                if (token.equals("null") || AccessToken.getCurrentAccessToken() == null) {
+//                    loginPage = 2;
+//                    getLoginPage(getResources().getString(me.rishabhkhanna.newschat.R.string.your_news), loginPage);
+//                    setTitle("Login");
+//                } else {
                     fragment = new YourNewsFragment();
-                }
+//                }
             } else {
                 fragment = new NetworkNotConnectedFragment();
             }
