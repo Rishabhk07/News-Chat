@@ -205,7 +205,8 @@ public class LoginFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(Constants.LOGIN_TOKEN, loginResult.getAccessToken().getToken());
                 editor.putString(Constants.LOGIN_USER_ID, loginResult.getAccessToken().getUserId());
-                editor.putString(Constants.AUTH_EMAIL,response.body().getUser().getEmail());
+                Log.d(TAG, "onResponse: "  + response.body());
+//                editor.putString(Constants.AUTH_EMAIL,response.body().getUser().getEmail());
                 editor.apply();
                 progressBar.setVisibility(View.GONE);
 //                getActivity().recreate();

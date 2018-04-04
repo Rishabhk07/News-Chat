@@ -44,6 +44,6 @@ public class Constants {
     public static final String first_user_DB = "general_db";
 
 //    server url
-    public static final String server_url = "Backend url here";
+    public static final String server_url = "http://news-chat.in/";
 
 }
