@@ -1,4 +1,4 @@
-# PeoplesNews
+# News Chat
 A news app where you can give your opinion by liking or disliking a certain news, people can chose which news topic they want to see and like or dislike each news item.
 The app is still in development phase and some features still needs implemented
 
