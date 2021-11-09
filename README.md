@@ -8,7 +8,7 @@ Backend is under developement.
 
 # screenShots
 
-![](https://github.com/Rishabhk07/PeoplesNews/blob/master/screen%20shots/rsz_screenshot_20170309-013320.png)
-![](https://github.com/Rishabhk07/PeoplesNews/blob/master/screen%20shots/rsz_screenshot_20170308-031010.png)
-![](https://github.com/Rishabhk07/PeoplesNews/blob/master/screen%20shots/rsz_screenshot_20170308-031004.png)
-![](https://github.com/Rishabhk07/PeoplesNews/blob/master/screen%20shots/rsz_1screenshot_20170308-030957.png)
+![](https://github.com/Rishabhk07/News-Chat/blob/master/playstore/baseWithRating_withputFrame.png)
+![](https://github.com/Rishabhk07/News-Chat/blob/master/playstore/detailnewNew_withoutFrame.png)
+![](https://github.com/Rishabhk07/News-Chat/blob/master/playstore/chat_withoutFrame.png)
+![](https://github.com/Rishabhk07/News-Chat/blob/master/playstore/like_withoutFrame.png)
